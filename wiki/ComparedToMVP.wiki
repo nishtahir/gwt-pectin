@@ -1,0 +1,9 @@
+#summary Comparison of Pectin to MVP
+
+= Presentation Model Compared to MVP =
+
+== MVP ==
+http://gwt-pectin.googlecode.com/svn/trunk/etc/wikiimages/mvp.png
+
+== Presentation Model ==
+http://gwt-pectin.googlecode.com/svn/trunk/etc/wikiimages/pm.png
