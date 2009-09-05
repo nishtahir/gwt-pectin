@@ -5,5 +5,5 @@
 == MVP ==
 http://gwt-pectin.googlecode.com/svn/trunk/etc/wikiimages/mvp.png
 
-== Presentation Model ==
+== Presentation Model (Pectin) ==
 http://gwt-pectin.googlecode.com/svn/trunk/etc/wikiimages/pm.png
