@@ -1,8 +1,11 @@
 #summary Pectin Release Notes
 
-= Release Notes =
-
+== Release 0.1.0 ==
+  * Removed inner classes from builders to simplify code completion options.
+  * Added support for bindings values, validation and meta state to the style of arbitrary widgets.
+  * IndexedValidationResult now supports validation messages without an index.
+  * ValueHolder now always fires ValueChangeEvents.  
+  * Various bits and pieces.
+ 
 == Release 0.1.0 ==
   * Initial Release
-
-
