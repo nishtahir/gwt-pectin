@@ -25,10 +25,11 @@ From `root/gwt-pectin`:
    ./gradlew libs  
 }}}
 
-*Note:* All the examples here are based on unix.  If you're using Windows then substitute `gradlew.bat` for `./gradlew`.
+*Note:*
+All the examples here are based on unix.  If you're using Windows then substitute `gradlew.bat` for `./gradlew`.
 
 
-This will jar path will be `root/gwt-pectin/build/gwt-pectin-0.1.x-SNAPSHOT.jar`
+The will jar path will be `root/gwt-pectin/build/gwt-pectin-0.1.x-SNAPSHOT.jar`
 
 If you use the release target then jar will be built without the SNAPSHOT sufix and the build number will be incremented for the next build.
 
