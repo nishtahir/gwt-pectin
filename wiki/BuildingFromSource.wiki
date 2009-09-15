@@ -2,7 +2,7 @@
 
 Pectin is built using the [http://gradle.org Gradle] build system.  It's built using version 0.5.2 for which you can find the [http://www.gradle.org/userguide/0.5.2/userguide.html user guide here]. 
 
-*Note:* You don't need to install gradle to build the project.  The build script will automatically download the correct version for you. 
+*Please Note:* _You don't need to install gradle_ to build the project. The project uses a Gradle provided wrapper that automatically downloads the correct version for you. 
 
 =Project directory structure=
 The project contains two subprojects, the library itself (contained in the gwt-pectin directory) and the demo.  Building either the demo or the main library is performed from the subdirectories.
@@ -10,7 +10,7 @@ The project contains two subprojects, the library itself (contained in the gwt-p
 Gradle requires a number of build files (this requirement is being relaxed later versions) to operate.  In the root directory, a `build.gradle` and `settings.gradle` file provide configuration for the whole project (such as maven repositories, plugins and custom functions) while a `build.gradle` in each of the sub directories provides the main build code.  The following illustrates:
 
 {{{
-root
+<root>
   - build.gradle     <- project wide configuration
   - settings.gradle  <- bulid system settings and config
   - demo
