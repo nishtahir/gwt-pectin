@@ -56,4 +56,4 @@ From `root/demo`:
    ./gradlew dist
 }}}
 
-The compiled output can be found in`root/demo/build/web`.
+The compiled output can be found in `root/demo/build/web`.
