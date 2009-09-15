@@ -2,7 +2,7 @@
 
 Pectin is built using the [http://gradle.org Gradle] build system.  It's built using version 0.5.2 for which you can find the [http://www.gradle.org/userguide/0.5.2/userguide.html user guide here]. 
 
-==Project directory structure==
+=Project directory structure=
 The project contains two subprojects, the library itself (contained in the gwt-pectin directory) and the demo.  Building either the demo or the main library is performed from the subdirectories.
 
 Gradle requires a number of build files (this requirement is being relaxed later versions) to operate.  In the root directory, a `build.gradle` and `settings.gradle` file provide configuration for the whole project (such as maven repositories, plugins and custom functions) while a `build.gradle` in each of the sub directories provides the main build code.  The following illustrates:
@@ -17,7 +17,7 @@ root
     - build.gradle   <- main build file
 }}}
 
-==Building the jar==
+=Building the jar=
 To build the main jar you need to change to the gwt-pectin sub directory.
 
 From `root/gwt-pectin`:
@@ -41,7 +41,7 @@ If you use the release target then jar will be built without the SNAPSHOT sufix 
 In this case will jar path will be `root/gwt-pectin/build/gwt-pectin-0.1.x.jar`
 
 
-==Running the demo==
+=Running the demo=
 To run the demo you need to be in the demo sub directory.
 
 From `root/demo`:
