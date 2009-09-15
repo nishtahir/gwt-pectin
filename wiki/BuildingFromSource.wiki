@@ -9,12 +9,12 @@ Gradle requires a number of build files (this requirement is being relaxed later
 
 {{{
 root
-  - build.gradle <- project wide configuration
-  - settings.gradle <- bulid system settings and config
+  - build.gradle     <- project wide configuration
+  - settings.gradle  <- bulid system settings and config
   - demo
-    - build.gradle <- demo build file
+    - build.gradle   <- demo build file
   - gwt-pectin
-    - build.gradle <- main build file
+    - build.gradle   <- main build file
 }}}
 
 ==Building the jar==
@@ -56,5 +56,3 @@ From `root/demo`:
 }}}
 
 The compiled output can be found in`root/demo/build/web`.
-
-
