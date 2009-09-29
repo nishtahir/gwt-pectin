@@ -3,7 +3,12 @@
 = Presentation Model Compared to MVP =
 
 == MVP ==
+The standard MVP picture.
+
 http://gwt-pectin.googlecode.com/svn/trunk/etc/wikiimages/mvp.png
 
+
 == Presentation Model (Pectin) ==
+The Pectin approach is still focused on a passive view however the work of binding widgets to models is handled by the library thus reducing the amount of code to write.
+
 http://gwt-pectin.googlecode.com/svn/trunk/etc/wikiimages/pm.png
