@@ -19,6 +19,27 @@ Gradle requires a number of build files (this requirement is being relaxed later
     - build.gradle   <- main build file
 }}}
 
+
+
+=Source layout=
+The source layout for the project follows the standard Maven layout with the addition of a `gwt-test` leaf for test cases that extend GWTTestCase.
+{{{
+<root>
+  - gwt-pectin
+    - src
+      - gwt-test
+        - java        <- GWTTestCase test sources
+      - main
+        - java        <- main pectin sources
+        - resources
+      - test
+        - java        <- TestNG test sources
+        - resources
+
+}}}
+
+
+
 =Building the jar=
 To build the main jar you need to change to the gwt-pectin sub directory.
 
