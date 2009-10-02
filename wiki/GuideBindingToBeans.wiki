@@ -25,7 +25,7 @@ public class Person {
 
 ==2. Create a `BeanModelProvider<T>` for our bean==
 
-The `BeanModelProvider<T>` acts as a `ValueModel` factory for our bean.  To use it we define an abstract subclass for our bean and instantiate it useing `GWT.create()`
+The `BeanModelProvider<T>` acts as a `ValueModel` factory for our bean.  To use it we define an abstract subclass for our bean and instantiate it using `GWT.create()`
 
 {{{
 // define our abstract sub class for our bean type.
