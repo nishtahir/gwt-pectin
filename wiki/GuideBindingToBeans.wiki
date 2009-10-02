@@ -1,0 +1,91 @@
+#summary Binding the bean properites
+
+=Binding to Beans=
+
+The process of binding bean properties to fields is relatively simple.  The steps are as follows:
+
+==1. Define our Bean==
+
+The only requirement is that our bean follows the standard Java bean getter/setter method naming convention.
+
+{{{
+public class Person {
+   private String givenName;   
+   private String surname;
+
+   // define our standard the getters and setters.
+   public String getGivenName() {return givenName;}
+   public String setGivenName(String givenName) {this.givenName = givenName;}
+
+   public String getSurname {return surname;}
+   public String setSurame(String surname) {this.surname = surname;}
+}
+}}}
+
+
+==2. Create a `BeanModelProvider<T>` for our bean==
+
+The `BeanModelProvider<T>` acts as a `ValueModel` factory for our bean.  To use it we define an abstract subclass for our bean and instantiate it useing `GWT.create()`
+
+{{{
+// define our abstract sub class for our bean type.
+public abstract class PersonProvider extends BeanModelProvider<Person>{};
+
+// and let GWT create an instance for us.
+PersonProvider personProvider = GWT.create(PersonProvider.class);
+}}}
+
+
+==3. Use the provider in our `FormModel`==
+
+Now we can use the provider when creating our field models.  The builder methods support binding to the providers. 
+
+{{{
+public class PersonFormModel extends FormModel {
+
+   protected final FieldModel<String> givenName;
+   protected final FieldModel<String> surname;
+
+   public PersonFormModel(PersonProvider personProvider) {
+      
+      // bind to our "givenName" property.
+      givenName = fieldOfType(String.class).boundTo(personProvider, "givenName");
+
+      // bind to our "surname" property.      
+      surname = fieldOfType(String.class).boundTo(personProvider, "surname");
+   }
+}
+}}}
+
+
+==4. Set the bean on the provider==
+
+Once all the wiring has been done all that is left is to configure the provider with the bean we wish to display or edit.
+
+{{{
+// configure the providers bean.  All the fields bound to the provider will 
+// automatically update. 
+personProvider.setBean(new Person());
+}}}
+
+Changes are not automatically propegated back to the bean.  To update the bean you need to call `commit()` on the provider.
+
+{{{
+// write the change back to the underlying bean.
+personProvider.commit();
+}}}
+
+You can also call revert 
+{{{
+// revert all models back to the bean state.
+personProvider.revert();
+}}}
+
+
+=Binding to collection properties=
+
+Todo.
+
+=Binding to nested beans=
+
+Todo.
