@@ -1,1 +1,4 @@
 #summary Table of Contents
+
+  * [GettingStarted Getting Started]
+  * [BindingToBeans Binding to beans]
