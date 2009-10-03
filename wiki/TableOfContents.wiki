@@ -1,6 +1,4 @@
 #summary Table of Contents
 
   * [GuideGettingStarted Getting Started]
-  * Building Forms
-    * Creating a `FormModel`
-    * [GuideBindingToBeans Binding to beans]
+  * [GuideBindingToBeans Binding to beans]
