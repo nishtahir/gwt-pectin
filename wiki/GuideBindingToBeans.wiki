@@ -1,5 +1,4 @@
 #summary Binding the bean properites
-#sidebar TableOfContents
 
 =Binding to Beans=
 
