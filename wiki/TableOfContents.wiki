@@ -1,6 +1,6 @@
 #summary Table of Contents
 
-[GuideGettingStarted Getting Started]
-[GuideBindingToBeans Binding to beans]
-[BuildingFromSource Building from source]
-[ReleaseNotes Releaes Notes]
+  * [GuideGettingStarted Getting Started]
+  * [GuideBindingToBeans Binding to beans]
+  * [BuildingFromSource Building from source]
+  * [ReleaseNotes Releaes Notes]
