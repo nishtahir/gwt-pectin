@@ -2,7 +2,7 @@
 
 == Next Release ==
   * Added initial Metadata support for watermarks on !TextBoxes.
-  * StyleBinder changes in inline with [http://code.google.com/p/gwt-pectin/issues/detail?id=3 issue #3]
+  * `StyleBinder` changes in inline with [http://code.google.com/p/gwt-pectin/issues/detail?id=3 issue #3]
   * Fixed a bug where calling `AbstractBinder.dispose()` twice was failing
   * Updated build environment to work with Snow Leopard 
 
