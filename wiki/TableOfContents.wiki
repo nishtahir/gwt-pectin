@@ -3,4 +3,4 @@
   * [GuideGettingStarted Getting Started]
   * [GuideBindingToBeans Binding to beans]
   * [BuildingFromSource Building from source]
-  * [ReleaseNotes Releaes Notes]
+  * [http://code.google.com/p/gwt-pectin/source/browse/trunk/gwt-pectin/ReleaseNotes.wiki Release Notes]
