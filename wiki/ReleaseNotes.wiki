@@ -5,6 +5,11 @@
   * `StyleBinder` changes in inline with [http://code.google.com/p/gwt-pectin/issues/detail?id=3 issue #3]
   * Changed `MetadataBinder.bindVisibility(..)` (and related methods) to `MetadataBinder.bindVisibilityOf(..)`.
   * Updated `Metadata.bindValueOf(..)` to support both enabled and visibility variants.
+  * Changed `Function` to operate on a single value and added `ReducingFunction` to operate on a collection of values.
+  * Added `ComputedValueModel` that takes a source `ValueModel` and `Function`.
+  * Added `ReducingValueModel` that takes a `ReducingFunction` and a collection of values models.
+  * General clean up of the computed value models and friends.
+  * Added ability to create computed fields from both a single source model or a collection of source models using `Function` and `ReducingFunction` accordingly. 
   * Fixed a bug where calling `AbstractBinder.dispose()` twice was failing
   * Updated build environment to work with Snow Leopard 
 
