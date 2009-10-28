@@ -149,4 +149,67 @@ personProvider.registerCollectionConverter(HashSet.class, converter);
 
 =Binding to nested beans=
 
-Todo.
+There are often times where you need to bind to properties of nested classes, in this case you can chain property providers together.  Lets take an example where we add an `Address` property to the `Person` defined earlier.
+
+{{{
+public class Person 
+{
+   // other properties...
+   ...
+
+   // our new address property
+   private Address address;
+   // and it's accessors
+   public void setAddress(Address address) {this.address = address;}
+   public Address getAddress() {return address;}
+}
+
+public class Address
+{
+   private String addressLineOne;
+   private String addressLineTwo;
+   private String city;
+   private String state;
+   private PostCode postCode;
+  
+   public String setAddressLineOne(String text) {addressLineOne = text;}
+   public String getAddressLineOne() {return addressLineOne;}
+   public String setAddressLineTwo(String text) {addressLineTwo = text;}
+   public String getAddressLineTwo() {return addressLineTwo;}
+   ....etc
+}
+}}} 
+
+Now we create our providers as before, this time including a provider for the `Address` class.
+
+{{{
+public abstract class PersonProvider extends BeanModelProvider<Person>{};
+public abstract class AddressProvider extends BeanModelProvider<Address>{};
+
+
+PersonProvider personProvider = GWT.create(PersonProvider.class);
+AddressProvider addressProvider = GWT.create(AddressProvider.class);
+}}}
+
+And now we set the address provider to use the "address" value model.
+
+{{{
+// get the address value model from the person provider.
+MutableValueModel<Address> addressValueModel = personProvider.getValueModel("address", Address.class);
+
+// and set it as the source for the address provider.
+addressProvider.setBeanSource(addressValueModel);
+}}}
+
+From here on, anytime you call `personProvider.setBean(aPersonInstance)` the address provider will automatically update.
+
+Please note that you will need to call commit on both providers to apply any changes.
+
+{{{
+// we have to commit on both providers
+addressProvider.commit();
+personProvider.commit();
+}}}
+
+== OGNL/EL style binding language ==
+Idealy I'd like to be able to use an OGNL/EL style binding language, but this is outside the scope of this project (and my experience) for now.  Any contributions welcome. 
