@@ -9,7 +9,7 @@
   * Added `ComputedValueModel` that takes a source `ValueModel` and `Function`.
   * Added `ReducingValueModel` that takes a `ReducingFunction` and a collection of source models.
   * General clean up of the computed value models.
-  * Simplified computed fields by allowing by using `Function` for single source models and `ReducingFunction` for multiple source models. 
+  * Simplified computed fields by using `Function` for single source and `ReducingFunction` for multiple source models. 
   * Fixed a bug where calling `AbstractBinder.dispose()` twice was failing
   * Updated build environment to work with Snow Leopard 
 
