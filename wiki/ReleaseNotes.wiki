@@ -2,7 +2,7 @@
 
 == Next Release ==
   * Added `FormModel.allFields()` to support bindings like `enable(allFields()).when(..)`
-  * Added support for binding metadata visibility to !DOM Elements.
+  * Added support for binding metadata visibility to DOM Elements.
 
 == Release 0.1.3 ==
   * Added initial support for watermarks in !TextBoxes  using the `MetadataPlugin`.
