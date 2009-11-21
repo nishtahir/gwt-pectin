@@ -4,7 +4,7 @@
   * Added new `FormattedListFieldModel` that allows binding of non-string `ListModels` to `HasValue<Collection<String>>`.
   * Added `TextSplitter` component that converts a `TextBox/TextArea` into a `HasValue<Collection<String>>`
   * Added `FormModel.allFields()` to support bindings like `enable(allFields()).when(..)`
-  * Added support for binding metadata visibility to DOM Elements.
+  * Added support for binding metadata visibility to DOM Elements.  This improves integration with UiBinder.
   * Added more var-args methods for binding to multiple widgets with one binding.
 
 == Release 0.1.3 ==
