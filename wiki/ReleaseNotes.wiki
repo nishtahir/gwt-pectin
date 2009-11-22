@@ -12,7 +12,7 @@
 
 == Release 0.1.3 ==
   * Added initial support for watermarks in !TextBoxes  using the `MetadataPlugin`.
-  * Simplified `StyleBinder` interface in inline with [http://code.google.com/p/gwt-pectin/issues/detail?id=3 issue #3]
+  * Simplified `StyleBinder` interface in inline with issue 3
   * Changed `MetadataBinder.bindVisibility(..)` (and related methods) to `MetadataBinder.bindVisibilityOf(..)`.
   * Updated `MetadataBinder.bindValueOf(..)` to support both enabled and visibility variants.
   * Changed `Function` to operate on a single value and added `ReducingFunction` to operate on a collection of values.
