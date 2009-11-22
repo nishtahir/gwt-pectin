@@ -2,7 +2,7 @@
 
 == Next Release ==
   * Added new `FormattedListFieldModel` that allows binding of non-string `ListModels` to `HasValue<Collection<String>>`.
-  * Added `TextSplitter` component that converts a `TextBox/TextArea` into a `HasValue<Collection<String>>`
+  * Added `TextSplitter` component that converts a `TextBox/TextArea` into a `HasValue<Collection<String>>` based on a regex.
   * Added support for auto commit on `BeanModelProvider` (issue 5).  
   * Added support for dirty tracking on `BeanModelProvider` and the value models it creates (issue 7).
   * Added `FormModel.allFields()` to support bindings like `enable(allFields()).when(..)` (issue 6).
