@@ -5,7 +5,7 @@
   * Added `TextSplitter` component that converts a `TextBox/TextArea` into a `HasValue<Collection<String>>`
   * Added support for auto commit on `BeanModelProvider` (issue 5).  
   * Added support for dirty tracking on `BeanModelProvider` and the value models it creates (issue 7).
-  * Added `FormModel.allFields()` to support bindings like `enable(allFields()).when(..)`
+  * Added `FormModel.allFields()` to support bindings like `enable(allFields()).when(..)` (issue 6).
   * Added support for binding metadata visibility to DOM Elements.  This improves integration with `UiBinder`.
   * Added more var-args methods for binding to multiple widgets with one binding.
   * Removed deprecated `BeanPropertySource` interface. 
