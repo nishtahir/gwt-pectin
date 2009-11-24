@@ -1,6 +1,7 @@
 #summary Pectin Release Notes
 
-== Next Release ==
+== Release 0.4 ==
+  * Changed version numbering to something more sane.
   * Added new `FormattedListFieldModel` that allows binding of non-string `ListModels` to `HasValue<Collection<String>>`.
   * Added `TextSplitter` component that converts a `TextBox/TextArea` into a `HasValue<Collection<String>>` based on a regex.
   * Added support for auto commit on `BeanModelProvider` (issue 5).  
@@ -15,7 +16,8 @@
   * Changed default watermark style from `watermark` to `pectin-Watermark` and added default css for it.
   * Added some basic validators for lists including `NotEmptyListValidator`, `NoEmptyElementsValidator`, `NoNullElementsValidator`.
   * Fixed bug in `ListFieldValidatorImpl` where validation messages weren't always displayed in the order they were added.
-  * Changed version numbering to something more sane.
+  * Changed `Severity.compareTo` so the natural sort order puts the highest severity first.
+
 
 == Release 0.1.3 ==
   * Added initial support for watermarks in !TextBoxes  using the `MetadataPlugin`.
