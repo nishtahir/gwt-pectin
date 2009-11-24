@@ -9,6 +9,12 @@
   * Added support for binding metadata visibility to DOM Elements.  This improves integration with `UiBinder`.
   * Added more var-args methods for binding to multiple widgets with one binding.
   * Removed deprecated `BeanPropertySource` interface. 
+  * Made `StyleApplicator` abstract and provided two static istances, one that uses `UIObject.addStyleName` and one that uses `UIObject.addStyleDependentName`. 
+  * Changed validation style names (as applied by the `StyleApplicator`) from the `validation-error` form to the `validationError` form.
+  * Added `ValidationDisplayPanel` and `ValidationDisplayLabel` classes with default css for error, warning and info messages.
+  * Changed default watermark style from `watermark` to `pectin-Watermark` and added default css for it.
+  * Added some basic validators for lists including `NotEmptyListValidator`, `NoEmptyElementsValidator`, `NoNullElementsValidator`.
+  * Fixed bug in `ListFieldValidatorImpl` where validation messages weren't always displayed in the order they were added.
 
 == Release 0.1.3 ==
   * Added initial support for watermarks in !TextBoxes  using the `MetadataPlugin`.
