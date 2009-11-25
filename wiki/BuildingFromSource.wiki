@@ -1,6 +1,6 @@
 #summary Building Pectin from source
 
-Pectin is built using the [http://gradle.org Gradle] build system.  It's built using version 0.5.2 for which you can find the [http://www.gradle.org/userguide/0.5.2/userguide.html user guide here]. 
+Pectin is built using the [http://gradle.org Gradle] build system.  It's built using version 0.8 for which you can find the [http://www.gradle.org/0.8/docs/userguide/userguide.html user guide here]. 
 
 *Please Note:* _You don't need to install gradle_ to build the project. The project uses a Gradle provided wrapper that automatically downloads the correct version for you. 
 
