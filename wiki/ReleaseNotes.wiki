@@ -1,5 +1,8 @@
 #summary Pectin Release Notes
 
+== Next Release ==
+  * Updated computed fields to support functions that convert from any super of the source model type.  I.e. this allows for a generic ToString function to be used on any source model. 
+
 == Release 0.4 ==
   * Changed version numbering to something more sane.
   * Added new `FormattedListFieldModel` that allows binding of non-string `ListModels` to `HasValue<Collection<String>>`.
