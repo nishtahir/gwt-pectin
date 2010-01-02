@@ -7,4 +7,5 @@
      * Validation Plugin
      * Style Plugin
   * [BuildingFromSource Building from source]
+  * [ComparedToMVP Compared to MVP]
   * [ReleaseNotes Release Notes]
