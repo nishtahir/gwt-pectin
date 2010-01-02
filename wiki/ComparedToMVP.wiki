@@ -23,7 +23,7 @@ MVP also requires that the view typically implement some public interface by whi
 
 == Keeping the Presenter ==
 
-The Presenter (or more correctly the [http://martinfowler.com/eaaDev/SupervisingPresenter.html Supervising Controller]) typically performs roles above and beyond binding the view to the domain models (such as executing RPC calls, responding to application events and performing tasks such as instantiating the view and updating the model.  This role is still useful in and of itself when using the Presentation Model approach.  Thus you typically end up with a Presenter, a Presentation Model and a View.
+The Presenter (or more correctly the [http://martinfowler.com/eaaDev/SupervisingPresenter.html Supervising Controller]) typically performs additional roles such as executing RPC calls, responding to application events and performing tasks such as instantiating the view and updating the model.  This role is still useful in and of itself when using the Presentation Model approach.  Thus you typically end up with a Presenter, a Presentation Model and a View.
 
 
 == References ==
