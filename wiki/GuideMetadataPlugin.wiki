@@ -1,4 +1,5 @@
 #summary Guide to the Metadata Plugin
+#sidebar TableOfContents
 
 = Metadata Plugin =
 
@@ -97,4 +98,3 @@ There will be cases where you need to apply the metadata of one field to multipl
 
 
 }}}
-
