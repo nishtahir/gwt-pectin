@@ -4,11 +4,11 @@
 
 *Or lets compare some apples and Oranges...*
 
-One of the difficulties in comparing various standard approaches is that each approach is not so much a pattern in and of itself, but rather a collection of patterns.  For example the presenter in MVP typically performs the roles of a Facade and Mediator.  This makes it more difficult to compare the two approaches, but lets give it a shot.
+One of the difficulties in comparing various standard approaches is that each approach is not so much a pattern in and of itself, but rather a collection of patterns.  For example the presenter in MVP typically performs the roles of both a Facade and Mediator.  This makes it more difficult to compare the two approaches, but lets give it a shot. 
 
 == What do you mean by Model? ==
 
-One of the key differences between MVP and the Presentation Model (PM) approach is the scope of what we define as "the model".  In MVP the model typically refers to just the domain objects that will be displayed, things like a Customer, Contact or Account.  From a Presentation Model perspective the term model encompasses both the domain data that will be displayed *plus* all additional state that can change during the normal operation of the UI.  An example would be state to control the requirement that "the comments field should only be visible when the user has selected 'other'".   
+One of the key differences between MVP and the Presentation Model approach is the scope of what we define as "the model".  In MVP the model typically refers to just the domain objects that will be displayed, things like a Customer, Contact or Account.  From a Presentation Model perspective the term model encompasses both the domain data that will be displayed *plus* all additional state that can change during the normal operation of the UI.  An example would be state to control the requirement that "the comments field should only be visible when the user has selected 'other'".   
 
 Martin Fowler summaries the Presentation Model as follows (from http://martinfowler.com/eaaDev/PresentationModel.html)
  The essence of a Presentation Model is of a fully self-contained class that represents all the data and behavior of the UI window, but without any of the controls used to render that UI on the screen. A view then simply projects the state of the presentation model onto the glass.
@@ -30,19 +30,3 @@ The Presenter (or more correctly the [http://martinfowler.com/eaaDev/Supervising
   * http://martinfowler.com/eaaDev/ModelViewPresenter.html
   * http://martinfowler.com/eaaDev/SupervisingPresenter.html
   * http://martinfowler.com/eaaDev/PresentationModel.html
-
-
-
-<wiki:comment>
-== MVP ==
-The standard MVP picture.
-
-http://gwt-pectin.googlecode.com/svn/trunk/etc/wikiimages/mvp.png
-
-
-== Presentation Model (Pectin) ==
-The Pectin approach is still focused on a passive view however the work of binding widgets to models is handled by the library thus reducing the amount of code to write.
-
-http://gwt-pectin.googlecode.com/svn/trunk/etc/wikiimages/pm.png
-
-</wiki:comment>
