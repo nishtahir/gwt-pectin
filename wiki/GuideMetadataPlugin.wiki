@@ -9,8 +9,8 @@ The plugin is accessed by importing the static methods of `MetadataPlugin` into 
 
 == Key Classes ==
 The key classes of the plugin are:
-  * MetadataPlugin - provides static methods controlling and accessing metadata
-  * MetadataBinder - provides additional methods to support binding metadata to additional widgets.
+  * `MetadataPlugin` - provides static methods controlling and accessing metadata
+  * `MetadataBinder` - provides additional methods to support binding metadata to additional widgets.
 
 == Enabled Example ==
 
