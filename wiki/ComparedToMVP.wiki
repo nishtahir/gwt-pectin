@@ -27,9 +27,9 @@ The Presenter (or more correctly the [http://martinfowler.com/eaaDev/Supervising
 
 
 == References ==
-http://martinfowler.com/eaaDev/ModelViewPresenter.html
-http://martinfowler.com/eaaDev/SupervisingPresenter.html
-http://martinfowler.com/eaaDev/PresentationModel.html
+  * http://martinfowler.com/eaaDev/ModelViewPresenter.html
+  * http://martinfowler.com/eaaDev/SupervisingPresenter.html
+  * http://martinfowler.com/eaaDev/PresentationModel.html
 
 
 
