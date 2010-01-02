@@ -1,8 +1,0 @@
-#summary The roles and use of plugins
-#sidebar TableOfContents
-
-= Plugins =
-
-Plugins allow you to extend pectin with new featurs that can be shared across projects.  Plugins are provided for metadata and validation.
-
-  
