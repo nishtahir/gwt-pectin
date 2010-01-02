@@ -4,7 +4,7 @@
 
 *Or lets compare some apples and Oranges...*
 
-One of the difficulties in comparing various standard approaches is that each approach is not so much a pattern in and of itself, but rather a collection of patterns (facades, decorators, mediators etc).  This makes it more difficult to compare the two approaches, but lets give it a shot.
+One of the difficulties in comparing various standard approaches is that each approach is not so much a pattern in and of itself, but rather a collection of patterns.  For example the presenter in MVP typically performs the roles of a Facade and Mediator.  This makes it more difficult to compare the two approaches, but lets give it a shot.
 
 == What do you mean by Model? ==
 
@@ -23,7 +23,7 @@ MVP also requires that the view typically implement some public interface by whi
 
 == Keeping the Presenter ==
 
-The Presenter (or more correctly the [http://martinfowler.com/eaaDev/SupervisingPresenter.html Supervising Controller]) typically performs roles above and beyond binding the view to the domain models (such as executing RPC calls, responding to application events and performing tasks such as instantiating the view and updating the model.  This role is still useful in and of itself when using the PM approach.  Thus you typically end up with a Presenter, a Presentation Model and a View.
+The Presenter (or more correctly the [http://martinfowler.com/eaaDev/SupervisingPresenter.html Supervising Controller]) typically performs roles above and beyond binding the view to the domain models (such as executing RPC calls, responding to application events and performing tasks such as instantiating the view and updating the model.  This role is still useful in and of itself when using the Presentation Model approach.  Thus you typically end up with a Presenter, a Presentation Model and a View.
 
 
 == References ==
