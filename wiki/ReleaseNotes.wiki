@@ -4,7 +4,7 @@
   * Updated computed fields to support functions that convert from any super of the source model type.  I.e. this allows for the use of a generic `ToStringFunction` for any type of source model. 
   * Updated `ComputedValueModel` to expose getters and setters for the function.
   * Added default implementation of a `ToStringFunction`.
-  * Added support for watermarks derived from arbitrary values modes as per issue 9
+  * Added support for watermarks derived from arbitrary value models as per issue 9
 
 == Release 0.4 ==
   * Changed version numbering to something more sane.
