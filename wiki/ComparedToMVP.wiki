@@ -2,9 +2,9 @@
 
 = Presentation Model Compared to MVP =
 
-*Or lets compare some apples and oranges...*
+== Comparing apples and oranges...==
 
-One of the difficulties in comparing various standard approaches is that each approach is not so much a pattern in and of itself, but rather a collection of patterns.  For example the presenter in MVP typically performs the roles of both a Facade and Mediator.  This makes it more difficult to compare the two approaches, but lets give it a shot. 
+One of the difficulties in comparing various standard approaches is that each approach is not so much a pattern in and of itself, but rather a collection of patterns.  For example the presenter in MVP typically performs the roles of both a facade and mediator and the Presentation Model acts as a mediator and decorator.  
 
 == What do you mean by Model? ==
 
