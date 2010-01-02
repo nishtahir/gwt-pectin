@@ -1,0 +1,10 @@
+#summary One-sentence summary of this page.
+
+= ValueModel Primer =
+
+
+This needs to be filled out but for now it's worth noting that a `FieldModel` is just a `ValueModel` that includes a reference to it's enclosing form.
+
+{{{
+public interface FieldModel<T> extends Field<T>, MutableValueModel<T>, HasValueChangeHandlers<T> {}
+}}}
