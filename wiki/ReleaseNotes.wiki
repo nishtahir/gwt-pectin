@@ -3,6 +3,7 @@
 == Next Release ==
   * Updated computed fields to support functions that convert from any super of the source model type.  I.e. this allows for the use of a generic `ToStringFunction` for any type of source model. 
   * Updated `ComputedValueModel` to expose getters and setters for the function.
+  * Added default implementation of a `ToStringFunction`.
 
 == Release 0.4 ==
   * Changed version numbering to something more sane.
