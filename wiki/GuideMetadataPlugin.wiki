@@ -17,6 +17,7 @@ The key classes of the plugin are:
 To control the enabled state of you fields you use the `enable` and `disable` methods of the plugin.  Each method takes a field and condition.  The condition can be any `ValueModel<Boolean>`.
 
 {{{
+  // static methods defined by MetadataPlugin
   enable(FieldModel<?>).when(ValueModel<Boolean>);
   disable(FieldModel<?>).when(ValueModel<Boolean>);
 }}}
@@ -51,6 +52,7 @@ binder.bind(model.shippingAddressLineOne).to(shippingAddressLineOne);
 To control the visibilty of fields you use the `show` and `hide` methods of the plugin.  Each method takes a field and condition.  The condition can be any `ValueModel<Boolean>`.
 
 {{{
+  // static methods defined by MetadataPlugin
   show(FieldModel<?>).when(ValueModel<Boolean>);
   hide(FieldModel<?>).when(ValueModel<Boolean>);
 }}}
@@ -82,13 +84,19 @@ binder.bind(model.comments).to(comments);
 Watermarks allow you to add a water mark text boxes that are bound to `FieldModel<String>` or `FormattedFieldModel`.  Watermarks can be either static strings or values held by other value models.
 
 {{{
+  // static methods defined by MetadataPlugin
+
   // static watermarks 
   watermark(FieldModel<String>).with(String);
   watermark(FormattedFieldModel<?>).with(String);
 
-  // dynamic watermarks
+  // dynamic watermarks (also works with FormattedFieldModel<?>)
   watermark(FieldModel<String>).with(ValueModel<String>);
-  watermark(FormattedFieldModel<?>).with(ValueModel<String>);
+  watermark(FieldModel<String>).withValueOf(ValueModel<?>);  
+  watermark(FieldModel<String>).withValueOf(ValueModel<T>).formattedBy(Function<String, ? super T>);
+  watermark(FieldModel<String>).withValueOf(ValueModel<T>).formattedBy(DisplayFormat<? super T>);
+
+  
 }}}
 
 == Controlling Other Widgets ==
