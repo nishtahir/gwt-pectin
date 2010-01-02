@@ -1,6 +1,10 @@
 #summary Table of Contents
 
-  * [GuideGettingStarted Getting Started]
+  * [GuideValueModelPrimer A !ValueModel Primer]
   * [GuideBindingToBeans Binding to beans]
+  * Plugins
+     * [GuideMetadataPlugin Metadata Plugin]
+     * Validation Plugin
+     * Style Plugin
   * [BuildingFromSource Building from source]
   * [ReleaseNotes Release Notes]
