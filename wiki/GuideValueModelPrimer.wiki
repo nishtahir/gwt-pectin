@@ -1,6 +1,7 @@
-#summary One-sentence summary of this page.
+#summary A primer for the concepts and use of ValueModels
+#sidebar TableOfContents
 
-= ValueModel Primer =
+= `ValueModel` Primer =
 
 
 This needs to be filled out but for now it's worth noting that a `FieldModel` is just a `ValueModel` that includes a reference to it's enclosing form.
