@@ -1,6 +1,6 @@
 #summary Table of Contents
 
-  * [GuideValueModelPrimer A !ValueModel Primer]
+  * [GuideValueModelPrimer A ValueModel Primer]
   * [GuideBindingToBeans Binding to beans]
   * Plugins
      * [GuideMetadataPlugin Metadata Plugin]
