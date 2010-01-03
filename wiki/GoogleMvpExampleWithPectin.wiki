@@ -118,11 +118,8 @@ public class EditContactViewModel extends FormModel
       validateField(lastName).using(new NotEmptyValidator("Please enter your last name"));
       validateField(emailAddress).using(new NotEmptyValidator("Please enter your email address"));
 
-      // and some water marks for fun
-      watermark(firstName).with("Required");
-      watermark(lastName).with("Required");
-      watermark(emailAddress).with("Required");
-
+      // add some water marks to denote required fields
+      watermark(firstName, lastName, emailAddress).with("Required");
    }
 
    public void setContact(Contact contact)
