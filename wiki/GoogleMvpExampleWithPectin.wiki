@@ -46,6 +46,7 @@ The Constructor call to get the contact now becomes:
 rpcService.getContact(id, new AsyncCallback<Contact>() {
 
    public void onSuccess(Contact result) {
+      // store our contact locally
       EditContactPresenter.this.contact = result;
       // no longer have to update each field, we just pass in the Contact
       // and let the views Presentation Model handle that.
@@ -71,7 +72,7 @@ private void doSave()
       display.commit();
 
       // and proceed as per normal
-      rpcService.updateContact(display.getContact(), new AsyncCallback<Contact>() {
+      rpcService.updateContact(contact, new AsyncCallback<Contact>() {
 
          public void onSuccess(Contact result)
          {
