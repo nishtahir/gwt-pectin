@@ -2,15 +2,95 @@
 
 = Using Pectin with MVP =
 
-This page  to integration of Pectin with the [http://code.google.com/webtoolkit/doc/latest/tutorial/mvp-architecture.html MVP sample] in the GWT documentation.  The example itself as a lousy test case for Pectin however since the customer edit form is so trivial.  But for the sake of the argument I'll do it anyway and add a few features along the way.
+This page  to integration of Pectin with the [http://code.google.com/webtoolkit/doc/latest/tutorial/mvp-architecture.html MVP sample] in the GWT documentation.  The example itself as a lousy test case for Pectin however since the customer edit form is so trivial.  But for the sake of the argument I'll do it anyway and add a few features to give a better feel for the features of Pectin.
 
 
 == Approach ==
-There are a couple of ways to approach the design such as embedding the Presentation Model entirely within the view or having the Presenter create the model and pass it to the view.  In the end I chose to embed the presentation model within the view.  You could also have the Presenter "own" the Presentation Model but in this case there were no clear advantages to this approach and only increased the complexity of the Presenter.
+There are a couple of ways to approach the design.  In this case I've chosen to embed the presentation model within the view.  You could also have the Presenter own the Presentation Model but in this case there were no clear advantages to that approach and it only increased the complexity of the Presenter.
 
+== Updating the !EditContactPresenter ==
+The changes to the presenter are minimal and main include changes to the Display interface and the pieces of code that interact with it. The changes to the Display interface are:
 
-== Creating the Presentation Model == 
+  # Replacing the `HasValue` getters with a single getter and setter for the `Contact`.
+  # Add new `commit()` method to write any changes to the `Contact` prior to saving.
+  # Added `validate()` method to support the new validation features.
 
-The first step was to create a Presentation Model for the form.  It defines the three fields exposed by the view.  In order to make things a little bit more realistic I've added dirty tracking to enable and disable the save button as well as some validation and watermarks. 
+Once this has been done the `EditContactPresenter` no longer acts as mediator between the `Contact` and the fields in the view.  The Display interface now becomes.
+
+{{{
+
+public interface Display {
+
+   HasClickHandlers getSaveButton();
+
+   HasClickHandlers getCancelButton();
+      
+   // replace all the HasValue getters with this
+   void setContact(Contact contact);
+
+   // added new commit method to write changes to the 
+   // current contact.  
+   void commit();
+
+   // new method to validate the current state of the
+   // form before committing the changes.
+   boolean validate();
+     
+   Widget asWidget();      
+}
+}}}
+
+The other major changes to the `EditContactPresenter` are the Constructor and the `doSave()` method.
+
+The Constructor call to get the contact now becomes: 
+{{{
+rpcService.getContact(id, new AsyncCallback<Contact>() {
+
+   public void onSuccess(Contact result) {
+      EditContactPresenter.this.contact = result;
+      // no longer have to update each field, we just pass in the Contact
+      // and let the views Presentation Model handle that.
+      EditContactPresenter.this.display.setContact(result);
+   }
+
+   public void onFailure(Throwable caught) {
+      Window.alert("Error retrieving contact");
+   }
+});
+
+}}}
+
+And the `doSave()` method now becomes:
+{{{
+
+private void doSave()
+{
+   // we've added validation so we only save if the form is valid
+   if (display.validate()) {
+
+      // all is good so commit the changes to the Bean
+      display.commit();
+
+      // and proceed as per normal
+      rpcService.updateContact(display.getContact(), new AsyncCallback<Contact>() {
+
+         public void onSuccess(Contact result)
+         {
+            eventBus.fireEvent(new ContactUpdatedEvent(result));
+         }
+
+         public void onFailure(Throwable caught)
+         {
+            Window.alert("Error updating contact");
+         }
+      });
+   }
+}
+}}}
+ 
+
+== Updating the !EditContactView == 
+
+The first step was to create a Presentation Model for the view.  It defines the three fields exposed by the view.  In order to make things a little bit more realistic I've added validation and watermarks. 
 
 .. To Be Continued.. 
