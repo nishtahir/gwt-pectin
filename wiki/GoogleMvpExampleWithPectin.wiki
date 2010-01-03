@@ -101,6 +101,7 @@ public class EditContactViewModel extends FormModel
    public abstract static class ContactProvider extends BeanModelProvider<Contact> {}
    private ContactProvider contactProvider = GWT.create(ContactProvider.class);
 
+   // define our fields
    protected final FieldModel<String> firstName;
    protected final FieldModel<String> lastName;
    protected final FieldModel<String> emailAddress;
