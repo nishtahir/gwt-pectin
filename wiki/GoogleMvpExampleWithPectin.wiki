@@ -1,0 +1,16 @@
+#summary An example of using Pectin with MVP
+
+= Using Pectin with MVP =
+
+This page  to integration of Pectin with the [http://code.google.com/webtoolkit/doc/latest/tutorial/mvp-architecture.html MVP sample] in the GWT documentation.  The example itself as a lousy test case for Pectin however since the customer edit form is so trivial.  But for the sake of the argument I'll do it anyway and add a few features along the way.
+
+
+== Approach ==
+There are a couple of ways to approach the design such as embedding the Presentation Model entirely within the view or having the Presenter create the model and pass it to the view.  In the end I chose to embed the presentation model within the view.  You could also have the Presenter "own" the Presentation Model but in this case there were no clear advantages to this approach and only increased the complexity of the Presenter.
+
+
+== Creating the Presentation Model == 
+
+The first step was to create a Presentation Model for the form.  It defines the three fields exposed by the view.  In order to make things a little bit more realistic I've added dirty tracking to enable and disable the save button as well as some validation and watermarks. 
+
+TODO
