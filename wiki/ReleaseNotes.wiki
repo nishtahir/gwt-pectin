@@ -4,7 +4,7 @@
   * Updated computed fields to support functions that convert from any super of the source model type.  I.e. this allows for the use of a generic `ToStringFunction` for any type of source model. 
   * Updated `ComputedValueModel` to expose getters and setters for the function.
   * Added default implementation of a `ToStringFunction`.
-  * Added support for watermarks derived from arbitrary value models as per issue 9
+  * Added support for watermarks derived from arbitrary value models as per issue 9.
   * Introducing new `FieldModelBase` and `ListFieldModelBase` types so that the API can safely distinguish between formatted and regular variants of each model type.
   * Simplified validation plugin API based on the above changes.
   * Added `FormValidator` class that can be used to track the combined validation message of all the fields in the form.
