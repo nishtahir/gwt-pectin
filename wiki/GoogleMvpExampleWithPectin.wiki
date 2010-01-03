@@ -11,7 +11,7 @@ There are a couple of ways to approach the design.  In this case I've chosen to 
 == Updating the !EditContactPresenter ==
 The changes to the presenter are minimal and main include changes to the Display interface and the pieces of code that interact with it. The changes to the Display interface are:
 
-  # Replacing the `HasValue` getters with a single getter and setter for the `Contact`.
+  # Replacing the `HasValue` getters with a single setter for the `Contact`.
   # Add new `commit()` method to write any changes to the `Contact` prior to saving.
   # Added `validate()` method to support the new validation features.
 
