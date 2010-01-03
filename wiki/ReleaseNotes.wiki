@@ -5,6 +5,10 @@
   * Updated `ComputedValueModel` to expose getters and setters for the function.
   * Added default implementation of a `ToStringFunction`.
   * Added support for watermarks derived from arbitrary value models as per issue 9
+  * Introducing new `ScalarField` and `ListField` types so that the API can safely distinguish between formatted and regular variants of each model type.
+  * Simplified validation plugin API based on the above changes.
+  * Added `FormValidator` class that can be used to track the combined validation message of all the fields in the form.
+  * Fixed a bug where `ValidationDisplayLabel` wasn't clearing existing validation styles.
 
 == Release 0.4 ==
   * Changed version numbering to something more sane.
