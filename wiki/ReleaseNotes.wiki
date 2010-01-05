@@ -5,6 +5,7 @@
   * Updated `ComputedValueModel` to expose getters and setters for the function.
   * Added default implementation of a `ToStringFunction`.
   * Added support for watermarks derived from arbitrary value models as per issue 9.
+  * Added var-args watermark methods so you can do things like `watermark(name, email).with("Required")`.
   * Introducing new `FieldModelBase` and `ListFieldModelBase` types so that the API can safely distinguish between formatted and regular variants of each model type.
   * Simplified validation plugin API based on the above changes.
   * Added `FormValidator` class that can be used to track the combined validation message of all the fields in the form.
