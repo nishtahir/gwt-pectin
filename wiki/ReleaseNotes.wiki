@@ -8,7 +8,7 @@
   * Added var-args watermark methods so you can do things like `watermark(name, email).with("Required")`.
   * Introducing new `FieldModelBase` and `ListFieldModelBase` types so that the API can safely distinguish between formatted and regular variants of each model type.
   * Simplified validation plugin API based on the above changes.
-  * Added `FormValidator` class that can be used to track the combined validation message of all the fields in the form.
+  * Added `FormValidator` class that can be used to track the validation messages of all the fields in the form.
   * Updated `FormattedFieldValidatorImpl` to only validate the value if there were no errors logged by the text validators.  This can be overridden if required.
   * Fixed a bug where `ValidationDisplayLabel` wasn't clearing existing validation styles.
 
