@@ -84,14 +84,16 @@ binder.bind(model.comments).to(comments);
 Watermarks allow you to add a water mark text boxes that are bound to `FieldModel<String>` or `FormattedFieldModel<?>`.  Watermarks can be either static strings or values held by other value models.
 
 {{{
-  // static methods defined by MetadataPlugin
+  // MetadataPlugin.watermark method variants
+  // All methods also apply to FormattedFieldModel<?>
 
   // static watermarks 
   watermark(FieldModel<String>).with(String);
-  watermark(FormattedFieldModel<?>).with(String);
 
-  // dynamic watermarks (also works with FormattedFieldModel<?>)
+  // dynamic watermarks
   watermark(FieldModel<String>).with(ValueModel<String>);
+
+  // dynamic watermarks from artibrary value models
   watermark(FieldModel<String>).withValueOf(ValueModel<?>);  
   watermark(FieldModel<String>).withValueOf(ValueModel<T>).formattedBy(Function<String, ? super T>);
   watermark(FieldModel<String>).withValueOf(ValueModel<T>).formattedBy(DisplayFormat<? super T>);
