@@ -81,7 +81,7 @@ binder.bind(model.comments).to(comments);
 }}}
 
 == Watermarks ==
-Watermarks allow you to add a water mark text boxes that are bound to `FieldModel<String>` or `FormattedFieldModel`.  Watermarks can be either static strings or values held by other value models.
+Watermarks allow you to add a water mark text boxes that are bound to `FieldModel<String>` or `FormattedFieldModel<?>`.  Watermarks can be either static strings or values held by other value models.
 
 {{{
   // static methods defined by MetadataPlugin
@@ -99,10 +99,21 @@ Watermarks allow you to add a water mark text boxes that are bound to `FieldMode
   
 }}}
 
+There are also var-arg versions of the `watermark()` method so you can watermark multiple fields with the same value if required.
+ 
+{{{
+watermark(email, fax).with("Optional");
+}}} 
+
 == Controlling Other Widgets ==
 There will be cases where you need to apply the metadata of one field to multiple widgets (e.g. the fields label).  In this case the plugin provides a number of useful methods.
 
+The static `MetadataPlugin.metadataOf(Field)` provides access to value models that reflect the metadata state of the specified field.  This can be used by the `StyleBinder` to track metadata within the view.
+
 {{{
-
-
+StyleBinder style = new StyleBinder();
+style.style(nameLabel)
+     .with("disabled")
+     .when(metadataOf(model.name).isDisabled());
 }}}
+
