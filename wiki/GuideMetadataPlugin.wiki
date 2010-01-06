@@ -110,6 +110,24 @@ watermark(email, fax).with("Optional");
 == Controlling Other Widgets ==
 There will be cases where you need to apply the metadata of one field to multiple widgets (e.g. the fields label).  In this case the plugin provides a number of useful methods.
 
+=== `MetadataBinder` ===
+The `MetadataBinder` provides methods for applying metadata state to arbitrary widgets.  
+
+{{{
+MetadataBinder metadata = new MetadataBinder();
+
+metadata.bindVisibilityOf(formModel.extraComments).to(extraCommentsLabel);
+}}} 
+
+The binder also allows you to control the enabledness and visibility of an arbitrary widget from an arbitrary `ValueModel<Boolean>` (including `FieldModel<Boolean>`).
+
+{{{
+ValueModel<Boolean> someModel = ...;
+metadata.bindValueOf(someModel).toVisibilityOf(someWidget);
+}}}
+
+=== `MetadataPlugin.metadataOf` ===
+
 The static `MetadataPlugin.metadataOf(Field)` provides access to value models that reflect the metadata state of the specified field.  This can be used by the `StyleBinder` to track metadata within the view.
 
 {{{
