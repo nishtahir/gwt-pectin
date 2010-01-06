@@ -1,4 +1,5 @@
 #summary Comparison of Pectin to MVP
+#sidebar TableOfContents
 
 = Presentation Model Compared to MVP =
 
