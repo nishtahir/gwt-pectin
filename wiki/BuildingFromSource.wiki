@@ -1,4 +1,5 @@
 #summary Building Pectin from source
+#sidebar TableOfContents
 
 Pectin is built using the [http://gradle.org Gradle] build system.  It's built using version 0.8 for which you can find the [http://www.gradle.org/0.8/docs/userguide/userguide.html user guide here]. 
 
