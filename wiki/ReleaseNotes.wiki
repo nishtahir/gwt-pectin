@@ -11,6 +11,7 @@
   * Added `FormValidator` class that can be used to track the validation messages of all the fields in the form.  So now you can bind the formModel to a `ValidationDisplay`.  E.g. `validationBinder.bind(formModel).to(errorMessageWidget)`.
   * Updated `FormattedFieldValidatorImpl` to only validate the value if there were no errors logged by the text validators.  This can be overridden if required.
   * Fixed a bug where `ValidationDisplayLabel` wasn't clearing existing validation styles.
+  * Fixed issue 10.
 
 == Release 0.4 ==
   * Changed version numbering to something more sane.
