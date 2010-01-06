@@ -112,8 +112,6 @@ The static `MetadataPlugin.metadataOf(Field)` provides access to value models th
 
 {{{
 StyleBinder style = new StyleBinder();
-style.style(nameLabel)
-     .with("disabled")
+style.style(nameLabel).with("disabled")
      .when(metadataOf(model.name).isDisabled());
 }}}
-
