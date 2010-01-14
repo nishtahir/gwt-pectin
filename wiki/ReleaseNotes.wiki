@@ -1,7 +1,7 @@
 #summary Pectin Release Notes
 
 == Next Release ==
-  * Fixed compilations issues with GWT 2 (issue 10).
+  * Removed var-arg methods from `AbstractDynamicList` to work around GWT 2 compiler problem (issue 10).
   * Updated computed fields to support functions that convert from any super of the source model type.  I.e. this allows for the use of a generic `ToStringFunction` for any type of source model. 
   * Updated `ComputedValueModel` to expose getters and setters for the function.
   * Added default implementation of a `ToStringFunction`.
