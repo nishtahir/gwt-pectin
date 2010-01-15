@@ -95,7 +95,7 @@ The full updated source is available here: [http://code.google.com/p/gwt-pectin/
 
 = Updating the !EditContactView = 
 
-== Create our Presnetation Model ==
+== Create our Presentation Model ==
 The first step was to create a Presentation Model for the view.  It defines the three fields displayed by the view.  In order to make things a little bit more realistic I've added validation and watermarks. 
 
 {{{
