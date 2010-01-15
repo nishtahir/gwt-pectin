@@ -28,6 +28,9 @@ Another difference between using MVP and the Presentation Model approach (and sp
 The Presenter (or more correctly the [http://martinfowler.com/eaaDev/SupervisingPresenter.html Supervising Controller]) typically performs additional roles such as executing RPC calls, responding to application events and performing tasks such as instantiating the view and updating the model.  This role is still useful in and of itself when using the Presentation Model approach.  By moving all the view state to a Presentation Model the Presenters roles can be greatly simplified.
 
 
+== An Example ==
+You can check out GoogleMvpExampleWithPectin for an example of using Pectin in an MVP architecture.  It shows a modified version of the GWT MVP example that uses Pectin for the EditContact form.
+
 == References ==
   * http://martinfowler.com/eaaDev/ModelViewPresenter.html
   * http://martinfowler.com/eaaDev/SupervisingPresenter.html
