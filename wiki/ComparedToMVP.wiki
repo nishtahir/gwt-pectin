@@ -29,7 +29,7 @@ The Presenter (or more correctly the [http://martinfowler.com/eaaDev/Supervising
 
 
 == An Example ==
-You can check out GoogleMvpExampleWithPectin for an example of using Pectin in an MVP architecture.  It shows a modified version of the GWT MVP example that uses Pectin for the EditContact form.
+You can check out GoogleMvpExampleWithPectin for an example of using Pectin in an MVP architecture.  It shows a modified version of the GWT MVP example that uses Pectin for the !EditContact form.
 
 == References ==
   * http://martinfowler.com/eaaDev/ModelViewPresenter.html
