@@ -7,7 +7,7 @@ This page shows the integration of Pectin with the [http://code.google.com/webto
 = The Approach =
 There are a couple of ways to approach the design.  In this case I've chosen to embed the presentation model within the view.  You could also have the Presenter own the Presentation Model but in this case there were no clear advantages to that approach and it only increased the complexity of the Presenter.  
 
-It's also worth noting that I've only use Pectin on the EditContactPresenter since it's the only form based view.  
+It's also worth noting that I've only use Pectin on the !EditContactPresenter since it's the only form based view.  
 
 = Updating the !EditContactPresenter =
 The changes to the presenter are minimal and main include changes to the Display interface and the pieces of code that interact with it. The changes to the Display interface are:
