@@ -48,7 +48,7 @@ To build the main jar you need to change to the gwt-pectin sub directory.
 
 From `root/gwt-pectin`:
 {{{
-   ./gradlew libs  
+   ./gradlew build  
 }}}
 
 *Note:*
