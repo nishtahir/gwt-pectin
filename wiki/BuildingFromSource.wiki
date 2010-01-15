@@ -25,7 +25,7 @@ Gradle requires a number of build files (this requirement is being relaxed later
 
 
 =Source layout=
-The source layout for the project follows the standard Maven layout with the addition of a `gwt-test` leaf for test cases that extend GWTTestCase.
+The source layout for the project follows the standard Maven layout with the addition of a `gwtTest` leaf for test cases that extend GWTTestCase.
 {{{
 <root>
   - gwt-pectin
