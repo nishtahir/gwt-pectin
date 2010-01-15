@@ -87,7 +87,9 @@ private void doSave()
    }
 }
 }}}
- 
+
+The full updated source is available here: [http://code.google.com/p/gwt-pectin/source/browse/trunk/contacts-mvp-example/src/main/java/com/google/gwt/sample/contacts/client/presenter/EditContactPresenter.java EditContactPresenter.java]
+
 
 = Updating the !EditContactView = 
 
@@ -142,5 +144,67 @@ public class EditContactViewModel extends FormModel
 }
 }}}
 
+The full updated source is available here: [http://code.google.com/p/gwt-pectin/source/browse/trunk/contacts-mvp-example/src/main/java/com/google/gwt/sample/contacts/client/view/EditContactViewModel.java EditContactViewModel.java]
 
-*To be continued...*
+
+== Now Update the View ==
+
+The changes to the view are relatively simple.  Firstly we update it to implement the new Display interface, namely by removing the widget getters and adding the new methods.  The new methods are simply delegated to the presentation model.
+
+
+{{{
+// First we update the form to define and create our presentation model and to add
+// the Pectin widget binders.
+public class EditContactView extends Composite implements EditContactPresenter.Display {
+
+   private EditContactViewModel model = new EditContactViewModel();
+   private WidgetBinder binder = new WidgetBinder();
+   private ValidationBinder validation = new ValidationBinder();
+
+   ...
+}
+}}}
+
+Now we bind the model to our widgets
+{{{
+public EditContactView {
+
+   // normal view creation code
+   ...
+
+   // create and add our validation messages and add it to the form
+   ValidationDisplayPanel validationMessages = new ValidationDisplayPanel();
+   contentDetailsPanel.add(validationMessages);
+ 
+   // more code
+   ...
+
+   // Now we bind widgets to their models
+   binder.bind(model.firstName).to(firstName);
+   binder.bind(model.lastName).to(lastName);
+   binder.bind(model.emailAddress).to(emailAddress);
+
+   // and bind our validation results to our validaiton display
+   validation.bindValidationOf(model).to(validationMessages);
+}}}
+
+
+And finally we'll remove the old widget getters and add the new methods defined in the Display interface.  The new methods simply delegate to the model.
+{{{
+public void setContact(Contact contact)
+{
+   model.setContact(contact);
+}
+
+public void commit()
+{
+   model.commit();
+}
+
+public boolean validate()
+{
+   return model.validate();
+}
+}}}
+
+The full updated source is available here: [http://code.google.com/p/gwt-pectin/source/browse/trunk/contacts-mvp-example/src/main/java/com/google/gwt/sample/contacts/client/view/EditContactView.java EditContactView.java]
