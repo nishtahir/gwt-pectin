@@ -2,7 +2,7 @@
 
 = Using Pectin with MVP =
 
-This page  to integration of Pectin with the [http://code.google.com/webtoolkit/doc/latest/tutorial/mvp-architecture.html MVP sample] in the GWT documentation.  The example itself as a lousy test case for Pectin however since the customer edit form is so trivial.  But for the sake of the argument I'll do it anyway and add a few features to give a better feel for the features of Pectin.
+This page shows the integration of Pectin with the [http://code.google.com/webtoolkit/doc/latest/tutorial/mvp-architecture.html MVP sample] in the GWT documentation.  The example itself is a lousy test case for Pectin however since the customer edit form is so trivial.  But for the sake of the argument I'll do it anyway and add a few features to give a better feel for the features of Pectin.
 
 = The Approach =
 There are a couple of ways to approach the design.  In this case I've chosen to embed the presentation model within the view.  You could also have the Presenter own the Presentation Model but in this case there were no clear advantages to that approach and it only increased the complexity of the Presenter.
