@@ -12,12 +12,14 @@ Gradle requires a number of build files (this requirement is being relaxed later
 
 {{{
 <root>
-  - build.gradle     <- project wide configuration
-  - settings.gradle  <- bulid system settings and config
+  - build.gradle          <- project wide configuration
+  - settings.gradle       <- bulid system settings and config
+  - contacts-mvp-example
+    - build.gradle        <- mvp example build file 
   - demo
-    - build.gradle   <- demo build file
+    - build.gradle        <- demo build file
   - gwt-pectin
-    - build.gradle   <- main build file
+    - build.gradle        <- main build file
 }}}
 
 
@@ -28,7 +30,7 @@ The source layout for the project follows the standard Maven layout with the add
 <root>
   - gwt-pectin
     - src
-      - gwt-test
+      - gwtTest
         - java        <- GWTTestCase test sources
       - main
         - java        <- main pectin sources
@@ -81,3 +83,12 @@ From `root/demo`:
 }}}
 
 The compiled output can be found in `root/demo/build/web`.
+
+
+=Running the MVP Example=
+To run the demo you need to be in the demo sub directory.
+
+From `root/contacts-mvp-example`:
+{{{
+   ./gradlew shell
+}}}
