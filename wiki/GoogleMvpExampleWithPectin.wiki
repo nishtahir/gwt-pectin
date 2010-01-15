@@ -151,7 +151,7 @@ The full updated source is available here: [http://code.google.com/p/gwt-pectin/
 
 == Now Update the View ==
 
-The changes to the view are relatively simple.  Firstly we update it to implement the new Display interface, namely by removing the widget getters and adding the new methods.  The new methods are simply delegated to the presentation model.
+The changes to the view are relatively simple.  Firstly we update it to implement the new Display interface, namely by removing the widget getters and adding the new methods.  The new methods are simply delegated to the presentation model.  We also add the pectin binders and a widget for displaying the validation messages. 
 
 
 {{{
