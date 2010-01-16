@@ -1,0 +1,26 @@
+#summary Some Gotcha's to look out for
+= Gotcha's to look out for =
+
+== GWT's !CheckBox doesn't like nulls ==
+GWT's !CheckBox will barf if `setValue(Boolean)` is passed a null.  This is an issue since `FieldModel<Boolean>` will almost always contain a null at some point.  The solution is to override `CheckBox.setValue(Boolean)` to convert `null` values to `false`.  Pectin provides a `NullSafeCheckBox` that does just that for you to use.
+
+This issue only surfaces when you're binding a `FieldModel<Boolean>` directly to a `CheckBox`.  I.e.
+
+{{{
+// in our model...
+FieldModel<Boolean> field = fieldOfType(Boolean.class).boundTo(...);
+
+// and in our form
+CheckBox checkBox = new CheckBox();
+binder.bind(model.field).to(checkbox);
+}}}
+
+In this case using a `NullSafeCheckBox` will fix the problem.
+
+Cases where you use the `withValue(...)` and `containingValue(...)` methods work fine with regular !CheckBoxes as they never apply a null value.
+
+{{{
+// this is ok since the containingValue bindings never use nulls.
+CheckBox checkBox = new CheckBox();
+binder.bind(model.someListField).containingValue("blah").to(checkbox);
+}}} 
