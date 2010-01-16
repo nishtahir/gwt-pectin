@@ -138,7 +138,7 @@ CollectionConverter converter = new CollectionConverter<HashSet>() {
       return source;
    }
 
-   public List toBean(List<?> source)
+   public HashSet toBean(List<?> source)
    {
       return new HashSet<Object>(source);
    }
