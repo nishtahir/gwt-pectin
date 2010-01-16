@@ -14,10 +14,17 @@ FieldModel<Boolean> field = fieldOfType(Boolean.class).boundTo(...);
 
 // and in our form
 CheckBox checkBox = new CheckBox();
-binder.bind(model.field).to(checkbox);
+binder.bind(model.field).to(checkbox); // this will generally barf 
 }}}
 
 In this case using a `NullSafeCheckBox` will fix the problem.
+
+{{{
+// This will fix it.
+NullSafeCheckBox checkBox = new NullSafeCheckBox();
+binder.bind(model.field).to(checkbox); // this will work 
+
+}}}
 
 Cases where you use the `withValue(...)` and `containingValue(...)` methods work fine with regular !CheckBoxes as they never apply a null value.
 
