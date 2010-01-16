@@ -6,6 +6,7 @@
      * [GuideMetadataPlugin Metadata Plugin]
      * Validation Plugin
      * Style Plugin
+  * [GuideGotchas Gotcha's]
   * [BuildingFromSource Building from source]
   * [ComparedToMVP Compared to MVP]
   * [ReleaseNotes Release Notes]
