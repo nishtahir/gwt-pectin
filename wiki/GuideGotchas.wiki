@@ -44,7 +44,6 @@ public class MyBean
 {
    public ArrayList<String> getTheList() {...}
    public void setTheList(ArrayList<String> thelist) {...}
-
 }
 }}}
 
