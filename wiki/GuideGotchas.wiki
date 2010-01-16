@@ -1,4 +1,6 @@
 #summary Some Gotcha's to look out for
+#sidebar TableOfContents
+
 = Gotcha's to look out for =
 
 == GWT's !CheckBox doesn't like nulls ==
