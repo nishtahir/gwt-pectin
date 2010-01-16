@@ -38,4 +38,24 @@ binder.bind(model.someListField).containingValue("blah").to(checkbox);
 == !BeanModelProvider currently only support the collections interfaces ==
 Currently the default collection converters support the collection interface types (List, Set etc) and not the concrete implementations (!ArrayList, !HashSet etc).  Until I get around to adding the various concrete types (or you decide to add your own) you'll need to limit your return types from your beans properties to the interfaces.
 
+{{{
+// this will barf unless you register a collection converter for ArrayLists 
+public class MyBean 
+{
+   public ArrayList<String> getTheList() {...}
+   public void setTheList(ArrayList<String> thelist) {...}
+
+}
+}}}
+
+And this will work out of the box.
+{{
+// this works out of the box
+public class MyBean 
+{
+   public List<String> getTheList() {...}
+   public void setTheList(List<String> thelist) {...}
+}
+}}}
+
 See GuideBindingToBeans for more info.  
