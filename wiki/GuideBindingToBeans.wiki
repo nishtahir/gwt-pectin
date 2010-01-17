@@ -69,7 +69,8 @@ Once all the wiring has been done all that is left is to configure the provider 
 personProvider.setBean(new Person());
 }}}
 
-Changes are not automatically propegated back to the bean.  To update the bean you need to call `commit()` on the provider.
+=== Committing Changes ===
+By default changes are not automatically propegated back to the bean.  To update the bean you need to call `commit()` on the provider.
 
 {{{
 // write the change back to the underlying bean.
@@ -82,6 +83,37 @@ You can also call revert
 personProvider.revert();
 }}}
 
+
+=== Using Auto Commit ===
+Setting the provider to autocommit mode will cause all changes to be written to the bean as they happen.  In this case the dirty state (see below) will always be false.
+
+{{{
+// use auto commit
+personProvider.setAutoCommit(true);
+}}}
+
+
+=== Dirty Tracking ===
+The !BeanModelProvider also provides a `ValueModel<Boolean>` that tracks the dirty state of the data.  If any value is changed from the state defined by the bean then the value model will change to `true`.  If the change is reverted (either by calling revert or by a user change) the dirty state will change back to `false`.  Likewise committing the changes will also revert the dirty state back to `false`. 
+
+{{{
+ValueModel<Boolean> dirty = personProvider.getDirtyModel();
+}}}
+
+If you have more than one provider you can use conditions to create a global dirty model.
+
+{{{
+ValueModel<Boolean> dirty = Conditions.or(personProvider.getDirtyModel(), addressProvider.getDirtyModel());
+}}}
+
+
+Then the dirty model can be easily used to enabled and disable buttons in the view.
+
+{{{
+MetadataBinder metadata = new MetadataBinder();
+
+metadata.bindValueOf(model.dirty).toEnablednessOf(saveButton);
+}}}
 
 =Binding to collection properties=
 
