@@ -69,7 +69,7 @@ Once all the wiring has been done all that is left is to configure the provider 
 personProvider.setBean(new Person());
 }}}
 
-=== Committing Changes ===
+==5. Committing Changes ==
 By default changes are not automatically propegated back to the bean.  To update the bean you need to call `commit()` on the provider.
 
 {{{
@@ -93,7 +93,7 @@ personProvider.setAutoCommit(true);
 }}}
 
 
-=== Dirty Tracking ===
+= Dirty Tracking =
 The !BeanModelProvider also provides a `ValueModel<Boolean>` that tracks the dirty state of the data.  If any value is changed from the state defined by the bean then the value model will change to `true`.  If the change is reverted (either by calling revert or by a user change) the dirty state will change back to `false`.  Likewise committing the changes will also revert the dirty state back to `false`. 
 
 {{{
