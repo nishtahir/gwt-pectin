@@ -69,7 +69,7 @@ Once all the wiring has been done all that is left is to configure the provider 
 personProvider.setBean(new Person());
 }}}
 
-==5. Committing Changes ==
+==5. Committing changes==
 By default changes are not automatically propegated back to the bean.  To update the bean you need to call `commit()` on the provider.
 
 {{{
