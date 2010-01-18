@@ -3,8 +3,8 @@
 == Release 0.5 ==
   * Removed var-arg methods from `AbstractDynamicList` to work around GWT 2 compiler problem (issue 10).
   * Updated computed fields to support functions that convert from any super of the source model type.  I.e. this allows for the use of a generic `ToStringFunction` for any type of source model. 
-  * Updated `ComputedValueModel` to expose getters and setters for the function.
   * Added default implementation of a `ToStringFunction`.
+  * Updated `ComputedValueModel` to expose getters and setters for the function.
   * Added support for watermarks derived from arbitrary value models as per issue 9.
   * Added var-args watermark methods so you can do things like `watermark(name, email).with("Required")`.
   * Introducing new `FieldModelBase` and `ListFieldModelBase` types so that the API can safely distinguish between formatted and regular variants of each model type.
