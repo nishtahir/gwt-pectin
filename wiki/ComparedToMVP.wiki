@@ -5,7 +5,7 @@
 
 == Comparing apples and oranges...==
 
-One of the difficulties in comparing various standard approaches is that each approach is not so much a pattern in and of itself, but rather a collection of patterns.  For example the presenter in MVP typically performs the roles of both a facade and mediator and the Presentation Model acts as an adapter, mediator and decorator.
+One of the difficulties in comparing various standard approaches is that each approach is not so much a pattern in and of itself, but rather a collection of patterns.  For example the presenter in MVP typically performs the roles of both a facade and mediator while the Presentation Model approach employs patterns such as adapter, mediator and decorator.
 
 In reality the two approaches are not mutually exclusive.  In fact using a presentation model can greatly simplify the role of the presenter in an MVP environment. 
 
