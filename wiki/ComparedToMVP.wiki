@@ -26,7 +26,7 @@ Another difference between using MVP and the Presentation Model approach (and sp
 
 == Keeping the Presenter ==
 
-The Presenter (or more correctly the [http://martinfowler.com/eaaDev/SupervisingPresenter.html Supervising Controller]) typically performs additional roles such as executing RPC calls, responding to application events and performing tasks such as instantiating the view and updating the model.  This role is still useful in and of itself when using the Presentation Model approach.  By moving all the view state to a Presentation Model the Presenters roles can be greatly simplified.
+The Presenter (also known as the [http://martinfowler.com/eaaDev/SupervisingPresenter.html Supervising Controller]) typically performs additional roles such as executing RPC calls, responding to application events and performing tasks such as instantiating the view and updating the model.  This role is still useful in and of itself when using the Presentation Model approach.  By moving all the view state to a Presentation Model the Presenters roles can be greatly simplified.
 
 
 == An Example ==
