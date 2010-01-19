@@ -4,14 +4,13 @@
 = Testing =
 There are a couple of approaches to testing your view code which depending on your circumstance.  Because Pectin makes use of functions, formats, validators and the like a lot the forms functionality can be moved out of the form and into these classes where they can be tested independently.  
 
-Form here you need to decide what level of testing you'd like to do as unit tests and integration tests.  I.e. if you're doing comprehensive integration testing (with the likes of something like Selenium or some unlucky humans) then you may choose to do limited testing your models (since if the view works then there's a good chance your model does too).  This is especially true if you want to test if things like watermarks and validation messages actually appear on the UI where you expected.
+Form here you need to decide what level of testing you'd like to do as unit tests and integration tests.  I.e. if you're doing comprehensive integration testing (with the likes of Selenium or some unlucky humans) then you may choose to do limited testing your models (since if the view works then there's a good chance your model does too).  You'll always need to do integration testing if you want to test if things like watermarks and validation messages actually appear on the UI when and where you expected.  Testing the model will only get you so far and you probably don't want to have duplicate testing code.
 
-There is of course also merit in unit testing your models, you may for instance want to verify that your `firstName` field is infact bound to correct property of your bean.  You can also test that other aspects like commit/revert, validation and metadata are working correctly (albeit only from the models perspective).
-
+There is of course also merit in unit testing your models.  You can for instance easily verify that your value models are in fact bound to the correct property of your bean.  You can also test that other aspects like commit/revert, validation and metadata are working correctly (albeit only from the models perspective).
 
 == Testing your model without resorting to GWTTestCase ==
 
-One of the great advantages of MVP is that you can reduce the amount of testing that is preformed using GWTTestCase.  Since Pectin uses `GWT.create(...)` for binding to beans a `TestUtil.reflectionBeanModelProvider` utility is provided so you can run all your using your favorite testing tools on the JRE.
+One of the advantages of MVP is that you can reduce the amount of testing that is preformed using GWTTestCase.  Since Pectin uses `GWT.create(...)` for binding to beans a `TestUtil.reflectionBeanModelProvider` utility is provided so you can run all your using your favorite testing tools on the JRE.
 
 This utility uses reflection to implement the three abstract methods of `BeanModelProvider`.  The trick to using it is to define a non-public constructor that accepts the provider of required type.
 
