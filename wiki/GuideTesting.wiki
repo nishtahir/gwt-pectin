@@ -42,7 +42,8 @@ public MyFormModel extends FormModel
 }}}
 
 
-Now our unit tests can use a reflection variant of the `BeanModelProvider`.
+Now our unit tests can use a reflection variant of the `BeanModelProvider`.  
+
 {{{
 public class MyFormModelTest
 {
