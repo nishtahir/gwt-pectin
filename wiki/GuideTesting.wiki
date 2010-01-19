@@ -1,7 +1,7 @@
-#summary Unit Testing
+#summary Testing
 #sidebar TableOfContents
 
-= Unit Testing =
+= Testing =
 
 TODO:
   * Mention `TestUtil.reflectionBeanModelProvider(Class<T>)`
