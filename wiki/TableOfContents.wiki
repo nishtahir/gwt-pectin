@@ -6,7 +6,7 @@
      * [GuideMetadataPlugin Metadata Plugin]
      * Validation Plugin
      * Style Plugin
-  * [GuideTesting Unit Testing]
+  * [GuideTesting Testing]
   * [GuideGotchas Gotcha's]
   * [BuildingFromSource Building from source]
   * [ComparedToMVP Compared to MVP]
