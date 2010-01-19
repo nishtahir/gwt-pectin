@@ -1,4 +1,5 @@
 #summary Unit Testing
+#sidebar TableOfContents
 
 = Unit Testing =
 
