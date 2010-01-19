@@ -10,7 +10,9 @@ There is of course also merit in unit testing your models.  You can for instance
 
 == Testing your model without resorting to GWTTestCase ==
 
-One of the advantages of MVP is that you can reduce the amount of testing that is preformed using GWTTestCase.  Since Pectin uses `GWT.create(...)` for binding to beans a `TestUtil.reflectionBeanModelProvider` utility is provided so you can run all your using your favorite testing tools on the JRE.
+One of the advantages of MVP is that you can reduce the amount of testing that is preformed using GWTTestCase.  Since Pectin uses `GWT.create(...)` for binding to beans a `TestUtil.reflectionBeanModelProvider` utility is provided so you can run all your using your favorite testing tools on the JRE.  
+
+*Please Note:* The `TestUtil` class will be in release 0.6.
 
 This utility uses reflection to implement the three abstract methods of `BeanModelProvider`.  The trick to using it is to define a non-public constructor that accepts the provider of required type.
 
