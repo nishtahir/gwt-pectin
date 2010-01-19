@@ -101,17 +101,28 @@ The first step was to create a Presentation Model for the view.  It defines the 
 {{{
 public class EditContactViewModel extends FormModel
 {
+   
    // create our bindings to our bean
    public abstract static class ContactProvider extends BeanModelProvider<Contact> {}
-   private ContactProvider contactProvider = GWT.create(ContactProvider.class);
+   // we're using the base type so we can use a refection variant in our JRE tests.
+   private BeanModelProvider<Contact> contactProvider;
 
-   // define our fields
    protected final FieldModel<String> firstName;
    protected final FieldModel<String> lastName;
    protected final FieldModel<String> emailAddress;
 
    public EditContactViewModel()
    {
+      this((ContactProvider) GWT.create(ContactProvider.class));
+   }
+
+   /**
+    * This constructor is provided for our testing.
+    */
+   protected EditContactViewModel(BeanModelProvider<Contact> contactProvider)
+   {
+      this.contactProvider = contactProvider;
+
       // create our fields and bind to our bean
       firstName = fieldOfType(String.class).boundTo(contactProvider, "firstName");
       lastName = fieldOfType(String.class).boundTo(contactProvider, "lastName");
@@ -147,6 +158,9 @@ public class EditContactViewModel extends FormModel
 }}}
 
 The full updated source is available here: [http://code.google.com/p/gwt-pectin/source/browse/trunk/contacts-mvp-example/src/main/java/com/google/gwt/sample/contacts/client/view/EditContactViewModel.java EditContactViewModel.java]
+=== And test it ===
+You can read about testing and the various approaches on the [GuideTesting testing page] on the wiki.  A basic test class here: [http://code.google.com/p/gwt-pectin/source/browse/trunk/contacts-mvp-example/src/test/java/com/google/gwt/sample/contacts/client/view/EditContactViewModelTest.java EditContactViewModelTest.java]
+
 
 
 == Now Update the View ==
