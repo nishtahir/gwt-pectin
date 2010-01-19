@@ -158,7 +158,7 @@ public class EditContactViewModel extends FormModel
 }}}
 
 The full updated source is available here: [http://code.google.com/p/gwt-pectin/source/browse/trunk/contacts-mvp-example/src/main/java/com/google/gwt/sample/contacts/client/view/EditContactViewModel.java EditContactViewModel.java]
-=== And test it ===
+=== And test it... ===
 You can read about testing and the various approaches on the [GuideTesting testing page] on the wiki.  A basic test class here: [http://code.google.com/p/gwt-pectin/source/browse/trunk/contacts-mvp-example/src/test/java/com/google/gwt/sample/contacts/client/view/EditContactViewModelTest.java EditContactViewModelTest.java]
 
 
