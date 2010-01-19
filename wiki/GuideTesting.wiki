@@ -3,5 +3,5 @@
 = Unit Testing =
 
 TODO:
-  * Mention TestUtil.reflectionBeanModelProvider(Class<T>)
+  * Mention `TestUtil.reflectionBeanModelProvider(Class<T>)`
   * Discuss unit testing the model model vs integration testing with something like selenium (or unlucky humans).
