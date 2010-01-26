@@ -1,8 +1,7 @@
 #summary Pectin Release Notes
 
 == Next Release ==
-  * Added TestUtil class and RefectionBeanModelProvider to facilitate JVM based unit
-tests.
+  * Added `TestUtil` class and `RefectionBeanModelProvider` to facilitate JVM based unit tests.
   * Updated `AbstractDynamicList` constructor to take the text of the remove link.  
 
 == Release 0.5 ==
