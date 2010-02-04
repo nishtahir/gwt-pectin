@@ -4,7 +4,7 @@
   * Added `TestUtil` class and `RefectionBeanModelProvider` to facilitate JVM based unit tests.
   * Updated `BeanModelProvider` dirty models to no longer fire events when `dirtyModel.setValue(..)` is called with the same value.
   * Updated `AbstractDynamicList` constructor to take the text of the remove link.  
-  * Updated WidgetBinder methods for binding to HasText widgets (labels) to use default formats.  E.g. `binder.bind(model.gender).to(myLabel)` will use the default `ToStringFormat`.  To specify a format you can call `binder.bind(model.gender).to(myLabel).withFormat(genderFormat)`.
+  * Updated `WidgetBinder` `toLabel(HasText)` methods use default formats.  E.g. `binder.bind(model.gender).to(myLabel)` will use the default `ToStringFormat`.  To specify a different format you can call `binder.bind(model.gender).to(myLabel).withFormat(genderFormat)`.
   * Cleaned and refactored `WidgetBinder` infrastructure.  `BindingCallback` has been simplified and various builders updated to be more consistent.
   * Moved `CollectionToStringFormat` and `ToStringFormat` to the format package.
 
