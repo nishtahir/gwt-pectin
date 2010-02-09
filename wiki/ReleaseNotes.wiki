@@ -7,7 +7,7 @@
   * Updated `WidgetBinder.toLabel(HasText)` methods to use default formats.  E.g. `binder.bind(model.gender).to(myLabel)` will use the default `ToStringFormat`.  To specify a different format you can call `binder.bind(model.gender).to(myLabel).withFormat(genderFormat)`.
   * Cleaned and refactored `WidgetBinder` infrastructure.  `BindingCallback` has been simplified and various builders updated to be more consistent.
   * Moved `CollectionToStringFormat` and `ToStringFormat` to the format package.
-  * Fixed the generics on  `ReducingValueModel`, `Reduce` and `ListDisplayFormat` so creating default ToString style variants works without casting.  See [http://pietschy.com/blog/2010/02/using-extends-t-and-super-t-for-reduce-style-functions-that-operate-on-collections/ this blog entry if you're interested].
+  * Fixed the generics on  `ReducingValueModel`, `Reduce` and `ListDisplayFormat` so creating default `ToString` style functions and formats works without casting.  See [http://pietschy.com/blog/2010/02/using-extends-t-and-super-t-for-reduce-style-functions-that-operate-on-collections/ this blog entry if you're interested].
   * Updated `ReducingValueModel` to support run time changes to the `Reduce` function.
   * Added `ReducingValueModel.recomputeAfterRunning(Runnable)` to allow for multiple changes to the source models or function while triggering only one value change event. 
 
