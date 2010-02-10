@@ -1,5 +1,7 @@
 #summary An example of using Pectin with MVP
 
+<wiki:gadget url="http://gwt-pectin.googlecode.com/svn/trunk/etc/adsense_gadget.xml" border="0" width="468" height="60" />
+
 = Using Pectin with MVP =
 
 Following on from the [ComparedToMVP comparison of MVP and Pectin], this page shows how Pectin can be used with the [http://code.google.com/webtoolkit/doc/latest/tutorial/mvp-architecture.html MVP sample] in the GWT documentation.  The example itself is a lousy test case for Pectin however since the customer edit form is so trivial.  But for the sake of the argument I'll do it anyway and add a few features to give a better feel for the features of Pectin.
