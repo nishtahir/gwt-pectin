@@ -5,7 +5,7 @@ There have been some breaking changes to `BeanModelProvider`, see below.
   * Refactored `BeanModelProvider` code into three separate types.
     # `BeanModelProvider` - as before but without the autocommit capabilities
     # `AutoCommitBeanModelProvider` - new provider that always writes value changes to the underlying bean
-    # `CopyingBeanModelProvider` -  a new provider to copies state to and from beans without keeping a reference to any particular instance.  This provider is useful for updating cloned instances.  It allows the dirty state to be updated at some time after the update i.e. after a RPC call returns successfully.
+    # `CopyingBeanModelProvider` -  a new provider to copies state to and from beans without keeping a reference to any particular instance.  This provider is useful for updating cloned instances.  It allows the dirty state to be updated at some time after the update i.e. after a RPC call returns successfully.  Initial support for checkpointing has been added, although at this time it's only to clear the dirty state.  It could easily be updated support restore operations (using mementos) if required.
   * `BeanModelProviders` now check and enforce collection elements types (issue 13).  This means calls like `fieldOfType(String.class).boundTo(bean, "property")` and `listOfType(String.class).boundTo(bean, "listProperty")` will barf if either properties don't exist or are the wrong type.  Thus a unit test that can simply instantiate the form guarantees that the properties exist and have the correct type.
   * `BeanModelProviders` now barf if you try and write to a read only property.
   * The dirty models to no longer fire events when `dirtyModel.setValue(..)` is called with the same value.
