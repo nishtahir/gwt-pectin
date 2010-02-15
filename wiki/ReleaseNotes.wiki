@@ -2,13 +2,13 @@
 
 == Next Release ==
   * There have been *breaking changes* to `BeanModelProvider`, see below.
-  * Refactored `BeanModelProvider` code into three separate types.
-    # `BeanModelProvider` - as before but without the autocommit capabilities
-    # `AutoCommitBeanModelProvider` - new provider that always writes value changes to the underlying bean
-    # `CopyingBeanModelProvider` -  a new provider to copies state two and from beans.  This provider is useful for updating cloned instances and allows the dirty state to be updated at some time after the update (i.e. after a successful RPC call)
-  * `BeanModelProviders` now barf if you try and write to a read only property.
-  * `BeanModelProviders` now check and enforce collection elements types (issue 13).
-  * Updated `BeanModelProvider` dirty models to no longer fire events when `dirtyModel.setValue(..)` is called with the same value.
+    * Refactored `BeanModelProvider` code into three separate types.
+      # `BeanModelProvider` - as before but without the autocommit capabilities
+      # `AutoCommitBeanModelProvider` - new provider that always writes value changes to the underlying bean
+      # `CopyingBeanModelProvider` -  a new provider to copies state two and from beans.  This provider is useful for updating cloned instances and allows the dirty state to be updated at some time after the update (i.e. after a successful RPC call)
+    * `BeanModelProviders` now barf if you try and write to a read only property.
+    * `BeanModelProviders` now check and enforce collection elements types (issue 13).
+    * Updated `BeanModelProvider` dirty models to no longer fire events when `dirtyModel.setValue(..)` is called with the same value.
   * Updated `AbstractDynamicList` constructor to take the text of the remove link.  
   * Updated `WidgetBinder.toLabel(HasText)` methods to use default formats.  E.g. `binder.bind(model.gender).to(myLabel)` will use the default `ToStringFormat`.  To specify a different format you can call `binder.bind(model.gender).to(myLabel).withFormat(genderFormat)`.
   * Cleaned and refactored `WidgetBinder` infrastructure.  `BindingCallback` has been simplified and various builders updated to be more consistent.
