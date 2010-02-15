@@ -5,7 +5,7 @@
     * Refactored `BeanModelProvider` code into three separate types.
       # `BeanModelProvider` - as before but without the autocommit capabilities
       # `AutoCommitBeanModelProvider` - new provider that always writes value changes to the underlying bean
-      # `CopyingBeanModelProvider` -  a new provider to copies state two and from beans.  This provider is useful for updating cloned instances and allows the dirty state to be updated at some time after the update (i.e. after a successful RPC call)
+      # `CopyingBeanModelProvider` -  a new provider to copies state to and from beans without keeping a reference to any particular instance.  This provider is useful for updating cloned instances and allows the dirty state to be updated at some time after the update (i.e. after a successful RPC call)
     * `BeanModelProviders` now barf if you try and write to a read only property.
     * `BeanModelProviders` now check and enforce collection elements types (issue 13).
     * Updated `BeanModelProvider` dirty models to no longer fire events when `dirtyModel.setValue(..)` is called with the same value.
