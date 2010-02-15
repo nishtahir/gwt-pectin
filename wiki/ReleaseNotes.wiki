@@ -1,7 +1,7 @@
 #summary Pectin Release Notes
 
 == Next Release ==
-  * __Breaking Changes__ to `BeanModelProvider`
+  * There have been *breaking changes* to `BeanModelProvider`, see below.
   * Refactored `BeanModelProvider` code into three separate types.
     # `BeanModelProvider` - as before but without the autocommit capabilities
     # `AutoCommitBeanModelProvider` - new provider that always writes value changes to the underlying bean
