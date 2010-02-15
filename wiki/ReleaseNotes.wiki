@@ -10,11 +10,11 @@
     * `BeanModelProviders` now check and enforce collection elements types (issue 13).
     * Updated `BeanModelProvider` dirty models to no longer fire events when `dirtyModel.setValue(..)` is called with the same value.
   * Updated `AbstractDynamicList` constructor to take the text of the remove link.  
-  * Updated `WidgetBinder.toLabel(HasText)` methods to use default formats.  E.g. `binder.bind(model.gender).to(myLabel)` will use the default `ToStringFormat`.  To specify a different format you can call `binder.bind(model.gender).to(myLabel).withFormat(genderFormat)`.
-  * Moved `CollectionToStringFormat` and `ToStringFormat` to the format package.
+  * Updated `WidgetBinder.toLabel(HasText)` methods to use default formats.  E.g. `binder.bind(model.gender).toLabel(myLabel)` will use the default `ToStringFormat`.  To specify a different format you can call `binder.bind(model.gender).toLabel(myLabel).withFormat(genderFormat)`.
   * Fixed the generics on  `ReducingValueModel`, `Reduce` and `ListDisplayFormat` so creating default `ToString` style functions and formats works on collections without casting.  See [http://pietschy.com/blog/2010/02/using-extends-t-and-super-t-for-reduce-style-functions-that-operate-on-collections/ this blog entry if you're interested].
   * Updated `ReducingValueModel` to support run time changes to the `Reduce` function.
   * Added `ReducingValueModel.recomputeAfterRunning(Runnable)` to allow for multiple changes to the source models or function while triggering only one value change event. 
+  * Moved `CollectionToStringFormat` and `ToStringFormat` to the format package.
   * Cleaned and refactored `WidgetBinder` infrastructure.  `BindingCallback` has been simplified and various builders updated to be more consistent.
   * Added `TestUtil` class and `RefectionBeanModelProvider` to facilitate JVM based unit tests.
 
