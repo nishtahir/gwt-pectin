@@ -12,6 +12,8 @@ The following illustrates the chain of data as it passes from the domain to the 
                                            [Plugins]
 }}} 
 
+Please note: The above diagram demonstrates the data path and relationships between the various components of pecting.  It doesn't imply an architectural pattern or implementation approach.  Typically I embed presentation models inside views that implement some kind of Editor or Display interface.  Supervising controllers interact with the interface which delegates to the presentation model as required. 
+
   # *Domain Data* - data like the fields of a Customer, Address etc.  Domain should have no view state or dependency on view code what so ever (although binding may require annotations).
   # *Domain Services* - the things that are used to load/save the domain data and do other server side things.  Pectin doesn't use these currently but I'm hoping I can for async validation.
   # *Adapters* - The Adapters are responsible for creating `ValueModel`'s from your domain data.  Pectin currently provides `BeanModelProvider`, `AutoCommitBeanModelProvider` and `CopyBeanModelProvider` but there is nothing stopping you from implementing your own adaption layer to suit special circumstances.
@@ -37,4 +39,5 @@ It's also important to note that pectin *isn't an application infrastructure des
 As an example I wouldn't use pectin as the pattern to implement a master detail style view.  I would use it to create the detail portion of the view (if it solved the problem of course) but the master view would hopefully use tools specific to displaying data in lists and/or tables.  A supervising controller would then mediate between the two (depending of course on the design requirements).
 
 An example "not everything is a value model" would be using a nested presentation model to facilitate reuse of complex components (i.e. such as a validated address editor component).  This would allow you to synchronise and customise validation between the parent form and the editor component all at the presentation model level.
+
   
