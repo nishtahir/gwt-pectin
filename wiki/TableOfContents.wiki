@@ -1,6 +1,7 @@
 #summary Table of Contents
 
   * [GuidePectinArchitectureOverview Architectural Overview]
+  * Getting Started
   * [GuideBindingToBeans Binding to beans]
   * Plugins
      * [GuideMetadataPlugin Metadata Plugin]
