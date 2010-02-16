@@ -12,8 +12,9 @@ The following illustrates the chain of data as it passes from the domain to the 
                                            [Plugins]
 }}} 
 
-Please note: The above diagram demonstrates the data path and relationships between the various components of pectin.  It doesn't imply an architectural pattern or an approach to implementing your app.  Typically I embed presentation models inside views, those views implement some kind of Editor or Display which then interacts with a Supervising controllers of somekind.  The view typically delegates to the presentation model as required. 
+*Please note:* The above diagram demonstrates the data path and relationships between the various components of pectin.  It doesn't imply an architectural pattern or an approach to implementing your app.  Typically I embed presentation models inside views, those views implement some kind of Editor or Display which then interacts with a Supervising controllers of somekind.  The view typically delegates to the presentation model as required. 
 
+The following outlines the roles of the various bits and pieces.
   # *Domain Data* - data like the fields of a Customer, Address etc.  Domain should have no view state or dependency on view code what so ever (although binding may require annotations).
   # *Domain Services* - the things that are used to load/save the domain data and do other server side things.  Pectin doesn't use these currently but I'm hoping I can for async validation.
   # *Adapters* - The Adapters are responsible for creating `ValueModel`'s from your domain data.  Pectin currently provides `BeanModelProvider`, `AutoCommitBeanModelProvider` and `CopyBeanModelProvider` but there is nothing stopping you from implementing your own adaption layer to suit special circumstances.
