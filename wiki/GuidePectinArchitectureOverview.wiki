@@ -36,5 +36,5 @@ It's also important to note that pectin *isn't an application infrastructure des
 
 As an example I would use pectin to implement a master detail style view.  I would use it to create the detail portion of the view (if it solved the problem of course) but the master view would hopefully use tools specific to displaying data in lists and/or tables.  A supervising controller would then mediate between the two.
 
-An example "not everything is a valuemodel" would be using nested presentation model to faciltate reuse of complex components (i.e. such as a validated address editor component) into your view.  This would allow you to synchronise and customise validation between the parent form and the editor component all at the presentation model level.
+An example "not everything is a value model" would be using a nested presentation model to facilitate reuse of complex components (i.e. such as a validated address editor component).  This would allow you to synchronise and customise validation between the parent form and the editor component all at the presentation model level.
   
