@@ -1,4 +1,5 @@
 #summary Architectural overview of Pectin
+#sidebar TableOfContents
 
 =Overview of the Pectin approach=
 Pectin's approach is to segregate UI code into three basic facets or 'zones of responsibility' if you like, the domain, the presentation model and the View.  The following illustrates.  One of the advantages of this approach is that it brings consistency to developing views.  Behaviour and state is defined by the Presentation Model and the View remains passive.  
