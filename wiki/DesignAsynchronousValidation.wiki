@@ -19,7 +19,7 @@ Here's the context including the plugin...
                                       [Validation Plugin]
 }}}
 
-=Adding Async Validators to the ValidationPlugin=
+=Adding async validators to the !ValidationPlugin=
 
 For the first case of handling basic Async validation I'll need to define some new async version of the validator interfaces:
 {{{
