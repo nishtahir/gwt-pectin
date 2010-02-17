@@ -73,6 +73,6 @@ validateField(name).usingValueStore();
 
 It may be worth making this a little less bound to `ValueStore` and have our `ValueStoreValueModel` implement interfaces like `HasValidationService`,  `HasValidators`,  `HasAsynValidators` or even some thing like just `HasValidationErrors`.  That way if you want to use something else other than `ValueStore` you can write your own adapter and still use all of pectins functionality.  In this case I'd probably name the validation method something like `validateField(name).usingDomainValidationServices()` or something. 
 
-There may be a requirement to hook a callback up to transform any async errors in to meaningful error messages in the case of an RPC failure.  The mechanism for displaying such errors is going to be highly application dependent. 
+There may be a requirement to hook a callback up to transform any async errors in to meaningful error messages in the case of an RPC failure.  The mechanism for displaying such errors is likely to be highly application specific. 
 
 There's the possibility it could be auto wired (if the above is solved), but I'm not a fan of this as it hides the fact from the next guy who comes along.  I don't mind magic, but I'm less fond of vast quantities of invisible magic. 
