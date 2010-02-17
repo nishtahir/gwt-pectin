@@ -30,7 +30,7 @@ validateField(aList).using(AsyncListValidator<Integer> validator).when(...);
 
 The async validator interface will likely need to return validation messages rather that take a result collector as an argument.
 
-The Validation plugin would also need to model the fact that validation is in progress, and this would need to be reflected in the rest of the API.  Most notably `ValidationDisplay` would need to be changed to accept notification of the start and end of the validation process.
+The Validation plugin would also need to model the fact that validation is in progress, and this would need to be reflected in the rest of the API.  Most notably `ValidationDisplay` would need to be changed to accept notification of the start and end of the validation process.  This way the display knows when to show the "I'm doing stuff" icons and what not. 
 
 {{{
 public interface ValidationDisplay {
