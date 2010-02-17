@@ -9,7 +9,7 @@ There have been some breaking changes to `BeanModelProvider`, see below.
   * All !BeanModelProviders now check and enforce collection elements types (issue 13).  This means calls like `fieldOfType(String.class).boundTo(bean, "property")` and `listOfType(String.class).boundTo(bean, "listProperty")` will barf if either properties don't exist or are the wrong type.  Thus a unit test that can simply instantiate the form guarantees that the properties exist and have the correct type.
   * All !BeanModelProviders now barf if you try and write to a read only property.
   * The dirty models to no longer fire events when `dirtyModel.setValue(..)` is called with the same value.
-  * The underlying interfaces implemented by the providers (`ValueModelProvider` and `ListModelProvider`) have been updated to support arbitrary key types.  The bean providers now implement `ValueModelProvider<String>` and `ListModelProvider<String>` (i.e. since strings are used for property names).
+  * The underlying interfaces implemented by the providers (i.e. `ValueModelProvider` and `ListModelProvider`) have been updated to support arbitrary key types.  The bean providers now implement `ValueModelProvider<String>` and `ListModelProvider<String>` (i.e. since strings are used for property names).
 
 
 Other changes include
