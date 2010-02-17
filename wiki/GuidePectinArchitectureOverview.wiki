@@ -34,10 +34,9 @@ Within the Presentation Model pectin makes extensive use of !ValueModels.  A val
 Please note that while `ValueModel` doesn't provide mutation methods it can still change.  An example would be a value computed using a `Reduce` style function (e.g. such as suming function).  In this case setting the value is meaningless but the value will change if any of the source values update. 
 
 ==!FieldModels are just !ValueModels==
-!FieldModels are a !ValueModel that holds a reference back to the form that created it.  This is the hook that allows plugins to work as they do.  The WidgetBinder uses this to notify the form that a binding has been created, the form then notifies the plugins and they can do any additional widget configuration.  
+!FieldModels are a !ValueModel that holds a reference back to the form that created it.  This is the hook that allows plugins to work as they do.  The !WidgetBinder uses this to notify the form that a binding has been created, the form then notifies the plugins and they perform additional widget configuration as required.  
 {{{
-// this is just a value model with a reference back to it's 
-// form that gets its date from a bean. 
+// create our field model 
 FieldModel<String> firstName = fieldOfType(String.class).boundTo(beanProvider, "firstName");
 
 // MetadataPlugin.enable(FieldModel<T>) now sets up metadata models in the 
@@ -48,12 +47,12 @@ enable(firstName).when(...);
 {{{ 
 WidgetBinder binder = ...;
 TextBox firstName = ...;
-// now the binder notifies the form which notfies the 
-// metadata plugin which binds the enabled state to the textbox
+// The binder notifies the form which notfies the metadata
+// plugin which binds the enabled state to the textbox
 binder.bind(model.firstName).to(firstName);
 }}} 
 
-=!ListModels and !ListFieldModels=
+==!ListModels and !ListFieldModels==
 !ListModel and !ListFieldModel are the !ValueModel and !FieldModel equivalents for lists.  They fire events when the change and the mutable versions support add/remove & set operations.  
 
 =When all you have is a hammer...=
