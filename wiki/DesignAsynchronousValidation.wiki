@@ -59,13 +59,11 @@ In addition to basic async validation is in place I'm hoping to be able to hook 
 The first part of this work would be to build an adaption layer for the !ValueStore interface.  It may be possible to make this native to pectin so that you can use the !ValueStore directy.
 
 {{{
+// uses an internal ValueStoreAdapter to create the ValueModels  
 FieldModel<String> name = fieldBoundTo(valueStore, TroopId.name());
-ListFieldModel<String> 
 }}}
 
-Hopefully I'll be able to adapt the `ValueStore` capabilities into a `ValueStoreValueModel` that exposes the validation capabilities of the store.
-
-From here the validation plugin could query the fields underlying source model and auto-wire the validation hooks.  E.g. 
+Hopefully I'll be able to create a `ValueStoreValueModel` that exposes the validation capabilities of the store.  From here the validation plugin could query the fields underlying source model and auto-wire the validation hooks.  E.g. 
 
 {{{
 // the validation plugin would query the underlying value model
@@ -75,7 +73,6 @@ validateField(name).usingValueStore();
 
 It may be worth making this a little less bound to `ValueStore` and defining some adapter friendly interfaces like `ValidationService`,  `HasValidators`,  `HasAsynValidators` or even some thing like just `HasValidationErrors`.  That way if you want to use something else other than `ValueStore` you can write your own adapter and still use all of pectins functionality.  In this case I'd probably name the validation method something like `validateField(name).usingDomainValidationServices()` or something. 
  
-
 There may be a requirement to hook a callback up to transform any async errors in to meaningful error messages in the case of an RPC failure.  The mechanism for displaying such errors is going to be highly application dependent. 
 
-There's the possibility it could be auto wired (if the above is solved), but I'm not a fan of this as it hides the fact from the next guy who comes along.  I don't mind magic, but I'm less fond of vast quantities of invisible magic (especially vast quanties of invisible magic that doesn't work). 
+There's the possibility it could be auto wired (if the above is solved), but I'm not a fan of this as it hides the fact from the next guy who comes along.  I don't mind magic, but I'm less fond of vast quantities of invisible magic. 
