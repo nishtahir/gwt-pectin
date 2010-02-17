@@ -35,7 +35,7 @@ Please note that while `ValueModel` doesn't provide mutation methods it can stil
 =When all you have is a hammer...=
 The important thing to remember when using Pectin (or any library) is that the library (or pattern) should serve the problem your trying to solve and not the other way around.  i.e. in the case of pectin, don't try and make everything a value model.  Think of your presentation model as "the stuff my view needs to function" and if pectin doesn't provide what you need then add something else (or use another library or pattern).
 
-It's also important to note that pectin *isn't an application infrastructure design pattern*.  It's strictly concerned with modeling the view layer.  While it can have hooks into domain data and services, this is really something specific for each application and is rarely a case of one size fits all.  
+It's also important to note that pectin *is not an application infrastructure design pattern*.  It's strictly concerned with modeling the view layer.  While it can have hooks into domain data and services, this is really something specific for each application and is rarely a case of one size fits all.  
 
 As an example I wouldn't use pectin as the pattern to implement a master detail style view.  I would use it to create the detail portion of the view (if it solved the problem of course) but the master view would hopefully use tools specific to displaying data in lists and/or tables.  A supervising controller would then mediate between the two (depending of course on the design requirements).
 
