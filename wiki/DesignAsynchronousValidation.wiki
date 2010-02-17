@@ -4,8 +4,8 @@
 
 Pectin curently lacks built in support for async validation.  I don't think this will be difficult to add I'm I hoping I can use the new [http://code.google.com/p/google-web-toolkit/wiki/ValueStoreAndRequestFactory ValueStore & RequestFactory work at Google].  There are a few usecases I'd like to support:
 
-  # Validation using stand alone AsyncValidators, i.e. the same as the current approach only using async validators (no need for googles new code on this one).
-  # Validators defined by the services/models in the domain layer (i.e. hooking into ValueStore/RequestFactory and friends).
+  # Validation using stand alone !AsyncValidators, i.e. the same as the current approach only using async validators (no need for googles new code on this one).
+  # Validators defined by services/models in the domain layer (i.e. hooking into !ValueStore/!RequestFactory and friends).
 
 Things to think about:
   # how to handle async errors.. rpc exceptions != meaningful error messages. There will need to be some means of converting any errors into useful messages and displaying in an application specific manner.  This won't be such and issue when dealing with AsyncValidators, but might be tricky if we're trying to use a backend async validation service that we auto-wire.
@@ -63,8 +63,6 @@ validateField(name).usingExternalValidationServices();
 There may be a requirement to hook a callback up to transform any async errors in to meaningful error messages in the case of an RPC failure.  The mechanism for displaying such errors is going to be highly application dependent. 
 
 There's the possibility it could be auto wired, but I'm not a fan of this as it hides the fact from the next guy who comes along.  I don't mind magic, but I'm less fond of vast quantites of invisible magic. 
-
-
 
 
 
