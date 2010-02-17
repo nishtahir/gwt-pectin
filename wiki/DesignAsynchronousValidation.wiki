@@ -55,7 +55,6 @@ There are a few gotchas to consider for the plugin, namely that it needs to ensu
 
 =Interacting with !ValueStore=
 
-
 In addition to basic async validation is in place I'm hoping to be able to hook into the work being done on this in http://code.google.com/p/google-web-toolkit/wiki/ValueStoreAndRequestFactory.  This would give pectin support for JSR-303 and server side async validation without having to build it from scratch.
 
 The first part of this work would be to build an adaption layer for the !ValueStore interface.  It may be possible to make this native to pectin so that you can use the !ValueStore directy.
@@ -65,7 +64,14 @@ The first part of this work would be to build an adaption layer for the !ValueSt
 FieldModel<String> name = fieldBoundTo(valueStore, TroopId.name());
 }}}
 
-In order for me to support this the `Property` type returned by `TroopId.name()` will need to have a `Class getPropertyType()` method (in addition to the generic declaration).  Some plugins need a reference to the class of the value so determine if their binding capabilities.  If this isn't supported then I'll have to revert to the existing `fieldOfType(String.class).boundTo(valueStore, TroopId.name())` semantics.
+In order for me to support this the `Property` type returned by `TroopId.name()` will need to have a `Class getPropertyType()` method (in addition to the generic declaration) since some plugins need a reference to the class of the value so determine if their binding capabilities.  
+{{{
+Property<TroopId, String> name = TroopId.name();
+// i.e. this should return String.class
+Class nameClass = property.getValueType()
+}}}
+
+If this isn't supported then I'll have to revert to the existing `fieldOfType(String.class).boundTo(valueStore, TroopId.name())` semantics.
 
 Hopefully I'll be able to create a `ValueStoreValueModel` that exposes the validation capabilities of the store.  From here the validation plugin could query the fields underlying source model and auto-wire the validation hooks.  E.g. 
 
