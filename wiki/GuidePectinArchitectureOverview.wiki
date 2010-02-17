@@ -1,4 +1,5 @@
 #summary Architectural overview of Pectin
+#labels Featured
 #sidebar TableOfContents
 
 =Overview of the Pectin approach=
