@@ -64,7 +64,7 @@ The first part of this work would be to build an adaption layer for the !ValueSt
 FieldModel<String> name = fieldBoundTo(valueStore, TroopId.name());
 }}}
 
-In order for me to support this the `Property` type returned by `TroopId.name()` will need to have a `Class getPropertyType()` method (in addition to the generic declaration) since some plugins need a reference to the class of the value so determine if their binding capabilities.  
+In order for me to support this the `Property` type returned by `TroopId.name()` will need to have a `Class getValueType()` style method (in addition to the generic declaration) since some plugins need a reference to the class of the value so determine if their binding capabilities.  E.g.
 {{{
 Property<TroopId, String> name = TroopId.name();
 // i.e. this should return String.class
