@@ -1,0 +1,72 @@
+#summary Design thoughts for supporting async validation services.
+
+=Design thoughs on supporting asyncronous validation=
+
+Pectin curently lacks built in support for async validation.  I don't think this will be difficult to add I'm I hoping I can use the new [http://code.google.com/p/google-web-toolkit/wiki/ValueStoreAndRequestFactory ValueStore & RequestFactory work at Google].  There are a few usecases I'd like to support:
+
+  # Validation using stand alone AsyncValidators, i.e. the same as the current approach only using async validators (no need for googles new code on this one).
+  # Validators defined by the services/models in the domain layer (i.e. hooking into ValueStore/RequestFactory and friends).
+
+Things to think about:
+  # how to handle async errors.. rpc exceptions != meaningful error messages. There will need to be some means of converting any errors into useful messages and displaying in an application specific manner.  This won't be such and issue when dealing with AsyncValidators, but might be tricky if we're trying to use a backend async validation service that we auto-wire.
+  # We're now in the situation where validation is async so our `boolean validate()` method and friends will also need to become async, i.e. `void validate(AsyncCallback<Boolean> callback)` or something similar.
+
+Here's the context including the plugin...
+{{{
+[Domain Data/Services] <-[Adapters]-> [Presentation Model] <-[Bindings]-> [View]
+                                              |
+                                      [Validation Plugin]
+}}}
+
+For the first case of handling basic Async validation we'll need to define some new async version of the validator interfaces:
+{{{
+// using async validators
+validateField(aValue).using(AsyncValidator<Integer> validator).when(...); 
+validateField(aList).using(AsyncListValidator<Integer> validator).when(...); 
+}}}
+
+The async validator interface will likely need to return validation messages rather that take a result collector as an argument.
+
+The Validation plugin would also need to model the fact that validation is in progress, and this would need to be reflected in the rest of the API.  Most notably `ValidationDisplay` would need to be changed to accept notification of the start and end of the validation process.
+
+{{{
+public interface ValidationDisplay {
+   public void onValidationStart();
+   public void setValidtionResult(ValiationResult r);
+   public void onValidationFinsihed();
+   public void onValidationFailure();  // for rpc issues..
+}
+}}}
+
+It would likely need to also expose the fact that validation is in progress as a value model, e.g.
+
+{{{
+// getValidationManager is a static method provided by the ValidationPlugin
+ValueModel<Boolean> inProgress = getValidationManager(myform).getInProgressModel();
+}}}
+
+The view can use this model to display information or react without implementing ValidationDisplay.
+
+There are a few gotchas to consider for the plugin, namely that it needs to ensure that async validation results aren't delivered if the validation condition (i.e. `validateField(..).using(..).when(condtion)`) has subsequently become false.
+
+
+Once basic async validation is in place I'm hoping to be able to hook into the work being done on this in http://code.google.com/p/google-web-toolkit/wiki/ValueStoreAndRequestFactory.  This would give pectin support for JSR-303 and mmore without having to build it from scratch.
+
+In this scenario, the plan would be that the adapter would generate !ValueModels (from the Google interfaces) that implement something like `ValidationService`, `Validator`, `AsyncValidator`,  `HasValidators`,  `HasAsynValidators` or even some thing like just `HasValidationErrors`.  The validation plugin would query the ValueModel to see if it implements such interfaces and hook things up appropriately:
+
+{{{
+// the validation plugin would query the underlying value model
+// and automatically install the appropriate validation hooks.
+validateField(name).usingExternalValidationServices();
+}}}
+
+There may be a requirement to hook a callback up to transform any async errors in to meaningful error messages in the case of an RPC failure.  The mechanism for displaying such errors is going to be highly application dependent. 
+
+There's the possibility it could be auto wired, but I'm not a fan of this as it hides the fact from the next guy who comes along.  I don't mind magic, but I'm less fond of vast quantites of invisible magic. 
+
+
+
+
+
+
+
