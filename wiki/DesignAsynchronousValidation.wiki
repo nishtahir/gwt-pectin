@@ -10,7 +10,7 @@ Pectin curently lacks built in support for asynchronous validation.  I don't thi
 
 Things to think about:
   # how to handle async errors.. rpc exceptions != meaningful error messages. There will need to be some means of converting any errors into useful messages and displaying in an application specific manner.  This won't be such and issue when dealing with !AsyncValidators, but might be tricky if we're trying to use a backend async validation service that we auto-wire.
-  # We're now in the situation where validation is async so our `boolean validate()` method and friends will also need to become async, i.e. `void validate(AsyncCallback<Boolean> callback)` or something similar.  This isn't such an issue if the validation is driven async via the server but it does impact usage in the synchronous scenario.
+  # We're now in the situation where validation is async so our `boolean validate()` method and friends will also need to become async, i.e. `void validate(AsyncCallback<Boolean> callback)` or something similar.  This isn't such an issue if the validation is pushed back from the server but it does futz up the usage somewhat in the synchronous scenario.  Perhaps there's a case for two validate methods or two plugins. 
 
 Here's the context including the plugin...
 {{{
