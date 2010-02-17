@@ -13,7 +13,7 @@ The following illustrates the chain of data as it passes from the domain to the 
                                            [Plugins]
 }}} 
 
-*Please note:* The above diagram demonstrates the data path and relationships between the various components of pectin.  It doesn't imply an architectural pattern or an approach to implementing your app.  Typically I embed presentation models inside views, those views implement some kind of Editor or Display which then interacts with a Supervising controllers of somekind.  The view typically delegates to the presentation model as required. 
+*Please note:* The above diagram demonstrates the data path and relationships between the various components of pectin.  It doesn't imply an architectural pattern or an approach to implementing your app or form.  Typically I embed presentation models inside views, those views implement some kind of `Editor` or `Display` interface which then interacts with a supervising controller of some kind.  The view typically delegates most of the `Display` interface to the presentation model. 
 
 The following outlines the roles of the various bits and pieces.
   # *Domain Data* - data like the fields of a Customer, Address etc.  Domain should have no view state or dependency on view code what so ever (although binding may require annotations).
@@ -60,7 +60,7 @@ The important thing to remember when using Pectin (or any library) is that the l
 
 It's also important to note that pectin *is not an application infrastructure design pattern*.  It's strictly concerned with modeling the view layer.  While it can have hooks into domain data and services, this is really something specific for each application and it's rarely a case of one size fits all.  
 
-As an example I wouldn't use pectin as the pattern to implement a master detail style view.  I would use it to create the detail portion of the view (if it solved the problem of course) but the master view would hopefully use tools specific to displaying data in lists and/or tables.  A supervising controller would then mediate between the two (depending of course on the design requirements).
+As an example I wouldn't use pectin as the basis for implementing master detail style interface.  I would use it to create the detail portion of the view (if it solved the problem of course) but the master view would hopefully use tools specific to displaying data in lists and/or tables.  A supervising controller would then mediate between the two (depending of course on the design requirements).
 
 An example "not everything is a value model" would be using a nested presentation model to facilitate reuse of complex components (i.e. such as a validated address editor component).  This would allow you to synchronise and customise validation between the parent form and the editor component all at the presentation model level.
 
