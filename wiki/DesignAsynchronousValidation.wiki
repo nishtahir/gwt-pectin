@@ -19,7 +19,9 @@ Here's the context including the plugin...
                                       [Validation Plugin]
 }}}
 
-For the first case of handling basic Async validation we'll need to define some new async version of the validator interfaces:
+=Adding Async Validators to the ValidationPlugin=
+
+For the first case of handling basic Async validation I'll need to define some new async version of the validator interfaces:
 {{{
 // using async validators
 validateField(aValue).using(AsyncValidator<Integer> validator).when(...); 
