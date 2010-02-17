@@ -53,7 +53,7 @@ binder.bind(model.firstName).to(firstName);
 }}} 
 
 ==!ListModels and !ListFieldModels==
-!ListModel and !ListFieldModel are the !ValueModel and !FieldModel equivalents for lists.  They fire events when the change and the mutable versions support add/remove & set operations.  
+!ListModel and !ListFieldModel are the !ValueModel and !FieldModel equivalents for lists.  They fire change events and the mutable versions support add/remove & set operations.  
 
 =When all you have is a hammer...=
 The important thing to remember when using Pectin (or any library) is that the library (or pattern) should serve the problem your trying to solve and not the other way around.  i.e. in the case of pectin, don't try and make everything a value model.  Think of your presentation model as "the stuff my view needs to function" and if pectin doesn't provide what you need then add something else (or use another library or pattern).
