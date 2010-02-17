@@ -1,9 +1,9 @@
 #summary Design thoughts for supporting async validation services.
 #labels Featured
 
-=Design thoughs on supporting asyncronous validation=
+=Design thoughs on supporting asynchronous validation=
 
-Pectin curently lacks built in support for async validation.  I don't think this will be difficult to add I'm I hoping I can use the new [http://code.google.com/p/google-web-toolkit/wiki/ValueStoreAndRequestFactory ValueStore & RequestFactory work at Google].  There are a few usecases I'd like to support:
+Pectin curently lacks built in support for asynchronous validation.  I don't think this will be too difficult to add I'm I hoping I can use the new [http://code.google.com/p/google-web-toolkit/wiki/ValueStoreAndRequestFactory ValueStore & RequestFactory work at Google].  There are a few usecases I'd like to support:
 
   # Validation using stand alone !AsyncValidators, i.e. the same as the current approach only using async validators (no need for googles new code on this one).
   # Validators defined by services/models in the domain layer (i.e. hooking into !ValueStore/!RequestFactory and friends).
@@ -46,7 +46,7 @@ It would likely need to also expose the fact that validation is in progress as a
 ValueModel<Boolean> inProgress = getValidationManager(myform).getInProgressModel();
 }}}
 
-The view can use this model to display information or react without implementing ValidationDisplay.
+The view can use this model to display information or react without implementing `ValidationDisplay`.
 
 There are a few gotchas to consider for the plugin, namely that it needs to ensure that async validation results aren't delivered if the validation condition (i.e. `validateField(..).using(..).when(condtion)`) has subsequently become false.
 
@@ -64,6 +64,4 @@ validateField(name).usingExternalValidationServices();
 There may be a requirement to hook a callback up to transform any async errors in to meaningful error messages in the case of an RPC failure.  The mechanism for displaying such errors is going to be highly application dependent. 
 
 There's the possibility it could be auto wired, but I'm not a fan of this as it hides the fact from the next guy who comes along.  I don't mind magic, but I'm less fond of vast quantites of invisible magic. 
-
-
 
