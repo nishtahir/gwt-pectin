@@ -3,6 +3,8 @@
 
 =Design thoughs on supporting asynchronous validation=
 
+(Scroll down for integration with googles !ValueStore proposals)
+
 Pectin curently lacks built in support for asynchronous validation.  I don't think this will be too difficult to add I'm I hoping I can use the new [http://code.google.com/p/google-web-toolkit/wiki/ValueStoreAndRequestFactory ValueStore & RequestFactory work at Google].  There are a few usecases I'd like to support:
 
   # Validation using stand alone !AsyncValidators, i.e. the same as the current approach only using async validators (no need for googles new code on this one).
