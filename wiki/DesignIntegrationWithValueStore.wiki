@@ -20,9 +20,12 @@ It may be possible to make this native to pectin so that you can use the !ValueS
 {{{
 // uses an internal ValueStoreAdapter to create the ValueModels  
 FieldModel<String> name = fieldBoundTo(valueStore, TroopId.name());
+FieldModel<String> serialNumber = fieldBoundTo(valueStore, TroopId.serialNumber());
 }}}
 
-Although it appears that !ValueStores may be transient in nature so we may need to create a !ValueStoreAdapter explicitly in the same way I currently use !BeanModelProviders.
+==!ValueStores appear to be transient==
+In the current design proposal, !ValueStores appear to be throw away items so the adpation layer would need to handle this appropriately and ensure handlers are disposed of correctly.  It will also mean the `fieldBoundTo(...)` style methods would need to use a the adapter and not the !ValueStore. This is the same way !BeanModelProviders are currently used.
+
 
 This concise syntax (i.e. `fieldBoundTo(...)` instead of `fieldOfType(Class<T>).boundTo(..)` will only be possible if the `Property` type returned by `TroopId.name()` supports a method such as `Class getValueType()` (in addition to the generic declaration).  Some plugins need this information during binding.  E.g.
 {{{
@@ -32,9 +35,6 @@ Class nameClass = property.getValueType()
 }}}
 
 If this isn't supported then I'll have to revert to the existing `fieldOfType(String.class).boundTo(valueStore, TroopId.name())` semantics.
-
-==!ValueStores appear to be transient==
-In the current design proposal, !ValueStores appear to be throw away items so the adpation layer would need to handle this appropriately and ensure handlers are disposed of correctly.  It will also mean the `fieldBoundTo(...)` style methods would need to use a type other than `ValueStore` (i.e. the adapter).
 
 == Tracking Dirty State ==
 The design proposal include a `store.isChanged()` method but it's unclear if this state is observable.  This is not a big issue with pectin as dirty state is always provided by the adaption layer anyway, if it's not supported there then it's not supported.
