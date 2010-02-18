@@ -5,9 +5,6 @@
 
 *Scroll down* for integration with googles !ValueStore proposals
 
-*See* GuidePectinArchitectureOverview for more info on how pectin is structured.
-
-
 =Intro=
 Pectin curently lacks built in support for asynchronous validation.  I don't think this will be too difficult to add I'm I hoping I can use the new [http://code.google.com/p/google-web-toolkit/wiki/ValueStoreAndRequestFactory ValueStore & RequestFactory work at Google].  There are a few usecases I'd like to support:
 
@@ -17,13 +14,6 @@ Pectin curently lacks built in support for asynchronous validation.  I don't thi
 Things to think about:
   # how to handle async errors.. rpc exceptions != meaningful error messages. There will need to be some means of converting any errors into useful messages and displaying in an application specific manner.  I don't think this will be an issue when dealing with !AsyncValidators, but might be tricky if we're trying to use a backend async validation service that's auto-wired.
   # We're now in the situation where validation is async so our `boolean validate()` method and friends will also need to become async, i.e. `void validate(AsyncCallback<Boolean> callback)` or something similar.  This isn't such an issue if the validation is pushed back from the server but it does futz up the usage somewhat in the synchronous scenario.  Perhaps there's a case for two validate methods or two plugins. 
-
-Here's the context including the plugin...
-{{{
-[Domain Data/Services] <-[Adapters]-> [Presentation Model] <-[Bindings]-> [View]
-                                              |
-                                      [Validation Plugin]
-}}}
 
 =Adding async validators to the !ValidationPlugin=
 
@@ -63,7 +53,19 @@ There are a few gotchas to consider for the plugin, namely that it needs to ensu
 
 In addition to basic async validation is in place I'm hoping to be able to hook into the work being done on this in http://code.google.com/p/google-web-toolkit/wiki/ValueStoreAndRequestFactory.  This would give pectin support for JSR-303 and server side async validation without having to build it from scratch.
 
-The first part of this work would be to build an adaption layer for the !ValueStore interface.  It may be possible to make this native to pectin so that you can use the !ValueStore directy.
+The first part of this work would be to build an adaption layer for the !ValueStore interface.  
+
+Thus I'd have something like this.
+
+{{{
+[ValueStore] <-[ValueStoreAdapter]-> [Presentation Model] <-[Bindings]-> [View]
+                                             |
+                                     [Validation Plugin]
+}}}
+
+(See GuidePectinArchitectureOverview for more detail on the parts above)
+
+It may be possible to make this native to pectin so that you can use the !ValueStore directy, usage would then become:
 
 {{{
 // uses an internal ValueStoreAdapter to create the ValueModels  
