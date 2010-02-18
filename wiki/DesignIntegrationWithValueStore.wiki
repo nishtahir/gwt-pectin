@@ -15,10 +15,10 @@ From the initial design proposal it looks like I should be to build an adaption 
 
 (See GuidePectinArchitectureOverview for more detail on the parts above)
 
-From the code examples given I'm hoping pectin will be able to use the canonical ValueStore.  If so I should be able to provide native integration in the form model. 
+From the code examples given I'm hoping pectin will be able to use the canonical !ValueStore.  If so I should be able to provide native integration in the form model with pectin creating the adapter behind the scenes. 
 
 {{{
-// and use it to generate our fields.
+// pectin will automatically create the `ValueStoreAdapter` behind the scenes.
 FieldModel<String> name = fieldBoundTo(valueStore, TroopId.name());
 FieldModel<String> serialNumber = fieldBoundTo(valueStore, TroopId.serialNumber());
 }}}
