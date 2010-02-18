@@ -15,18 +15,15 @@ From the initial design proposal it looks like I should be to build an adaption 
 
 (See GuidePectinArchitectureOverview for more detail on the parts above)
 
-From what I can see of the code examples it appears that !ValueStores are tranisent (i.e. you'll use different instances depending on what you're doing.)  If this wasn't the case pectin could manage the adapter behind the scenes for you, but otherwise the code would look something like: 
+From the code examples given I'm hoping pectin will be able to use the canonical ValueStore.  If so I should be able to provide native integration in the form model. 
 
 {{{
-// create our adapter (since ValueStore will come and go)..
-ValueStoreAdapter<TroopId> valueStoreAdapter = new ValueStoreAdapter<TroopId>();
-
 // and use it to generate our fields.
-FieldModel<String> name = fieldBoundTo(valueStoreAdapter, TroopId.name());
-FieldModel<String> serialNumber = fieldBoundTo(valueStoreAdapter, TroopId.serialNumber());
+FieldModel<String> name = fieldBoundTo(valueStore, TroopId.name());
+FieldModel<String> serialNumber = fieldBoundTo(valueStore, TroopId.serialNumber());
 }}}
 
-This concise syntax (i.e. `fieldBoundTo(...)` instead of `fieldOfType(Class<T>).boundTo(..)` will only be possible if the `Property` type returned by `TroopId.name()` supports a method such as `Class getValueType()` in addition to the generic declaration.  Some plugins need this information during binding.  E.g.
+This concise syntax (i.e. `fieldBoundTo(...)` instead of `fieldOfType(Class<T>).boundTo(..)` will only be possible if the `Property` returned by `TroopId.name()` has a method such as `Class getValueType()` in addition to the generic declaration.  Some plugins need this information during binding.  i.e. pectin needs to be able to do this:
 {{{
 Property<TroopId, String> name = TroopId.name();
 // i.e. this would return String.class for plugins to make runtime checks.
@@ -43,13 +40,15 @@ The design proposal include a `store.isChanged()` method but it's unclear if thi
 
 *See* DesignAsynchronousValidation for changes to the !ValidationPlugin so support async validators outside of !ValueStores
 
-Hopefully I'll be able to create a `ValueStoreValueModel` that exposes the validation capabilities of the store.  From here the validation plugin could query the fields underlying source model and auto-wire the validation hooks.  E.g. 
+Hopefully I'll be able to create a `ValueStoreValueModel` that exposes the validation capabilities of the store.  From here the validation plugin could query the fields underlying source model and auto-wire the validation hooks.  Pectin already supports the notion of external validation messages so it shouldn't be hard to hook these up the value store.  E.g. 
 
 {{{
 // the validation plugin would query the underlying value model
 // and automatically install the appropriate validation hooks.
 validateField(name).usingValueStore();
 }}}
+
+At this stage I'm not sure if ValueStore supports field level validation.  Pectin could probably work around this to provide field level validation from the store if it came to that but I'd rather not.
 
 It may be worth making this a little less bound to `ValueStore` and have our `ValueStoreValueModel` implement interfaces like `HasValidationService`,  `HasValidators`,  `HasAsynValidators` or even some thing like just `HasValidationErrors`.  That way if you want to use something else other than `ValueStore` you can write your own adapter and still use all of pectins functionality.  In this case I'd probably name the validation method something like `validateField(name).usingDomainValidationServices()` or something. 
 
