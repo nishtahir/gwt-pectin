@@ -5,7 +5,7 @@
 
 Integration with [http://code.google.com/p/google-web-toolkit/wiki/ValueStoreAndRequestFactory Googles ValueStore proposal] would give pectin CRUD and JSR-303 support out of the box.
 
-From the initial design proposal it looks like I should be to build an adaption layer for !ValueStores that can act as a drop in replacement for BeanModelProviders:
+From the initial design proposal it looks like I should be to build an adaption layer for !ValueStores that can act as a drop in replacement for pectins !BeanModelProviders:
 
 {{{
 [ValueStore] <-[ValueStoreAdapter]-> [Presentation Model] <-[Bindings]-> [View]
