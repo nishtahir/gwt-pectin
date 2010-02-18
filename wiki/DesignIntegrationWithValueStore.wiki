@@ -40,6 +40,9 @@ If this isn't supported then I'll have to revert to the existing `fieldOfType(St
 The design proposal include a `store.isChanged()` method but it's unclear if this state is observable.  This is not a big issue with pectin as dirty state is always provided by the adaption layer anyway, if it's not supported there then it's not supported.
 
 =Async Validation=
+
+*See* DesignAsynchronousValidation for changes to the !ValidationPlugin so support async validators outside of !ValueStores
+
 Hopefully I'll be able to create a `ValueStoreValueModel` that exposes the validation capabilities of the store.  From here the validation plugin could query the fields underlying source model and auto-wire the validation hooks.  E.g. 
 
 {{{
@@ -53,3 +56,4 @@ It may be worth making this a little less bound to `ValueStore` and have our `Va
 There may be a requirement to hook a callback up to transform any async errors in to meaningful error messages in the case of an RPC failure.  The mechanism for displaying such errors is likely to be highly application specific. 
 
 There's the possibility it could be auto wired (if the above is solved), but I'm not a fan of this as it hides the fact from the next guy who comes along.  I don't mind magic, but I'm less fond of vast quantities of invisible magic. 
+
