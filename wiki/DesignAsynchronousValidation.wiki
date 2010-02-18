@@ -6,7 +6,7 @@
 =Intro=
 Pectin curently lacks built in support for asynchronous validation.  I don't think this will be too difficult to add I'm I hoping I can use the new [DesignIntegrationWithValueStore ValueStore & RequestFactory work at Google].  There are a few usecases I'd like to support:
 
-  # Validation using stand alone !AsyncValidators, i.e. the same as the current approach only using async validators (no need for googles new code on this one).
+  # Validation using stand alone !AsyncValidators, i.e. the same as the current approach only using async validators (no need for googles new code on this one).  A typical use case might be where you check if an account name is available (on the server) when the user leaves the "Login Id" field.
   # Validators defined by services/models in the domain layer (i.e. hooking into !ValueStore/!RequestFactory and friends).
 
 Things to think about:
