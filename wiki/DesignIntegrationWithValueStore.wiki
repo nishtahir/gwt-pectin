@@ -1,0 +1,45 @@
+#summary Design thoughts for interacting with !ValueStore
+
+=Design thoughts interacting with !ValueStore=
+
+Integration with [http://code.google.com/p/google-web-toolkit/wiki/ValueStoreAndRequestFactory Googles !ValueStore proposal] would give pectin support for JSR-303 and server side async validation without having to build it from scratch.
+
+From the initial design proposal it looks like I should be to build an adaption layer for !ValueStores:
+
+{{{
+[ValueStore] <-[ValueStoreAdapter]-> [Presentation Model] <-[Bindings]-> [View]
+                                             |
+                                     [Validation Plugin]
+}}}
+
+(See GuidePectinArchitectureOverview for more detail on the parts above)
+
+It may be possible to make this native to pectin so that you can use the !ValueStore directy, usage would then become:
+
+{{{
+// uses an internal ValueStoreAdapter to create the ValueModels  
+FieldModel<String> name = fieldBoundTo(valueStore, TroopId.name());
+}}}
+
+In order for me to support this the `Property` type returned by `TroopId.name()` would need to have a `Class getValueType()` style method (in addition to the generic declaration) since some plugins need a reference to the class of the value so determine if their binding capabilities.  E.g.
+{{{
+Property<TroopId, String> name = TroopId.name();
+// i.e. this would return String.class for plugins to make runtime checks.
+Class nameClass = property.getValueType()
+}}}
+
+If this isn't supported then I'll have to revert to the existing `fieldOfType(String.class).boundTo(valueStore, TroopId.name())` semantics.
+
+Hopefully I'll be able to create a `ValueStoreValueModel` that exposes the validation capabilities of the store.  From here the validation plugin could query the fields underlying source model and auto-wire the validation hooks.  E.g. 
+
+{{{
+// the validation plugin would query the underlying value model
+// and automatically install the appropriate validation hooks.
+validateField(name).usingValueStore();
+}}}
+
+It may be worth making this a little less bound to `ValueStore` and have our `ValueStoreValueModel` implement interfaces like `HasValidationService`,  `HasValidators`,  `HasAsynValidators` or even some thing like just `HasValidationErrors`.  That way if you want to use something else other than `ValueStore` you can write your own adapter and still use all of pectins functionality.  In this case I'd probably name the validation method something like `validateField(name).usingDomainValidationServices()` or something. 
+
+There may be a requirement to hook a callback up to transform any async errors in to meaningful error messages in the case of an RPC failure.  The mechanism for displaying such errors is likely to be highly application specific. 
+
+There's the possibility it could be auto wired (if the above is solved), but I'm not a fan of this as it hides the fact from the next guy who comes along.  I don't mind magic, but I'm less fond of vast quantities of invisible magic. 
