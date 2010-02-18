@@ -3,10 +3,8 @@
 
 =Design thoughs on supporting asynchronous validation=
 
-*Scroll down* for integration with googles !ValueStore proposals
-
 =Intro=
-Pectin curently lacks built in support for asynchronous validation.  I don't think this will be too difficult to add I'm I hoping I can use the new [http://code.google.com/p/google-web-toolkit/wiki/ValueStoreAndRequestFactory ValueStore & RequestFactory work at Google].  There are a few usecases I'd like to support:
+Pectin curently lacks built in support for asynchronous validation.  I don't think this will be too difficult to add I'm I hoping I can use the new [DesignIntegrationWithValueStore ValueStore & RequestFactory work at Google].  There are a few usecases I'd like to support:
 
   # Validation using stand alone !AsyncValidators, i.e. the same as the current approach only using async validators (no need for googles new code on this one).
   # Validators defined by services/models in the domain layer (i.e. hooking into !ValueStore/!RequestFactory and friends).
@@ -51,46 +49,4 @@ There are a few gotchas to consider for the plugin, namely that it needs to ensu
 
 =Interacting with !ValueStore=
 
-In addition to basic async validation is in place I'm hoping to be able to hook into the work being done on this in http://code.google.com/p/google-web-toolkit/wiki/ValueStoreAndRequestFactory.  This would give pectin support for JSR-303 and server side async validation without having to build it from scratch.
-
-The first part of this work would be to build an adaption layer for the !ValueStore interface.  
-
-Thus I'd have something like this.
-
-{{{
-[ValueStore] <-[ValueStoreAdapter]-> [Presentation Model] <-[Bindings]-> [View]
-                                             |
-                                     [Validation Plugin]
-}}}
-
-(See GuidePectinArchitectureOverview for more detail on the parts above)
-
-It may be possible to make this native to pectin so that you can use the !ValueStore directy, usage would then become:
-
-{{{
-// uses an internal ValueStoreAdapter to create the ValueModels  
-FieldModel<String> name = fieldBoundTo(valueStore, TroopId.name());
-}}}
-
-In order for me to support this the `Property` type returned by `TroopId.name()` will need to have a `Class getValueType()` style method (in addition to the generic declaration) since some plugins need a reference to the class of the value so determine if their binding capabilities.  E.g.
-{{{
-Property<TroopId, String> name = TroopId.name();
-// i.e. this should return String.class
-Class nameClass = property.getValueType()
-}}}
-
-If this isn't supported then I'll have to revert to the existing `fieldOfType(String.class).boundTo(valueStore, TroopId.name())` semantics.
-
-Hopefully I'll be able to create a `ValueStoreValueModel` that exposes the validation capabilities of the store.  From here the validation plugin could query the fields underlying source model and auto-wire the validation hooks.  E.g. 
-
-{{{
-// the validation plugin would query the underlying value model
-// and automatically install the appropriate validation hooks.
-validateField(name).usingValueStore();
-}}}
-
-It may be worth making this a little less bound to `ValueStore` and have our `ValueStoreValueModel` implement interfaces like `HasValidationService`,  `HasValidators`,  `HasAsynValidators` or even some thing like just `HasValidationErrors`.  That way if you want to use something else other than `ValueStore` you can write your own adapter and still use all of pectins functionality.  In this case I'd probably name the validation method something like `validateField(name).usingDomainValidationServices()` or something. 
-
-There may be a requirement to hook a callback up to transform any async errors in to meaningful error messages in the case of an RPC failure.  The mechanism for displaying such errors is likely to be highly application specific. 
-
-There's the possibility it could be auto wired (if the above is solved), but I'm not a fan of this as it hides the fact from the next guy who comes along.  I don't mind magic, but I'm less fond of vast quantities of invisible magic. 
+See DesignIntegrationWithValueStore for more info.
