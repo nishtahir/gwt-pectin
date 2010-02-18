@@ -1,6 +1,7 @@
 #summary Design thoughts for interacting with !ValueStore
+#labels Featured
 
-=Design thoughts interacting with !ValueStore=
+=Design thoughts for integration with !ValueStore=
 
 Integration with [http://code.google.com/p/google-web-toolkit/wiki/ValueStoreAndRequestFactory Googles !ValueStore proposal] would give pectin support for JSR-303 and server side async validation without having to build it from scratch.
 
