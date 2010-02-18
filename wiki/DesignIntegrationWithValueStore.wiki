@@ -3,9 +3,9 @@
 
 =Initial thoughts on integration with !ValueStore=
 
-Integration with [http://code.google.com/p/google-web-toolkit/wiki/ValueStoreAndRequestFactory Googles ValueStore proposal] would give pectin CRUD and server side JSR-303 support out of the box.
+Integration with [http://code.google.com/p/google-web-toolkit/wiki/ValueStoreAndRequestFactory Googles ValueStore proposal] would give pectin CRUD and JSR-303 support out of the box.
 
-From the initial design proposal it looks like I should be to build an adaption layer for !ValueStores:
+From the initial design proposal it looks like I should be to build an adaption layer for !ValueStores that can act as a drop in replacement for BeanModelProviders:
 
 {{{
 [ValueStore] <-[ValueStoreAdapter]-> [Presentation Model] <-[Bindings]-> [View]
@@ -56,4 +56,3 @@ It may be worth making this a little less bound to `ValueStore` and have our `Va
 There may be a requirement to hook a callback up to transform any async errors in to meaningful error messages in the case of an RPC failure.  The mechanism for displaying such errors is likely to be highly application specific. 
 
 There's the possibility it could be auto wired (if the above is solved), but I'm not a fan of this as it hides the fact from the next guy who comes along.  I don't mind magic, but I'm less fond of vast quantities of invisible magic. 
-
