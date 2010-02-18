@@ -31,6 +31,7 @@ Class nameClass = property.getValueType()
 
 If this isn't supported then I'll have to revert to the existing `fieldOfType(String.class).boundTo(valueStore, TroopId.name())` semantics.
 
+=Async Validation=
 Hopefully I'll be able to create a `ValueStoreValueModel` that exposes the validation capabilities of the store.  From here the validation plugin could query the fields underlying source model and auto-wire the validation hooks.  E.g. 
 
 {{{
