@@ -3,7 +3,7 @@
 
 =Design thoughs on supporting asynchronous validation=
 
-*Note:* Scroll down for integration with googles !ValueStore proposals
+*Scroll down* for integration with googles !ValueStore proposals
 
 *See* GuidePectinArchitectureOverview for more info on how pectin is structured.
 
