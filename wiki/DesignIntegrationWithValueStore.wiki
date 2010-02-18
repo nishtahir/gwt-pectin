@@ -9,7 +9,7 @@ From the initial design proposal it looks like I should be to build an adaption 
 
 {{{
 [ValueStore] <-[ValueStoreAdapter]-> [Presentation Model] <-[Bindings]-> [View]
-                                             |
+                                              |
                                      [Validation Plugin]
 }}}
 
@@ -36,11 +36,11 @@ If this isn't supported then I'll have to revert to the existing `fieldOfType(St
 == Tracking Dirty State ==
 The design proposal include a `store.isChanged()` method but it's unclear if this state is observable.  This is not a big issue with pectin as dirty state is always provided by the adaption layer anyway, if it's not supported there then it's not supported.
 
-=Async Validation=
+=!ValueStore Validation=
 
 *See* DesignAsynchronousValidation for changes to the !ValidationPlugin so support async validators outside of !ValueStores
 
-Hopefully I'll be able to create a `ValueStoreValueModel` that exposes the validation capabilities of the store.  From here the validation plugin could query the fields underlying source model and auto-wire the validation hooks.  Pectin already supports the notion of external validation messages so it shouldn't be hard to hook these up the value store.  E.g. 
+Pectin already supports the injection of external validation results so hopefully I'll be able to hook that up to the !ValueStore events. I hope to create a `ValueStoreValueModel` that exposes the validation capabilities of the store (both `store.validate()` and callbacks for validation errors).  From here the !ValidationPlugin would query the `ValueStoreValueModel` and install the appropriate listeners etc.  E.g. 
 
 {{{
 // the validation plugin would query the underlying value model
@@ -48,10 +48,13 @@ Hopefully I'll be able to create a `ValueStoreValueModel` that exposes the valid
 validateField(name).usingValueStore();
 }}}
 
-At this stage I'm not sure if ValueStore supports field level validation.  Pectin could probably work around this to provide field level validation from the store if it came to that but I'd rather not.
+If the `Error` is a message key then the above method would probably need to take a message catalog.
+
+{{{
+// we may have to supply a message catalog.
+validateField(name).usingValueStoreWithMessageCatalog(messageCatalog);
+}}}
+
+At this stage I'm not sure if !ValueStore supports field level validation.  Pectin could probably work around this to provide field level validation if it didn't, but that would be a bit of a pain.
 
 It may be worth making this a little less bound to `ValueStore` and have our `ValueStoreValueModel` implement interfaces like `HasValidationService`,  `HasValidators`,  `HasAsynValidators` or even some thing like just `HasValidationErrors`.  That way if you want to use something else other than `ValueStore` you can write your own adapter and still use all of pectins functionality.  In this case I'd probably name the validation method something like `validateField(name).usingDomainValidationServices()` or something. 
-
-There may be a requirement to hook a callback up to transform any async errors in to meaningful error messages in the case of an RPC failure.  The mechanism for displaying such errors is likely to be highly application specific. 
-
-There's the possibility it could be auto wired (if the above is solved), but I'm not a fan of this as it hides the fact from the next guy who comes along.  I don't mind magic, but I'm less fond of vast quantities of invisible magic. 
