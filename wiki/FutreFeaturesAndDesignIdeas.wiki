@@ -1,4 +1,5 @@
 #summary A place to collect future features and design ideas.
+#labels Featured
 
 = Future features and design ideas =
 
