@@ -12,7 +12,7 @@ Proper async validation support, see DesignAsynchronousValidation.
 
 Validation triggers (ON_BLUR, ON_EDIT) and clear triggers.
 
-==UndoPlugin==
+==!UndoPlugin==
 Wouldn't be too hard to implement at least basic undo/redo support.  Could also work with the selection model if required.
 
 ==Gui Actions/Commands==
