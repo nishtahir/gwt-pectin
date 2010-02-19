@@ -62,6 +62,8 @@ If the `Error` is a message key then the above method would probably need to tak
 
 {{{
 // we may have to supply a message catalog.
+validateField(name).usingValueStoreWith(messageCatalog);
+
 autoWireValueStoreValidationUsing(messageCatalog);
 }}}
 
