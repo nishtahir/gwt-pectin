@@ -25,9 +25,8 @@ FieldModel<String> serialNumber = fieldBoundTo(valueStore, TroopId.serialNumber(
 
 This concise syntax (i.e. `fieldBoundTo(...)` instead of `fieldOfType(Class<T>).boundTo(..)` will only be possible if the `Property` returned by `TroopId.name()` has a method such as `Class getPropertyType()` in addition to the generic declaration.  Some plugins need this information during binding.  i.e. pectin needs to be able to do this:
 {{{
-Property<TroopId, String> name = TroopId.name();
-// i.e. this would return String.class for plugins to make runtime checks.
-Class nameClass = property.getPropertyType()
+// return String.class so plugins can make runtime checks if they need to.
+Class nameClass = TroopId.name().getPropertyType()
 }}}
 
 If this isn't supported then I'll have to revert to the existing `fieldOfType(String.class).boundTo(valueStore, TroopId.name())` semantics.
