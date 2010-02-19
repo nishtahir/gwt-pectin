@@ -52,11 +52,17 @@ It would probably be worth supporting an "all !ValueStore fields variant", e.g.
 validateField(allFields()).usingValueStore();
 }}}
 
+or something like:
+{{{
+autoWireValueStoreValidation();
+}}}
+
+
 If the `Error` is a message key then the above method would probably need to take a message catalog.
 
 {{{
 // we may have to supply a message catalog.
-validateField(allFields()).usingValueStoreWithMessageCatalog(messageCatalog);
+autoWireValueStoreValidationUsing(messageCatalog);
 }}}
 
 At this stage I'm not sure if !ValueStore supports field level validation.  Pectin could probably work around this to provide field level validation if it didn't, but that would be a bit of a pain.
