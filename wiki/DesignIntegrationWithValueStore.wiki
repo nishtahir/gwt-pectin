@@ -47,11 +47,16 @@ Pectin already supports the injection of external validation results so hopefull
 validateField(name).usingValueStore();
 }}}
 
+It would probably be worth supporting an "all !ValueStore fields variant", e.g.
+{{{
+validateField(allFields()).usingValueStore();
+}}}
+
 If the `Error` is a message key then the above method would probably need to take a message catalog.
 
 {{{
 // we may have to supply a message catalog.
-validateField(name).usingValueStoreWithMessageCatalog(messageCatalog);
+validateField(allFields()).usingValueStoreWithMessageCatalog(messageCatalog);
 }}}
 
 At this stage I'm not sure if !ValueStore supports field level validation.  Pectin could probably work around this to provide field level validation if it didn't, but that would be a bit of a pain.
