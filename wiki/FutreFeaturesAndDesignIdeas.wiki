@@ -10,7 +10,7 @@ Bring focus/blur and field selection into the presentation layer.  `selectionMod
 ==!ValidationPlugin enhancements== 
 Proper async validation support, see DesignAsynchronousValidation.
 
-Validation triggers (ON_BLUR, ON_EDIT) and clear triggers.
+Validation triggers (ON_BLUR, ON_EDIT).
 
 ==!UndoPlugin==
 Wouldn't be too hard to implement at least basic undo/redo support.  Could also work with the selection model if required.
