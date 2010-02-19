@@ -21,7 +21,7 @@ Wouldn't be too hard to implement at least basic undo/redo support.  Could also 
 
 == Pectin Core ==
 ===Field bindings===
-It would be nice to support !ValueModelProviders that have type aware keys.  That way I can ditch the `fieldOfType(..)` and use something like `fieldBoundTo(provider, key)`'.  The `fieldOfType(..)` syntax would still exist for form only values etc.
+It would be nice to support !ValueModelProviders that have type aware keys.  That way I can use something like `FieldModel<String> name = fieldBoundTo(provider, key)`'.  The `fieldOfType(..)` syntax would still exist for form only values etc.
 
 ===Widget Bindings===
 Would probably nice to add value interceptors to the bindings.  This would be a more formalised way for watermarks to change the displayed value under certain conditions. 
