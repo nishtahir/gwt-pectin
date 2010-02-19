@@ -6,12 +6,12 @@
 Things that would be nice:
 
 ==!SelectionPlugin== 
-Bring focus/blur and field selection into the presentation layer.  `selectionModel.addSelectionHandler(...)`, `selectionModel.select(firstName)`.  A typical use case would be focussing a field with validation errors.  I would imagine something like `selectionModel.select(validationManager.getFirstFieldWithErrors())`.
+Bring focus/blur and field selection into the presentation layer.  `selectionModel.addSelectionHandler(...)`, `selectionModel.select(firstName)`.  A typical use case would be focussing a field with validation errors.  I would imagine something like `selectionModel.select(validationManager.getFirstFieldWithErrors())`.  There are issues to consider here with multi-field widgets etc but by using nested form models I think we can get around most cases.
 
 ==!ValidationPlugin enhancements== 
 Proper async validation support, see DesignAsynchronousValidation.
 
-Validation triggers (ON_BLUR, ON_EDIT).
+Would also nice to support validation triggers like ON_BLUR, ON_EDIT etc.
 
 ==!UndoPlugin==
 Wouldn't be too hard to implement at least basic undo/redo support.  Could also work with the selection model if required.
@@ -19,10 +19,14 @@ Wouldn't be too hard to implement at least basic undo/redo support.  Could also 
 ==Gui Actions/Commands==
 !ClickHanlders that support enabled & visible state along with interceptors, delegates and listeners etc.  Should be able to do things like `enabled(action).when(...)` in the form model.  Would also update the !WidgetBinder to support `bind(action).to(button)`.  It would be nice if they supported the notion of onStart() and onFinish() and inProgress() for async operations but this is something that would need more investigation.
 
-==Bindings==
+== Pectin Core ==
+===Field bindings===
+It would be nice to support !ValueModelProviders that have type aware keys.  That way I can ditch the `fieldOfType(..)` and use something like `fieldBoundTo(provider, key)`'.  The `fieldOfType(..)` syntax would still exist for form only values etc.
+
+===Widget Bindings===
 Would probably nice to add value interceptors to the bindings.  This would be a more formalised way for watermarks to change the displayed value under certain conditions. 
 
-==Formatted fields==
+===Formatted fields===
 Currently formatted fields don't get a chance to re-format the value the user entered with out using a deferred command (since the binding ignores model changes during the update).  The formatted field could probably handle this internally by checking the text version with a freshly formatted version and doing the deferred command thing itself, but I'd rather not use a deferred command at all if possible.   
 
 =Would Like to but...=
