@@ -34,7 +34,7 @@ Within the Presentation Model pectin makes extensive use of !ValueModels.  A val
 Please note that while `ValueModel` doesn't provide mutation methods it can still change.  An example would be a value computed using a `Reduce` style function (e.g. such as suming function).  In this case setting the value is meaningless but the value will change if any of the source values update. 
 
 ==!FieldModels are just !ValueModels==
-!FieldModels are a !ValueModel that holds a reference back to the form that created it.  This is the hook that allows plugins to work as they do.  The !WidgetBinder uses this to notify the form that a binding has been created, the form then notifies the plugins and they perform additional widget configuration as required.  
+!FieldModels are a !ValueModel that hold a reference back to the form that created it.  This hook allows plugins to work as they do.  The !WidgetBinder uses this to notify the form that a binding has been created, the form then notifies the plugins and they perform additional widget configuration as required.  
 {{{
 // create our field model 
 FieldModel<String> firstName = fieldOfType(String.class).boundTo(beanProvider, "firstName");
