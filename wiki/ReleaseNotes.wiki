@@ -21,6 +21,7 @@ Other changes include
   * Moved `CollectionToStringFormat` and `ToStringFormat` to the format package.
   * Cleaned and refactored `WidgetBinder` infrastructure.  `BindingCallback` has been simplified and various builders updated to be more consistent.
   * Made the addition of external validation messages easier to access by making `ValidationManager.getValidator(field)` return `FieldValidator` instead of `HasValidation`.
+  * Fixed bug where FormattedListFieldModelImpl extended ListFieldModelImpl instead of AbstractListFieldModelBase.  This was causing class cast exceptions in the convenience methods of the validation plugin.
   * Added `TestUtil` class and `RefectionBeanModelProvider` to facilitate JVM based unit tests.
 
 == Release 0.5 ==
