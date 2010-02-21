@@ -38,7 +38,7 @@ An async !UiCommand may look something like the following.  Any button bound to 
 private class GenerateAccessCodeCommand extends AsyncUiCommand<String> // implements Command
 {
    private MyRemoveServiceAsync remoteService;
-   private ViewCallback viewCallback;
+   private MyViewCallback viewCallback;
 
    private GenerateAccessCodeAction()
    {
@@ -93,12 +93,30 @@ private class GenerateAccessCodeCommand extends AsyncUiCommand<String> // implem
 
 Actually, having played with this a bit, I think I'll need two command types, an interactive kind where the `ViewCallback` can be injected and one that doesn't require support interaction (it will be simpler).
 
+{{{
+public class UiCommand implements Command
+{
+  public void doExecute() 
+  {
+     // stuff happens
+  }
+}
+public class InteractiveUiCommand<C> implements InteractiveCommand<C>
+{
+  public void doExecute(C viewCallback) 
+  {
+     // stuff happens
+  }
+}
+
+}}}
+
 In the view I'm aiming for:
 {{{
 ButtonBinder buttons = new ButtonBinder();
 
 buttons.bind(model.regularCommand).to(aButton);
-buttons.bind(model.interactiveCommand).using(myViewCallbackImpl).to(anotherButton);
+buttons.bind(model.interactiveCommand).with(myViewCallbackImpl).to(anotherButton);
 }}}
 
 =Would Like to but...=
