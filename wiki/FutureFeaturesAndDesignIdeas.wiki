@@ -7,7 +7,7 @@ Things that would be nice:
 
 = Pectin Core =
 ==Field bindings==
-It would be nice to support !ValueModelProviders that have type aware keys.  That way I can use something like `FieldModel<String> name = fieldBoundTo(provider, key)`'.  The `fieldOfType(..)` syntax would still exist for form only values etc.
+It would be nice to support !ValueModelProviders that have type aware keys.  That way I can use something like `FieldModel<String> name = fieldBoundTo(provider, key)`.  The `fieldOfType(String.class).boundTo/create` syntax would still remain for existing use cases. 
 
 ==Widget Bindings==
 Would probably nice to add value interceptors to the bindings.  This would be a more formalised way for watermarks to change the displayed value under certain conditions. 
