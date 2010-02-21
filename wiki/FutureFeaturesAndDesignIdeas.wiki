@@ -50,7 +50,7 @@ private class GenerateAccessCodeAction extends AsyncGuiAction<Void>
    {
       messageDisplay.ask("Do you really wish to generate a new access code?",
                          "Changing the access code will prevent access using the old code.",
-                         "These changes will take effect after you save your changes")
+                         "These changes will take effect after you save your changes.")
          .onChoosingDestructiveOption("Yes change the access code").then(action.proceed())
          .onChoosingDefault(Option.CANCEL_OPTION).then(action.cancel())
          .show();
@@ -78,6 +78,12 @@ private class GenerateAccessCodeAction extends AsyncGuiAction<Void>
          .onChoosingDefault(Option.OK_OPTION).thenClose()
          .show();
    }
+
+   @Override
+   protected void onCancel() 
+   {
+      // we could do something here if we wanted.
+   } 
 }
 }}}
 
