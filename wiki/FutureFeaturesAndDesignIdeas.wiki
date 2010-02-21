@@ -57,7 +57,6 @@ private class GenerateAccessCodeCommand extends AsyncUiCommand<String> // implem
          .show();
    }
 
-   @Override
    protected void doExecute(AsyncCallback<String> callback)
    {
       remoteServiceAsync.generateAccessCode(callback);
