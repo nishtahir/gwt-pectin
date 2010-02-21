@@ -28,7 +28,7 @@ Would also nice to support validation triggers like ON_BLUR, ON_EDIT etc.
 ==!UndoPlugin==
 Wouldn't be too hard to implement at least basic undo/redo support.  Could also work with the selection model if required.
 
-=!UiCommand/!MessageDisplay=
+=!UiCommand/!ViewCallbacks=
 Commands similar Swing Actions (but better) that support enabled & visible state along with interceptors, delegates and listeners etc.  Possibly plugin support such as enable(command).when(...) might be nice too.  Would also update the !WidgetBinder to support `bind(model.command).to(button)`.  
 
 These would need to support async interception (i.e. `onBeforeExecute(Intercept)`) for promting users and listeners for responding to execution progress and such.  Interception would need to async friendly and probably support chaining.  This kind of thing also typically needs to access "view services" like a promp/message service (like JOptionPane in swing... but better) so your action can interact with the users in a view independant manner, i.e. `messageDisplay.ask(question, callback, Options.OK, Option.CANCEL)`.  Standard services can then have implementation specific to your project or form.  
@@ -38,7 +38,7 @@ An async !UiCommand may look something like the following.  Any button bound to 
 private class GenerateAccessCodeCommand extends AsyncUiCommand<String> // implements Command
 {
    private MyRemoveServiceAsync remoteService;
-   private MessageDisplay messageDisplay;
+   private ViewCallback viewCallback;
 
    private GenerateAccessCodeAction()
    {
@@ -49,9 +49,9 @@ private class GenerateAccessCodeCommand extends AsyncUiCommand<String> // implem
    protected void onBeforeExecute(Intercept command)
    {
       // ask our view (via the display callback) to ask a question.
-      messageDisplay.ask("Do you really wish to generate a new access code?",
-                         "Changing the access code will prevent access using the old code.",
-                         "These changes will take effect after you save your changes.")
+      viewCallback.ask("Do you really wish to generate a new access code?",
+                       "Changing the access code will prevent access using the old code.",
+                       "These changes will take effect after you save your changes.")
          .onChoosingDestructiveOption("Yes change the access code").then(command.proceed())
          .onChoosingDefault(Option.CANCEL_OPTION).then(command.cancel())
          .show();
@@ -70,7 +70,7 @@ private class GenerateAccessCodeCommand extends AsyncUiCommand<String> // implem
       accessCode.setValue(accessCode);
 
       // show a notification message for a few seconds 
-      messageDisplay.notify("Access code updated").show();
+      viewCallback.notify("Access code updated").for(3).seconds();
    }
 
    @Override
@@ -78,8 +78,7 @@ private class GenerateAccessCodeCommand extends AsyncUiCommand<String> // implem
    {
       // show an error, the view implementation decides how that should be
       // implemented
-      messageDisplay.showError("There was a problem generating a new code.", 
-                               "Please try again.")
+      viewCallback.showError("There was a problem generating a new code.")
          .onChoosingDefault(Option.OK_OPTION).thenClose()
          .show();
    }
