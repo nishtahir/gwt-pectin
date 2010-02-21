@@ -46,14 +46,14 @@ private class GenerateAccessCodeCommand extends AsyncUiCommand<String> // implem
    }
 
    @Override
-   protected void onBeforeExecute(Intercept command)
+   protected void onBeforeExecute(Intercept intercept)
    {
       // ask our view (via the display callback) to ask a question.
       viewCallback.ask("Do you really wish to generate a new access code?",
                        "Changing the access code will prevent access using the old code.",
                        "These changes will take effect after you save your changes.")
-         .onChoosingDestructiveOption("Yes change the access code").then(command.proceed())
-         .onChoosingDefault(Option.CANCEL_OPTION).then(command.cancel())
+         .onChoosingDestructiveOption("Yes change the access code").then(intercept.proceed())
+         .onChoosingDefault(Option.CANCEL_OPTION).then(intercept.cancel())
          .show();
    }
 
@@ -91,7 +91,15 @@ private class GenerateAccessCodeCommand extends AsyncUiCommand<String> // implem
 }
 }}}
 
+Actually, having played with this a bit, I think I'll need two command types, an interactive kind where the `ViewCallback` can be injected and one that doesn't require support interaction (it will be simpler).
 
+In the view I'm aiming for:
+{{{
+ButtonBinder buttons = new ButtonBinder();
+
+buttons.bind(model.regularCommand).to(aButton);
+buttons.bind(model.interactiveCommand).using(myViewCallbackImpl).to(anotherButton);
+}}}
 
 =Would Like to but...=
 == Native !UiBinder support==
