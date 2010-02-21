@@ -16,8 +16,10 @@ Would also nice to support validation triggers like ON_BLUR, ON_EDIT etc.
 ==!UndoPlugin==
 Wouldn't be too hard to implement at least basic undo/redo support.  Could also work with the selection model if required.
 
-==Gui Actions/Commands==
+==Gui Actions/Commands/Prompt Service==
 !ClickHanlders that support enabled & visible state along with interceptors, delegates and listeners etc.  Should be able to do things like `enabled(action).when(...)` in the form model.  Would also update the !WidgetBinder to support `bind(action).to(button)`.  It would be nice if they supported the notion of onStart() and onFinish() and inProgress() for async operations but this is something that would need more investigation.
+
+These would need to support async interception (i.e. `onBeforeExecute()`) support for promting users and such.  This kind of thing functionality also typically needs to access "view services" like a promp/message service (like JOptionPane in swing... but better) so your action can interact with the users in a view independant manner, i.e. `messageService.ask(question, callback, Options.SAVE, Option.CANCEL)`.  Standard services can then be implemented once and used across the project.  
 
 == Pectin Core ==
 ===Field bindings===
