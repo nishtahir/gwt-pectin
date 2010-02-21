@@ -28,14 +28,14 @@ Would also nice to support validation triggers like ON_BLUR, ON_EDIT etc.
 ==!UndoPlugin==
 Wouldn't be too hard to implement at least basic undo/redo support.  Could also work with the selection model if required.
 
-=Gui Actions/Message Display=
-More advanced !ClickHanlders (like Swing Actions but better) that support enabled & visible state along with interceptors, delegates and listeners etc.  Plugin support such as enable(action).when(...) might be nice too.  Would also update the !WidgetBinder to support `bind(model.action).to(button)`.  
+=Gui Commands/Message Display=
+Commands similar Swing Actions (but better) that support enabled & visible state along with interceptors, delegates and listeners etc.  Plugin support such as enable(action).when(...) might be nice too.  Would also update the !WidgetBinder to support `bind(model.action).to(button)`.  
 
 These would need to support async interception (i.e. `onBeforeExecute(Intercept)`) for promting users and listeners for responding to execution progress and such.  Interception would need to async friendly and probably support chaining.  This kind of thing also typically needs to access "view services" like a promp/message service (like JOptionPane in swing... but better) so your action can interact with the users in a view independant manner, i.e. `messageDisplay.ask(question, callback, Options.OK, Option.CANCEL)`.  Standard services can then have implementation specific to your project or form.  
 
 An async Gui Action may look something like the following.  Any button bound to it would disable during the execution, it would also provide an `ValueModel<Boolean> inProgressModel()` for use in the view (to show the spinny things).  The !MessageService is the callback into the view layer to ask questions and prompt the user:
 {{{
-private class GenerateAccessCodeAction extends AsyncGuiAction<String>
+private class GenerateAccessCodeAction extends AsyncGuiAction<String> // implements Command
 {
    private MyRemoveServiceAsync remoteService;
    private MessageDisplay messageDisplay;
@@ -46,14 +46,14 @@ private class GenerateAccessCodeAction extends AsyncGuiAction<String>
    }
 
    @Override
-   protected void onBeforeExecute(Intercept action)
+   protected void onBeforeExecute(Intercept command)
    {
       // ask our view (via the display callback) to ask a question.
       messageDisplay.ask("Do you really wish to generate a new access code?",
                          "Changing the access code will prevent access using the old code.",
                          "These changes will take effect after you save your changes.")
-         .onChoosingDestructiveOption("Yes change the access code").then(action.proceed())
-         .onChoosingDefault(Option.CANCEL_OPTION).then(action.cancel())
+         .onChoosingDestructiveOption("Yes change the access code").then(command.proceed())
+         .onChoosingDefault(Option.CANCEL_OPTION).then(command.cancel())
          .show();
    }
 
