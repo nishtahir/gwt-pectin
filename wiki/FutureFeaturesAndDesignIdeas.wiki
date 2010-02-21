@@ -35,7 +35,7 @@ These would need to support async interception (i.e. `onBeforeExecute(Intercept)
 
 An async Gui Action may look something like the following.  Any button bound to it would disable during the execution, it would also provide an `ValueModel<Boolean> inProgressModel()` for use in the view (to show the spinny things).  The !MessageService is the callback into the view layer to ask questions and prompt the user:
 {{{
-private class GenerateAccessCodeAction extends AsyncGuiAction<Void>
+private class GenerateAccessCodeAction extends AsyncGuiAction<String>
 {
    private MyRemoveServiceAsync remoteService;
    private MessageDisplay messageDisplay;
