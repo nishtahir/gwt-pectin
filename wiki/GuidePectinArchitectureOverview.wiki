@@ -62,7 +62,7 @@ An example of "not everything is a value model" would be exposing a `SuggestOrac
 
 It's also important to remeber that pectin *is not an application infrastructure design pattern*.  It's strictly concerned with modeling views (and a specific class of views at that).  While it can have hooks into domain data and services, this is really something specific for each application and it's rarely a case of one size fits all.  
 
-As an example I wouldn't use pectin as the basis for implementing master detail style interface.  I would use it to create the detail portion of the view (if it solved the problem of course) but the master view would hopefully use tools specific to displaying data in lists and/or tables.  A supervising controller would then mediate between the two (depending of course on the design requirements).
+As an example I wouldn't use pectin as the basis for implementing master detail style interface.  I would use it to create the detail portion of the view (if it solved the problem of course) but the master view would hopefully use tools specific to displaying data in lists and/or tables.  A supervising controller or some other facade style mediator would then mediate between the two (depending of course on the design requirements).
 
 
   
