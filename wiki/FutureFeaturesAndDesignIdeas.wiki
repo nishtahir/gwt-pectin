@@ -40,7 +40,7 @@ private class GenerateAccessCodeAction extends AsyncGuiAction<Void>
    private MyRemoveServiceAsync remoteService;
    private MessageDisplay messageDisplay;
 
-   private GenerateAccessCode()
+   private GenerateAccessCodeAction()
    {
      setDisableWhileExecuting(true);
    }
@@ -59,15 +59,15 @@ private class GenerateAccessCodeAction extends AsyncGuiAction<Void>
    @Override
    protected void doExecute(AsyncCallback<String> callback)
    {
-      customerServiceAsync.generateAccessCode(callback);
+      remoteServiceAsync.generateAccessCode(callback);
    }
 
    @Override
-   protected void onSuccess(String result)
+   protected void onSuccess(String accessCode)
    {
-      // update our access code value model, I'm presuming this actino is an 
+      // update our access code value model, I'm presuming this action is an 
       // inner of our form model, otherwise it'd have to be passed into us.
-      accessCode.setValue(result);
+      accessCode.setValue(accessCode);
    }
 
    @Override
