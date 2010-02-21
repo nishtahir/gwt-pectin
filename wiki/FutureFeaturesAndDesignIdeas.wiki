@@ -5,6 +5,18 @@
 
 Things that would be nice:
 
+= Pectin Core =
+==Field bindings==
+It would be nice to support !ValueModelProviders that have type aware keys.  That way I can use something like `FieldModel<String> name = fieldBoundTo(provider, key)`'.  The `fieldOfType(..)` syntax would still exist for form only values etc.
+
+==Widget Bindings==
+Would probably nice to add value interceptors to the bindings.  This would be a more formalised way for watermarks to change the displayed value under certain conditions. 
+
+==Formatted fields==
+Currently formatted fields don't get a chance to re-format the value the user entered with out using a deferred command (since the binding ignores model changes during the update).  The formatted field could probably handle this internally by checking the text version with a freshly formatted version and doing the deferred command thing itself, but I'd rather not use a deferred command at all if possible.   
+
+
+= Plugins =
 ==!SelectionPlugin== 
 Bring focus/blur and field selection into the presentation layer.  `selectionModel.addSelectionHandler(...)`, `selectionModel.select(firstName)`.  A typical use case would be focussing a field with validation errors.  I would imagine something like `selectionModel.select(validationManager.getFirstFieldWithErrors())`.  There are issues to consider here with multi-field widgets etc but by using nested form models I think we can get around most cases.
 
@@ -16,20 +28,10 @@ Would also nice to support validation triggers like ON_BLUR, ON_EDIT etc.
 ==!UndoPlugin==
 Wouldn't be too hard to implement at least basic undo/redo support.  Could also work with the selection model if required.
 
-==Gui Actions/Commands/Prompt Service==
-!ClickHanlders that support enabled & visible state along with interceptors, delegates and listeners etc.  Should be able to do things like `enabled(action).when(...)` in the form model.  Would also update the !WidgetBinder to support `bind(action).to(button)`.  It would be nice if they supported the notion of onStart() and onFinish() and inProgress() for async operations but this is something that would need more investigation.
+=Gui Actions/View Services=
+!ClickHanlders that support enabled & visible state along with interceptors, delegates and listeners etc.  Should be able to do things like `enabled(action).when(...)` in the form model.  Would also update the !WidgetBinder to support `bind(action).to(button)`.  
 
-These would need to support async interception (i.e. `onBeforeExecute()`) support for promting users and such.  This kind of thing functionality also typically needs to access "view services" like a promp/message service (like JOptionPane in swing... but better) so your action can interact with the users in a view independant manner, i.e. `messageService.ask(question, callback, Options.SAVE, Option.CANCEL)`.  Standard services can then be implemented once and used across the project.  
-
-== Pectin Core ==
-===Field bindings===
-It would be nice to support !ValueModelProviders that have type aware keys.  That way I can use something like `FieldModel<String> name = fieldBoundTo(provider, key)`'.  The `fieldOfType(..)` syntax would still exist for form only values etc.
-
-===Widget Bindings===
-Would probably nice to add value interceptors to the bindings.  This would be a more formalised way for watermarks to change the displayed value under certain conditions. 
-
-===Formatted fields===
-Currently formatted fields don't get a chance to re-format the value the user entered with out using a deferred command (since the binding ignores model changes during the update).  The formatted field could probably handle this internally by checking the text version with a freshly formatted version and doing the deferred command thing itself, but I'd rather not use a deferred command at all if possible.   
+These would need to support async interception (i.e. `onBeforeExecute()`, `onAfterExecute()`) support for promting users and such.  Interception would need to async friendly and support chaining.  This kind of thing also typically needs to access "view services" like a promp/message service (like JOptionPane in swing... but better) so your action can interact with the users in a view independant manner, i.e. `messageService.ask(question, callback, Options.SAVE, Option.CANCEL)`.  Standard services can then be implemented once and used across the project.  
 
 =Would Like to but...=
 == Native !UiBinder support==
