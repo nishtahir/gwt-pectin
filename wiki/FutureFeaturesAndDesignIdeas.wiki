@@ -114,7 +114,7 @@ In the view I'm aiming for:
 ButtonBinder buttons = new ButtonBinder();
 
 buttons.bind(model.regularCommand).to(aButton);
-buttons.bind(model.interactiveCommand).with(myViewCallback).to(anotherButton);
+buttons.bind(model.interactiveCommand).usingCallback(myViewCallback).to(anotherButton);
 }}}
 
 =Would Like to but...=
