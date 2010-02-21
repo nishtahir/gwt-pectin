@@ -33,6 +33,56 @@ More advanced !ClickHanlders that support enabled & visible state along with int
 
 These would need to support async interception (i.e. `onBeforeExecute(Interception)`) support for promting users and listeners for responding to execution progress and such.  Interception would need to async friendly and probably support chaining.  This kind of thing also typically needs to access "view services" like a promp/message service (like JOptionPane in swing... but better) so your action can interact with the users in a view independant manner, i.e. `messageService.ask(question, callback, Options.OK, Option.CANCEL)`.  Standard services can then have implementation specific to your project or form.  
 
+An async Gui Action may look something like the following.  Any button bound to it would disable during the execution, it would also provide an `ValueModel<Boolean> inProgressModel()` for use in the view.  The !MessageService is the callback into the view layer to ask questions and prompt the user:
+{{{
+private class GenerateAccessCodeAction extends AsyncGuiAction<Void>
+{
+   private MyRemoveServiceAsync remoteService;
+   private MessageDisplay messageDisplay;
+
+   private GenerateAccessCode()
+   {
+     setDisableWhileExecuting(true);
+   }
+
+   @Override
+   protected void onBeforeExecute(Intercept action)
+   {
+      messageDisplay.ask("Do you really wish to generate a new access code?",
+                         "Changing the access code will prevent access using the old code.",
+                         "These changes will take effect after you save your changes")
+         .onChoosingDestructiveOption("Yes change the access code").then(action.proceed())
+         .onChoosingDefault(Option.CANCEL_OPTION).then(action.cancel())
+         .show();
+   }
+
+   @Override
+   protected void doExecute(AsyncCallback<String> callback)
+   {
+      customerServiceAsync.generateAccessCode(callback);
+   }
+
+   @Override
+   protected void onSuccess(String result)
+   {
+      // update our access code value model, I'm presuming this actino is an 
+      // inner of our form model, otherwise it'd have to be passed into us.
+      accessCode.setValue(result);
+   }
+
+   @Override
+   protected void onFailure(Throwable error)
+   {
+      messageDisplay.showError("There was a problem generating a new code.", 
+                         "Please try again.")
+         .onChoosingDefault(Option.OK_OPTION).thenClose()
+         .show();
+   }
+}
+}}}
+
+
+
 =Would Like to but...=
 == Native !UiBinder support==
 Not even sure if it's possible yet.
