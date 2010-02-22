@@ -91,32 +91,6 @@ private class GenerateAccessCodeCommand extends AsyncUiCommand<String> // implem
 }
 }}}
 
-Actually, having played with this a bit, I think I'll need two command types, an interactive kind where the `ViewCallback` can be injected and one that doesn't require support interaction (it will be simpler).  Actually there's be 4 types includeing the non async versions of them.
-
-{{{
-public class AsyncUiCommand<T> implements Command
-{
-  public void onBeforeExecute(Intercept intercept) {...}
-  public void doExecute(AsyncCallback<T> callback) {...} 
-}  
-public class AsyncInteractiveUiCommand<T, C> implements InteractiveCommand<C>
-{
-  public void onBeforeExecute(Intercept intercept, C viewCallback) {...}
-  public void doExecute(AsyncCallback<T> callback, C viewCallback) {...} 
-  public void onSuccess(T result, C viewCallback) {...}
-  // etc...
-}
-
-}}}
-
-In the view I'm aiming for:
-{{{
-ButtonBinder buttons = new ButtonBinder();
-
-buttons.bind(model.regularCommand).to(aButton);
-buttons.bind(model.interactiveCommand).withCallback(myViewCallback).to(anotherButton);
-}}}
-
 =Would Like to but...=
 == Native !UiBinder support==
 Not even sure if it's possible yet.
