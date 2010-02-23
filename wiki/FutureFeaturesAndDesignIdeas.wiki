@@ -34,30 +34,29 @@ I've ditched this idea in favour of Activies.
 =Activities=
 In reading about other async efforts using activites I thought I'd try something similar.  I'm trialing an `Activity` that acts like a data pipe that contains 2 downstream channels (for the result and error) and an optional upstream channel for parameters.  I'm currently have two subtypes `ExecutableActivity` (no parameters that implements `Command`) and a `ParameterisedActivity` that can be curried into and `ExecutableActivity` when given a `Source<T>`.
 
-By using Activities the activity behaviour can be created out side the presentation layer and passed into it.  The various parts of the presentation layer can use what ever bits they like.  Models can inject results into fields (`activity.sendResultTo(someField)`), views can bind activities to buttons (`buttonBinder.bind(executableActivity).to(button).andDisabledWhileActive()`) or show messages when the result comes back or if an error occurs (`activity.sendErrorTo(someErrorDisplay)`) where `someErrorDisplay` implements `Sink<Message>`.  I should also be able transform the channels so you can convert results or errors to messages.
+By using Activities the activity behaviour can be created out side the presentation layer and passed into it.  The various parts of the presentation layer can use what ever bits they like.  Activities can send results directly to fields (`activity.resultChannel().add(someField)`), views can bind activities to buttons (`buttonBinder.bind(executableActivity).to(button).andDisabledWhileActive()`) or show messages when the result comes back or if an error occurs (`activity.errorChannel().add(someErrorDisplay)`) where `someErrorDisplay` implements `Sink<T>`.  I should also be able transform the channels so you can convert results or errors to messages.
 
-An example of an `ExecutableActivity` that invokes an RPC service would be
+An example of an `ParameterisedActivity` that saves a customer using an RPC service would be:
 
 {{{
 /**
- * This activity implementation just performs a simple get on an async service. 
+ * This activity implementation just performs a simple save on an async service. 
  */
-public class GenerateAccessKeyActivity extends AbstractExecutableActivity<String, Throwable>
+public class SaveCustomerActivity extends AbstractParameterisedActivity<Customer, Void, Throwable>
 {
-   private AdminServiceAsync adminService;
+   private CustomerServiceAsync customerService;
 
-   public GenerateAccessKeyActivity(AdminServiceAsync adminService)
+   public GenerateAccessKeyActivity(CustomerServiceAsync customerService)
    {
-      this.adminService = adminService;
+      this.customerService = customerService;
    }
 
    @Override
-   protected void performActivity(final Channel<String> resultChannel, final Channel<Throwable> errorChannel)
+   protected void performActivity(Source<Customer> source, final Channel<Void> resultChannel, final Channel<Throwable> errorChannel)
    {
-      adminService.generateAccessCode(new AsyncCallback<String>()
+      customerService.save(source.get(), new AsyncCallback<Void>()
       {
-
-         public void onSuccess(String result)
+         public void onSuccess(Void result)
          {
             resultChannel.send(result);
          }
@@ -70,29 +69,84 @@ public class GenerateAccessKeyActivity extends AbstractExecutableActivity<String
          }
       });
    }
-
 }
-
 }}}
 
-I also hope to allow the view to add interceptors to activities such that I can do something like:
+This would be created in the SupervisingController (or wher eever appropriate) and passed into the view (or model) as required.
+
+So we'll make our `CustomerFormModel` implement `Source<Customer>` and in our view we'll put the following code.
+
 {{{
-executableActivity.addInterceptor(new Interceptor()
+public class CustomerForm extends Composite
 {
-   public void intercept(Interception interception)
+   interface Binder extends UiBinder<Widget, CustomerForm>{}
+   private static final Binder binder = GWT.create(Binder.class);
+   
+   // executable activities implement Command and can be bound to buttons
+   // in the UI.
+   private  ExecutableActivity<Void, Throwable> saveActivity;
+   // and our model
+   private CustomerFormModel model = new CustomerFormModel();
+
+   // for binding activites to buttons and what not...
+   private ButtonBinder buttons = new ButtonBinder();
+   private MetadataBinder metadata = new MetadataBinder();
+
+   @UiField Button saveButton;
+   @UiField Image spinnySaveIcon;
+
+   public CustomerForm(ParameterisedActivity<Customer, Void, Throwable> rawSaveActivity)
    {
-      // ask our view (via the display callback) to ask a question.
+      initWidget(binder.createAndBindUi(this));
+
+      // Curry the parameterised activity into a Executable activity using the 
+      // customer stored in the model.  We'll also add an intercepter to
+      // stop the activity if the form isn't valid.  This could be put in the model
+      // too if that made sense.  
+      saveActivity = rawSaveActivity.curry(model).intercept(new Interceptor()
+      {
+         public void intercept(Interception interception)
+         {
+            if (model.validate())
+            {  
+               // commit our changes so our currying gets updated version
+               model.commit();
+               // and proceed with the activity.
+               chain.proceed();
+            }           
+         }
+      }
+
+      // now add some error display that implements Sink<Throwable> (the sink
+      // has the single method `public void sink(T value)`.
+      saveActivity.errorChannel().add(myErrorWidget);
+
+      // now lets wire it up to our button
+      buttons.bind(saveActivity).to(saveButton).andDisableWhileActive();
+
+      // We can also use the activities `active` value model to do other things.
+      metadata.show(spinnySaveIcon).when(saveActivity.isActive());
+   }
+}
+}}}
+
+Interceptors can be chained through other async operations.  If we needed to prompt before performing some async operation we'd pass the proceed `Command` along to be invoked as a callback.
+{{{
+changeAccessCodeActivity.intercept(new Interceptor()
+{
+   public void intercept(CallChain chain)
+   {
+      // ask our view to ask a question.
       messageDisplay.ask("Do you really wish to generate a new access code?",
                          "Changing the access code will prevent access using the old code.",
                          "These changes will take effect after you save your changes.")
-         .onChoosingDestructiveOption("Yes change the access code").thenExecute(interception.proceedCommand())
-         .onChoosingDefault(Option.CANCEL_OPTION).thenExecute(interception.cancelCommand())
+         .onChoosingDestructiveOption("Yes change the access code").thenExecute(chain.proceedCommand())
+         .onChoosingDefault(Option.CANCEL_OPTION).justClose()
          .show();
    }
 }
 }}}    
 
-I'm not sure if I should implement this case as a activity chain or not.  It's early days... and there's a lot to think about in terms handler registrations etc. 
 
 
 =Would Like to but...=
