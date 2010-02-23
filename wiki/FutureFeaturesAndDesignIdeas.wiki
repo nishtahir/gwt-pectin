@@ -34,9 +34,7 @@ I've ditched this idea in favour of Activies.
 =Activities=
 In reading about other async efforts using activites I thought I'd try something similar.  I'm trialing an `Activity` that acts like a data pipe that contains 2 downstream channels (for the result and error) and an optional upstream channel for parameters.  I'm currently have two subtypes `ExecutableActivity` (no parameters that implements `Command`) and a `ParameterisedActivity` that can be curried into and `ExecutableActivity` when given a `Source<T>`.
 
-My !FormModels can use an activity to update field values i.e. `activity.setResultTo(someField)`.  The view can bind an `ExecutableActivity` directly to buttons.  `buttonBinder.bind(activity).to(button).andDisabledWhileActive()`.
-
-The View can also use the activity to display any errors using an error display.  `activity.setErrorTo(someErrorDisplay)` where error display implements `Sink<Message>` or what ever the error type is (currently my activites that call async services are performing Exception to message conversion, but it could happen anywhere in the chain).
+By using Activities the activity behaviour can be created out side the presentation layer and passed into it.  The various parts of the presentation layer can use what ever bits they like.  Models can inject results into fields (`activity.sendResultTo(someField)`), views can bind activities to buttons (`buttonBinder.bind(executableActivity).to(button).andDisabledWhileActive()`) or show messages when the result comes back or if an error occurs (`activity.sendErrorTo(someErrorDisplay)`) where `someErrorDisplay` implements `Sink<Message>`.  I should also be able transform the channels so you can convert results or errors to messages.
 
 I also hope to allow the view to add interceptors to activities such that I can do something like:
 {{{
@@ -48,14 +46,14 @@ executableActivity.addInterceptor(new Interceptor()
       messageDisplay.ask("Do you really wish to generate a new access code?",
                          "Changing the access code will prevent access using the old code.",
                          "These changes will take effect after you save your changes.")
-         .onChoosingDestructiveOption("Yes change the access code").then(interception.proceed())
-         .onChoosingDefault(Option.CANCEL_OPTION).then(interception.cancel())
+         .onChoosingDestructiveOption("Yes change the access code").thenExecute(interception.proceedCommand())
+         .onChoosingDefault(Option.CANCEL_OPTION).thenExecute(interception.cancelCommand())
          .show();
    }
 }
 }}}    
 
-It's early days...
+It's early days... and there's a lot to think about in terms handler registrations etc. 
 
 
 =Would Like to but...=
