@@ -36,6 +36,45 @@ In reading about other async efforts using activites I thought I'd try something
 
 By using Activities the activity behaviour can be created out side the presentation layer and passed into it.  The various parts of the presentation layer can use what ever bits they like.  Models can inject results into fields (`activity.sendResultTo(someField)`), views can bind activities to buttons (`buttonBinder.bind(executableActivity).to(button).andDisabledWhileActive()`) or show messages when the result comes back or if an error occurs (`activity.sendErrorTo(someErrorDisplay)`) where `someErrorDisplay` implements `Sink<Message>`.  I should also be able transform the channels so you can convert results or errors to messages.
 
+An example of an `ExecutableActivity` that invokes an RPC service would be
+
+{{{
+/**
+ * This activity implementation just performs a simple get on an async service. 
+ */
+public class GenerateAccessKeyActivity extends AbstractExecutableActivity<String, Throwable>
+{
+   private AdminServiceAsync adminService;
+
+   public GenerateAccessKeyActivity(AdminServiceAsync adminService)
+   {
+      this.adminService = adminService;
+   }
+
+   @Override
+   protected void performActivity(final Channel<String> resultChannel, final Channel<Throwable> errorChannel)
+   {
+      adminService.generateAccessCode(new AsyncCallback<String>()
+      {
+
+         public void onSuccess(String result)
+         {
+            resultChannel.send(result);
+         }
+
+         public void onFailure(Throwable caught)
+         {
+            // could perform some exception handling/conversion here if 
+            // we wanted to.
+            errorChannel.send(caught);
+         }
+      });
+   }
+
+}
+
+}}}
+
 I also hope to allow the view to add interceptors to activities such that I can do something like:
 {{{
 executableActivity.addInterceptor(new Interceptor()
@@ -53,7 +92,7 @@ executableActivity.addInterceptor(new Interceptor()
 }
 }}}    
 
-It's early days... and there's a lot to think about in terms handler registrations etc. 
+I'm not sure if I should implement this case as a activity chain or not.  It's early days... and there's a lot to think about in terms handler registrations etc. 
 
 
 =Would Like to but...=
