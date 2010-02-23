@@ -72,7 +72,7 @@ public class SaveCustomerActivity extends AbstractParameterisedActivity<Customer
 }
 }}}
 
-This would be created in the SupervisingController (or wher eever appropriate) and passed into the view (or model) as required.
+This would be created in the !SupervisingController (or where ever appropriate) and passed into the view (or model) as required.
 
 So we'll make our `CustomerFormModel` implement `Source<Customer>` and in our view we'll put the following code.
 
@@ -105,7 +105,7 @@ public class CustomerForm extends Composite
       // too if that made sense.  
       saveActivity = rawSaveActivity.curry(model).intercept(new Interceptor()
       {
-         public void intercept(Interception interception)
+         public void intercept(CallChain chain)
          {
             if (model.validate())
             {  
