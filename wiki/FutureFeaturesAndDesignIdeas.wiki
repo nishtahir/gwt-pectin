@@ -165,10 +165,26 @@ It's conceivable that activities may have more than two channels, something like
 I think this mechanism would work nicely in conjunction with more advanced models.  For example I could develop a `public class CustomerListModel extends AbstractListModel` that provides commands for the operations it performs.  
 {{{
 AddActivity addCustomer = myCustomerListModel.getAddActivity();
+DeleteActivity deleteCustomer = myCustomerListModel.getDeleteActivity();
+
 addCustomer.curry(theNewCustomer).execute();
+
+// and of course our view can intercept...
+deleteCustomer.curry(theOldCustomer).intercept(new Interceptor()
+{
+   public void intercept(CallChain chain)
+   {
+      // ask our view to ask a question.
+      messageDisplay.ask("Do you really want to delete this customer?",
+                         "This change can't be undon.")
+         .onChoosingDestructiveOption("Yes delete the customer").thenExecute(chain.proceedCommand())
+         .onChoosingDefault(Option.CANCEL_OPTION).justClose()
+         .show();
+   }
+}
 }}}
 
-In this case the result channel would probably remain unused as our view would update automatically when the activity updates `myCustomerListModel`.
+In this case the result channel would probably remain unused as our view would update automatically when the activity updates the !CustomerListModel.
 
 
 =Would Like to but...=
