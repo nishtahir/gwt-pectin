@@ -144,7 +144,7 @@ changeAccessCodeActivity.intercept(new Interceptor()
          .onChoosingDefault(Option.CANCEL_OPTION).justClose()
          .show();
    }
-}
+}).execute();
 }}}    
 
 This is all in it's early stages and I haven't added any HandlerRegistrations at this point.  I'm thinking about subscribing to the Activity in order to access the channels.  Perhaps something like:
