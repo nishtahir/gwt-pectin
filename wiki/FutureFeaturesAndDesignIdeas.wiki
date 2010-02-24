@@ -34,7 +34,7 @@ I've ditched this idea in favour of Activies.
 =Activities=
 In reading about other async efforts using activites I thought I'd try something similar.  I'm trialing an `Activity` that acts like a data pipe that contains 2 downstream channels (for the result and error) and an optional upstream channel for parameters.  I'm currently have two subtypes `ExecutableActivity` (no parameters that implements `Command`) and a `ParameterisedActivity` that can be curried into and `ExecutableActivity` when given a `Source<T>`.
 
-By using Activities the activity behaviour can be created out side the presentation layer and passed into it.  The various parts of the presentation layer can use what ever bits they like.  Activities can send results directly to fields (`activity.resultChannel().add(someField)`), views can bind activities to buttons (`buttonBinder.bind(executableActivity).to(button).andDisabledWhileActive()`) or show messages when the result comes back or if an error occurs (`activity.errorChannel().add(someErrorDisplay)`) where `someErrorDisplay` implements `Sink<T>`.  I should also be able transform the channels so you can convert results or errors to messages.
+By using Activities the activity behaviour can be created out side the presentation layer and passed into it.  The various parts of the presentation layer can use what ever bits they like.  Activities can send results directly to fields (`activity.resultChannel().sendTo(someField)`), views can bind activities to buttons (`buttonBinder.bind(executableActivity).to(button).andDisabledWhileActive()`) or show messages when the result comes back or if an error occurs (`activity.errorChannel().sendTo(someErrorDisplay)`) where `someErrorDisplay` implements `Sink<T>`.  I should also be able transform the channels so you can convert results or errors to messages.
 
 An example of an `ParameterisedActivity` that saves a customer using an RPC service would be:
 
@@ -115,11 +115,11 @@ public class CustomerForm extends Composite
                chain.proceed();
             }           
          }
-      }
+      });
 
       // now add some error display that implements Sink<Throwable> (the sink
       // has the single method `public void sink(T value)`.
-      saveActivity.errorChannel().add(myErrorWidget);
+      saveActivity.errorChannel().sendTo(myErrorWidget);
 
       // now lets wire it up to our button
       buttons.bind(saveActivity).to(saveButton).andDisableWhileActive();
@@ -147,6 +147,20 @@ changeAccessCodeActivity.intercept(new Interceptor()
 }
 }}}    
 
+This is all in it's early stages and I haven't added any HandlerRegistrations at this point.  I'm thinking about subscribing to the Activity in order to access the channels.  Perhaps something like:
+{{{
+ActivitySubscription saveEvents = saveActivity.subscribe();
+saveEvents.resultChannel().sendTo(someSink);
+
+// I might also add convenience methods like
+saveEvents.setResultTo(someResultSink);
+saveEvents.setErrorTo(someErrorSink);
+
+// some time later if requried.
+saveEvents.unsubscribe();
+}}}
+
+It's conceivable that activities may have more than two channels, something like an async operation that generates partial results like progress updates, or pushing data down as it arrives. 
 
 
 =Would Like to but...=
