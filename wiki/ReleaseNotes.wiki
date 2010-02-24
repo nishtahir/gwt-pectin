@@ -13,7 +13,7 @@ There have been some breaking changes to `BeanModelProvider`, see below.
 
 
 Other changes include
-  * Updated `AbstractDynamicList` constructor to take the text of the remove link.  
+  * Deprecated `MetadataBinder.bindValueOf(...)` and friends in favour of simple `show(widget).when(condition)` and `show(widget).usingMetadataOf(field)`.  There are methods for show/hide/enable/disable. 
   * Updated `WidgetBinder.toLabel(HasText)` methods to use default formats.  E.g. `binder.bind(model.gender).toLabel(myLabel)` will use the default `ToStringFormat`.  To specify a different format you can call `binder.bind(model.gender).toLabel(myLabel).withFormat(genderFormat)`.
   * Fixed the generics on  `ReducingValueModel`, `Reduce` and `ListDisplayFormat` so creating default `ToString` style functions and formats works on collections without casting.  See [http://pietschy.com/blog/2010/02/using-extends-t-and-super-t-for-reduce-style-functions-that-operate-on-collections/ this blog entry if you're interested].
   * Updated `ReducingValueModel` to support run time changes to the `Reduce` function.
@@ -22,7 +22,12 @@ Other changes include
   * Cleaned and refactored `WidgetBinder` infrastructure.  `BindingCallback` has been simplified and various builders updated to be more consistent.
   * Made the addition of external validation messages easier to access by making `ValidationManager.getValidator(field)` return `FieldValidator` instead of `HasValidation`.
   * Fixed bug where `FormattedListFieldModelImpl` extended `ListFieldModelImpl` instead of `AbstractListFieldModelBase`.  This was causing class cast exceptions in the convenience methods of the validation plugin.
+  * Updated `AbstractDynamicList` constructor to take the text of the remove link.  
   * Added `TestUtil` class and `RefectionBeanModelProvider` to facilitate JVM based unit tests.
+
+Known Bugs
+  * Changed the way BeanPropertyListModel computes it's dirty state and it now includes the list order.  This fixed an issue when using AbstractDynamicList and entering the same values in a different order but introduces a bug when using lists with `bind(model.list).containingValue(T).to(checkbox)`.  In this case unchecking and re-checking in a different order leaves the form in a dirty state but re-checking in the same order clears it.. which is very confusing for users.  See issue 14 for more info.  This bug is preferred however since it gives false dirties rather than false cleans.
+
 
 == Release 0.5 ==
   * Removed var-arg methods from `AbstractDynamicList` to work around GWT 2 compiler problem (issue 10).
