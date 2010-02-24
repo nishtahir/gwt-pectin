@@ -144,7 +144,9 @@ changeAccessCodeActivity.intercept(new Interceptor()
          .onChoosingDefault(Option.CANCEL_OPTION).justClose()
          .show();
    }
-}).execute();
+});
+
+changeAccessCodeActivity.execute();
 }}}    
 
 This is all in it's early stages and I haven't added any HandlerRegistrations at this point.  I'm thinking about subscribing to the Activity in order to access the channels.  Perhaps something like:
@@ -165,9 +167,10 @@ It's conceivable that activities may have more than two channels, something like
 I think this mechanism would work nicely in conjunction with more advanced models.  For example I could develop a `public class CustomerListModel extends AbstractListModel` that provides commands for the operations it performs.  
 {{{
 AddActivity addCustomer = myCustomerListModel.getAddActivity();
-DeleteActivity deleteCustomer = myCustomerListModel.getDeleteActivity();
 
 addCustomer.curry(theNewCustomer).execute();
+
+DeleteActivity deleteCustomer = myCustomerListModel.getDeleteActivity();
 
 // and of course our view can intercept...
 deleteCustomer.curry(theOldCustomer).intercept(new Interceptor()
@@ -181,10 +184,10 @@ deleteCustomer.curry(theOldCustomer).intercept(new Interceptor()
          .onChoosingDefault(Option.CANCEL_OPTION).justClose()
          .show();
    }
-}
+}).execute();
 }}}
 
-In this case the result channel would probably remain unused as our view would update automatically when the activity updates the !CustomerListModel.
+In these cases the result channel would possibly remain unused as our view would update automatically when the activity updates the !CustomerListModel.
 
 
 =Would Like to but...=
