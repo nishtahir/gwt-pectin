@@ -162,6 +162,14 @@ saveEvents.unsubscribe();
 
 It's conceivable that activities may have more than two channels, something like an async operation that generates partial results like progress updates, or pushing data down as it arrives. 
 
+I think this mechanism would work nicely in conjunction with more advanced models.  For example I could develop a `public class CustomerListModel extends AbstractListModel` that provides commands for the operations it performs.  
+{{{
+AddActivity addCustomer = myCustomerListModel.getAddActivity();
+addCustomer.curry(theNewCustomer).execute();
+}}}
+
+In this case the result channel would probably remain unused as our view would update automatically when the activity updates `myCustomerListModel`.
+
 
 =Would Like to but...=
 == Native !UiBinder support==
