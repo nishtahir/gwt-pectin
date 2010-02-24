@@ -26,7 +26,7 @@ Other changes include
   * Added `TestUtil` class and `RefectionBeanModelProvider` to facilitate JVM based unit tests.
 
 Known Bugs
-  * Changed the way BeanPropertyListModel computes it's dirty state and it now includes the list order.  This fixed an issue when using AbstractDynamicList and entering the same values in a different order but introduces a bug when using lists with `bind(model.list).containingValue(T).to(checkbox)`.  In this case unchecking and re-checking in a different order leaves the form in a dirty state but re-checking in the same order clears it.. which is very confusing for users.  See issue 14 for more info.  This bug is preferred however since it gives false dirties rather than false cleans.
+  * Changed the way `BeanPropertyListMode`l computes it's dirty state to include the list order.  This fixed an issue when using `AbstractDynamicList` with the same values.  This change introduces and issue with `bind(model.list).containingValue(T).to(checkbox)`.  In this case unchecking and re-checking in a different order leaves the form in a dirty state but re-checking in the same order clears it.. which is very confusing for users.  See issue 14 for more info.  This bug is preferred however since it gives false dirties rather than false cleans.  This bug will only affect you if you're displaying the dirty state on the UI.
 
 
 == Release 0.5 ==
