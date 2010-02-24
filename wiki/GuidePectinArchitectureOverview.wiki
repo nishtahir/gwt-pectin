@@ -13,7 +13,7 @@ The following illustrates the chain of data as it passes from the domain to the 
                                            [Plugins]
 }}} 
 
-*Please note:* The above diagram demonstrates the data path and relationships between the various components of pectin.  It doesn't imply an architectural pattern or an approach to implementing your app or form.  Typically I embed presentation models inside views, those views implement some kind of `Editor` or `Display` interface which then interacts with a supervising controller of some kind.  The view typically delegates most of the `Display` interface to the presentation model.   
+*Please note:* The above diagram demonstrates the data path and relationships between the various components of pectin.  It doesn't imply an architectural pattern or an approach to implementing your app or form.  Typically I embed presentation models inside views, those views implement some kind of `Editor` or `Display` interface which then interacts with a supervising controller of some kind.  The view typically delegates most of the `Display` interface to the presentation model.  When creating complex widgets (e.g. an `Address` editor) I tend to create the `AddressModel` separately.  This way other form models can be embedded the address model (and tweak it to their requirements) and pass it to the view which then goes `addressWidget = new AddressWidget(formModel.addressModel)`.
 
 The following outlines the roles of the various bits and pieces.
   # *Domain Data* - data like the fields of a Customer, Address etc.
