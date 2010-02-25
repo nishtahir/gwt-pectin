@@ -36,9 +36,9 @@ Activities are an experimental attempt provide an equivalent of Swing Actions in
 
 I'm trialing an `Activity` that models "something you do" in a similar way that !ValueModel is "something that is".  Activities have states of `active` and `enabled` (which are both `ValueModel<Boolean>`s) and and provide 2 downstream `Channel<T>`s (for the success and error handling).  I'm currently have two subtypes `ExecutableActivity` (no parameters that implements `Command`) and a `ParameterisedActivity` that can be curried into and `ExecutableActivity` when given a `Source<T>`.
 
-By using Activities the activity behaviour can be created out side the presentation layer and passed into it.  The various parts of the presentation layer can use what ever bits they need.  Activities can send results directly to fields (`activity.getSuccessChannel().sendTo(someField)`), views can bind activities to buttons (`buttonBinder.bind(executableActivity).to(button)` which will enabled and disable as appropriate) or show messages when the result comes back or if an error occurs (`activity.getErrorChannel().sendTo(someErrorDisplay)`) where `someErrorDisplay` implements `Sink<T>`.
+By using Activities the activity behaviour can be created out side the presentation layer and passed into it.  The various parts of the presentation layer can use what ever bits they need.  Activities can be used to send results directly to fields (`activity.getSuccessChannel().sendTo(someFieldInMyModel)`), views can bind activities to buttons (`buttonBinder.bind(executableActivity).to(button)` which will enabled and disable as appropriate) or show messages when the result comes back or if an error occurs (`activity.getErrorChannel().sendTo(someErrorDisplay)`) where `someErrorDisplay` implements `Sink<T>`.
 
-An example of using a `ParameterisedActivity` that saves a customer using an RPC service would be:
+An example of creating a `ParameterisedActivity` that saves a customer using an RPC service would be:
 
 {{{
 /**
