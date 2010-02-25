@@ -2,8 +2,7 @@
 #labels Featured
 #sidebar TableOfContents
 
-=A note before we start=
-==From the data up or the UI down==
+=A note before we start - building from the data up or the UI down?=
 There are a lot of "data up" style frameworks around that aim to produce forms from bean definitions (e.g. rails/grails scaffolding, Tapestry's !BeanForm).  This particular method can produce forms very quickly and appears to be great for developer productivity, but typically produces UIs with awful usability that are difficult to change.  The scope for such tools in the world of UI design and construction is typically very narrow.  I see this as an intractable problem since by the very nature of things the UI data model is a superset of the data model typically represented by the underlying bean objects.
 
 Pectin has been designed from the start as a framework for building forms from the UI design down, providing mechanisms for binding to beans (and other data sources) without being constrained by them.  I suspect it could be used quite successfully to build a "beans on forms" layer but it is not limited to that one particular use case.
