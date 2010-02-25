@@ -196,8 +196,9 @@ In these cases the result channel would possibly remain unused as our view would
 
 There's quite a bit of scope for this kind of concept.  Thinking off the top of my head should be possible for views to expose complex operations e.g. 
 {{{
-// next page would automatically enable and disable based on 
-// the current dataset.. although this looks like it may be part of a model
+// The pager knows where it is in the dataset so would automatically enable
+// and disable the next page activity appropriately.  Any button bound to it
+// would follow suit.
 ExecutableActivity<Void,Void> nextPage = table.getPager().getNextPageActivity();
 }}}
 
