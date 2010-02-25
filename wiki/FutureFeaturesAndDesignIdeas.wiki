@@ -194,8 +194,22 @@ deleteCustomer.curry(theOldCustomer).intercept(new Interceptor()
 
 In these cases the result channel would possibly remain unused as our view would update automatically when the activity updates the !ListModel.
 
-There's quite a bit of scope for this kind of concept.  Thinking off the top of my head should be possible for views to expose complex operations e.g. `table.getPager().getNextPageActivity()` or models to expose functionality such as `listModel.getFilter().getApplyActivity()`.  The later would be an example of a class (`ListFilter`) the model both state `ValueModel<String> getFilterTextModel() and activities `filter.getApplyActivity()`).  
+There's quite a bit of scope for this kind of concept.  Thinking off the top of my head should be possible for views to expose complex operations e.g. 
+{{{
+// next page would automatically enable and disable based on 
+// the current dataset.. although this looks like it may be part of a model
+ExecutableActivity<Void,Void> nextPage = table.getPager().getNextPageActivity();
+}}}
 
+Since our models can expose both data and behaivour the functionality is provided within the framework but can be adapted to any view.
+{{{
+// our list thingy has a filter
+ListFilter filter = myListModelThingy.getFilter();
+// the filter models both the filter text and the activity so we can
+// use it however we like in our view.
+ValueModel<String> filterText = filter.getTextModel();
+ApplyActivity apply = filter.getApplyActivity();
+}}
 
 =Would Like to but...=
 == Native !UiBinder support==
