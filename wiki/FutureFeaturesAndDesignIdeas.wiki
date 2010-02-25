@@ -209,7 +209,7 @@ ListFilter filter = myListModelThingy.getFilter();
 // use it however we like in our view.
 ValueModel<String> filterText = filter.getTextModel();
 ApplyActivity apply = filter.getApplyActivity();
-}}
+}}}
 
 =Would Like to but...=
 == Native !UiBinder support==
