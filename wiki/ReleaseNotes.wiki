@@ -1,6 +1,8 @@
 #summary Pectin Release Notes
 
-== Next Release ==
+== Release 0.6==
+There have been more changes in this release than I'd like.  Let me know if you have any problems.
+
 There have been some breaking changes to `BeanModelProvider`, see below. 
   * Refactored `BeanModelProvider` code into three separate types.
     * `BeanModelProvider` - as before but without the autocommit capabilities
@@ -12,7 +14,7 @@ There have been some breaking changes to `BeanModelProvider`, see below.
   * Updated `ValueModelProvider` and `ListModelProvider` interfaces to support arbitrary key types.  The bean providers now implement `ValueModelProvider<String>` and `ListModelProvider<String>` (i.e. for use with string property names).
 
 
-Other changes include
+Other changes:
   * Deprecated `MetadataBinder.bindValueOf(...)` and friends in favour of simple `show(widget).when(condition)` and `show(widget).usingMetadataOf(field)`.  There are methods for show/hide/enable/disable. 
   * Updated `WidgetBinder.toLabel(HasText)` methods to use default formats.  E.g. `binder.bind(model.gender).toLabel(myLabel)` will use the default `ToStringFormat`.  To specify a different format you can call `binder.bind(model.gender).toLabel(myLabel).withFormat(genderFormat)`.
   * Fixed the generics on  `ReducingValueModel`, `Reduce` and `ListDisplayFormat` so creating default `ToString` style functions and formats works on collections without casting.  See [http://pietschy.com/blog/2010/02/using-extends-t-and-super-t-for-reduce-style-functions-that-operate-on-collections/ this blog entry if you're interested].
@@ -26,7 +28,7 @@ Other changes include
   * Added `TestUtil` class and `RefectionBeanModelProvider` to facilitate JVM based unit tests.
 
 Known Bugs
-  * Changed the way `BeanPropertyListMode`l computes it's dirty state to include the list order (fixing an issue when using `AbstractDynamicList`).  This change introduces an issue with `bind(model.list).containingValue(T).to(checkbox)` (issue 14).  In this case unchecking and re-checking in a different order leaves the form in a dirty state but re-checking in the same order clears it.. which is very confusing for users if you're displaying the dirty state on the UI.  See issue 14 for more info.  This bug is preferred however since it gives false dirties rather than false cleans.  This bug will only affect you if you're displaying the dirty state on the UI.
+  * Changed the way `BeanPropertyListMode`l computes it's dirty state to include the list order (fixing an issue when using `AbstractDynamicList`).  This change introduces an issue with `bind(model.list).containingValue(T).to(checkbox)` (issue 14).  Unchecking and re-checking the checkboxes in a different order leaves the form in a dirty state, which is very confusing for users if you're displaying the dirty state on the UI.  See issue 14 for more info.  This bug is preferred however since it gives false dirties rather than false cleans.  This bug will only affect you if you're displaying the dirty state on the UI.
 
 
 == Release 0.5 ==
