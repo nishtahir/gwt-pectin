@@ -1,7 +1,7 @@
 #summary Pectin Release Notes
 
 == Release 0.6==
-There have been more changes in this release than I'd like.  Let me know if you have any problems.
+This release has quite a few changes, let me know if you have any problems.
 
 There have been some breaking changes to `BeanModelProvider`, see below. 
   * Refactored `BeanModelProvider` code into three separate types.
