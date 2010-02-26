@@ -1,0 +1,68 @@
+import org.gradle.api.Project
+
+buildscript {
+   repositories {
+      mavenRepo urls: 'http://maven.pietschy.com'
+   }
+   dependencies {
+      // this provides the plugins used to build pectin, most notably
+      // the GwtLibPlugin and GwtAppPlugin and associated tasks
+      classpath "com.pietschy.gradle:plugins:0.8-3-SNAPSHOT"
+   }
+}
+
+allprojects {
+
+   group = 'com.pietschy.gwt'
+
+   usePlugin('java')
+   usePlugin('maven')
+   usePlugin(com.pietschy.gradle.plugin.IdePlugin)
+
+   sourceCompatibility = 1.5
+   targetCompatibility = 1.5
+
+   def localMavenRepo = 'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath
+   
+   repositories {
+      // todo: remove the local repo     
+      mavenRepo urls: localMavenRepo
+      mavenRepo urls: 'http://maven.pietschy.com'
+      mavenCentral()
+   }
+
+/* offline support */
+//   repositories {
+//      if (rootProject.hasProperty('offline')) {
+//          add(new FileSystemResolver()) {
+//              name = 'gradleCache'
+//              addArtifactPattern("${gradle.gradleUserHomeDir}/cache/${ResolverContainer.DEFAULT_CACHE_ARTIFACT_PATTERN}")
+//              addIvyPattern("${gradle.gradleUserHomeDir}/cache/${ResolverContainer.DEFAULT_CACHE_IVY_PATTERN}")
+//          }
+//      }
+//      else {
+//          repositories { mavenCentral() }
+//      }
+//  }
+}
+
+// define some generic functions for use by other project builds
+void incrementBuildNumber(Project project)
+{
+   project.ant.buildnumber();
+}
+
+String readBuildNumber(Project project)
+{
+   File buildNumberFile = project.file('build.number')
+   return buildNumberFile.exists() ? loadProperties(buildNumberFile).getProperty('build.number') : '0'
+}
+
+Properties loadProperties(File file)
+{
+   Properties map = new Properties()
+   map.load(new FileInputStream(file))
+   return map
+}
+
+
