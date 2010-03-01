@@ -39,6 +39,7 @@ deleteCustomerActivity = deleteCustomerActivity.intercept(new Interceptor()
 
 // clicking the button will prompt the user.
 activityBinder.bind(deleteCustomerActivity).to(deleteCustomerButton);
+
 // and show a message while the activity is in progress.
 metadataBinder.show(deletingMessage).when(deleteCustomerActivity.isActive());
 
