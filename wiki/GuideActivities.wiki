@@ -1,4 +1,5 @@
 #summary Guide to Activities
+#sidebar TableOfContents
 
 = Activities (Experimental) =
 
