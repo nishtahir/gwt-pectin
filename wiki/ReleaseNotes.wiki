@@ -2,8 +2,8 @@
 
 == Next Release ==
   * Initial commit of Activities (Experimental).
-  * Introduced new types ValueSource and MutableValue that allow the reading and writing of a value without requireing a ValueModel.
-  * Updated CopyingBeanModelProvider to support the above interfaces.
+  * Introduced new types `ValueSource` and `MutableValue` that allow the reading and writing of a value without requireing a `ValueModel`.
+  * Updated `CopyingBeanModelProvider` to support the above interfaces.
   * Fixed typos and updated protected fields that should be private.
 
 
