@@ -1,7 +1,7 @@
 #summary Pectin Release Notes
 = Pectin Release Notes=
 == Next Release ==
-  * Initial commit of Activities (Experimental).
+  * Initial commit of Activities (an experimental analog of Swing Actions).
   * Introduced new types `ValueSource` and `MutableValue` that allow the reading and writing of a value without requireing a `ValueModel`.
   * Updated `CopyingBeanModelProvider` to support the above interfaces.
   * Fixed typos and updated protected fields that should be private.
