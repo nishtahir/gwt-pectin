@@ -1,5 +1,5 @@
 #summary Pectin Release Notes
-
+= Pectin Release Notes=
 == Next Release ==
   * Initial commit of Activities (Experimental).
   * Introduced new types `ValueSource` and `MutableValue` that allow the reading and writing of a value without requireing a `ValueModel`.
