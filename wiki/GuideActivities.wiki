@@ -2,7 +2,7 @@
 
 = Activities (Experimental) =
 
-Activities are an experimental addition to pectin to model "things that happen" in a similar ways to Swing's `Action` class.  They implement `Command` and provide states (!ValueModel's) for enabled and active.  The also provide support for interception so view's can confirm actions in an asynchronous manner.  Checkout the Activities & Buttons tab [http://scratchpad.pietschy.com/pectin/PectinDemo.html on the demo].  The demo has links to the source code. 
+Activities are an experimental addition to pectin to model "things that happen" in a similar fashion to Swing's `Action` class.  Activities implement `Command` and provide states for enabled and active (`ValueModel<Boolean>`'s).  They also provide support for interception so view's can confirm actions in an asynchronous manner.  Checkout the Activities & Buttons tab [http://scratchpad.pietschy.com/pectin/PectinDemo.html on the demo].  The demo has links to the source code. 
 
 *Please Note:* The source code contains both `AsyncActivity` and `Activity`.  `AsyncActivity` is what this document refers to.  While `Activity` exists and is in use it's had little development or focus.
 
@@ -43,4 +43,3 @@ metadataBinder.show(deletingMessage).when(deleteCustomerActivity.isActive());
 // once it completes we can diplay errors
 activityBinder.sendErrorsOf(deleteCustomerActivity).to(myErrorDisplay);
 }}}
-
