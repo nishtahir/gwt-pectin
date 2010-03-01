@@ -4,7 +4,7 @@
 
 Activities are an experimental addition to pectin to model "things that happen" in a similar fashion to Swing's `Action` class.  Activities implement `Command` and provide states for enabled and active (`ValueModel<Boolean>`'s).  They also provide support for interception so view's can confirm actions in an asynchronous manner.
 
-Checkout the Activities & Buttons tab [http://scratchpad.pietschy.com/pectin/PectinDemo.html on the demo].  The demo has links to the source code. 
+Checkout the Activities & Buttons tab [http://scratchpad.pietschy.com/pectin/PectinDemo.html on the demo].  You can read [http://code.google.com/p/gwt-pectin/source/browse/trunk/demo/src/main/java/com/pietschy/gwt/pectin/demo/client/activity/ the source code] for more info.
 
 *Please Note:* The source code contains both `AsyncActivity` and `Activity`.  `AsyncActivity` is what this document refers to.  While `Activity` exists and is in use it's had little development or focus.
 
