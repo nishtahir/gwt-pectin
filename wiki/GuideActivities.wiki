@@ -1,0 +1,9 @@
+#summary Guide to Activities
+
+= Activities (Experimental) =
+
+Activities are an experimental addition to pectin to model "things that happen" in a similar ways to Swing's `Action` class.  They implement `Command` and provide states (!ValueModel's) for enabled and active.  The also provide support for interception so view's can confirm actions in an asynchronous manner.  
+
+For now you can checkout the Activities & Buttons tab [http://scratchpad.pietschy.com/pectin/PectinDemo.html on the demo].
+
+The demo has links to the source code. 
