@@ -23,12 +23,12 @@ To manage these issues Activities have a number of concepts:
   * *!WidgetBinder* - Allows the view to bind Activities to buttons (`binder.bind(saveActivity).to(saveButton)` and various widgets (`HasValue`, `HasText`, `HasHTML` and others) to Channels.  Since activities have an active state you can easily show and hide things while they're running e.g. `binder.show(saveMessage).when(saveActivity.active())`. 
   
 = Interceptors =
-Interceptors are implemented but have only been lightly trialed.  The following demonstrates the intent of the interceptor.
+`AsyncActivities` allow you to add interceptors that get invoked prior to the command executing.  Currently these are only on `AbstractAsyncActivity` but will hopefully be added to the others soonish. 
 
 {{{
 // We can add interceptors in the view to prompt the user.  Thhe intercept
 // method returns a new instance the we then use to bind to buttons.
-deleteCustomerActivity = deleteCustomerActivity.intercept(new Interceptor()
+deleteCustomerActivity = deleteCustomerActivity.beforeStartingRun(new Interceptor()
 {
    public void intercept(Invocation invocation)
    {
@@ -42,12 +42,11 @@ deleteCustomerActivity = deleteCustomerActivity.intercept(new Interceptor()
 });
 
 // clicking the button will prompt the user.
-activityBinder.bind(deleteCustomerActivity).to(deleteCustomerButton);
+binder.bind(deleteCustomerActivity).to(deleteCustomerButton);
 
 // and show a message while the activity is in progress.
-metadataBinder.show(deletingMessage).when(deleteCustomerActivity.isActive());
+binder.show(deletingMessage).when(deleteCustomerActivity.isActive());
 
-// once it completes we can diplay errors
-activityBinder.sendErrorsOf(deleteCustomerActivity).to(myErrorDisplay);
+// once it completes we can display errors
+binder.sendErrorsOf(deleteCustomerActivity).to(myErrorDisplay);
 }}}
-
