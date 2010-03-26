@@ -5,14 +5,14 @@
   * Introduced new types `ValueSource` and `MutableValue` that allow the reading and writing of a value without requireing a `ValueModel`.
   * Updated `CopyingBeanModelProvider` to support the above interfaces.
   * Fixed typos and updated protected fields that should be private.
-  * Updated `AbstractBeanModelProvider`, `BeanPropertyValueModel` and `BeanPropertyListModel` to support imuatable bean properties (i.e. those with with no setter).  The mutablility of the underlying property is exposed in the value returned by `BeanPropertyValueModel.getMutableModel()`.
+  * Updated `AbstractBeanModelProvider`, `BeanPropertyValueModel` and `BeanPropertyListModel` to support read only bean properties (i.e. those with with no setter).  The mutablility of the underlying property is exposed in the value returned by `BeanPropertyValueModel.getMutableModel()`.
   * Fixed defect where !BeanModelProviders weren't picking up inherited properties. 
   * Updated `AbstractBeanModelProvider` so that updates are made to the models in the order they are created.
   * Fixed bug where `DelegatingValueModel` would cache its `HandlerManager` if a null delegate was used thus causing a barf on the next non null `setDelegate(delegate)` call. 
   * `ArrayListModel` now supports and array version of setElements(T[]) and also now provides an `Destination<T[]> asDesitination()` method that allows you to send the output of a channel diretly to the list.  
   * Moved `MetadataBinder` show/hide methods to `WidgetBinder`.  `MetadataBinder` is only now required if you want to manually bind all the metadata of a field to a widget.   
-  * Added bindings for Activities and Channels to `WidgetBinder`,
-  * Added support for binding fields to !MutableValues.
+  * Added bindings for activities and channels to `WidgetBinder`,
+  * Added support for binding fields to `MutableValues`.
   * Added `EnhancedPasswordTextBox` that fires value change events on key events and not just blur events.
   * Fixed bug in `ValidationDisplayPanel` where it was displaying 1 less validation message than it should.
   * Assorted updates.
