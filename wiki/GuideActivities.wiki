@@ -25,7 +25,7 @@ To manage these issues Activities have a number of concepts:
 {{{
 // We can add interceptors in the view to prompt the user.  Thhe intercept
 // method returns a new instance the we then use to bind to buttons.
-deleteCustomerActivity = deleteCustomerActivity.beforeStartingRun(new Interceptor()
+deleteCustomerActivity.beforeStartingRun(new Interceptor()
 {
    public void intercept(Invocation invocation)
    {
