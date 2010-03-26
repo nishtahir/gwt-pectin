@@ -3,12 +3,9 @@
 
 = Activities (Experimental) =
 
-Activities are an experimental addition to pectin to model "things that do stuff" in a similar fashion to Swing's `Action` class.  There are two basic types of Activities - a basic synchronous version (Activity) and two async versions (AsyncActivity and AbstractIncrementalActivity).  All activities implement `Command` and provide an `enabled` model.  The async activities also provide an `active` model that's `true` while the activity is in progress.
-
+Activities are an experimental addition to pectin to model "things that do stuff" in a similar fashion to Swing's `Action` class.  There are two basic types of Activities - a basic synchronous version (`Activity`) and an async version (`TemporalActivity`) of which there are two types (`AsyncActivity` and `AbstractIncrementalActivity`).  All activities implement `Command` and provide an `enabled` model.  The async activities also provide an `active` model that's `true` while the activity is in progress.
 
 Checkout the Activities & Buttons tab [http://scratchpad.pietschy.com/pectin/PectinDemo.html on the demo].  You can read [http://code.google.com/p/gwt-pectin/source/browse/trunk/demo/src/main/java/com/pietschy/gwt/pectin/demo/client/activity/ the source code] for more info.
-
-*Please Note:* The source code contains both `AsyncActivity` and `Activity`.  `AsyncActivity` is what this document refers to.  While `Activity` exists and is in use it's had little development or focus.
 
 = Concepts =
 One of the difficulties in developing a activity/command style infrastructure is that the effects of operations can be wide spread.  The commands often interact with the model both before and after the operation, their errors need to be displayed in the view and the view probably needs to display indication that the activity is in progress.  Supervising controllers may need to know when an activity is complete or has failed. 
