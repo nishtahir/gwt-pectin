@@ -33,7 +33,7 @@ deleteCustomerActivity = deleteCustomerActivity.beforeStartingRun(new Intercepto
       dialog.ask("Do you really want to delete this customer?",
                  "This change can't be undone.")
          .onChoosingDestructiveOption("Yes delete the customer").thenExecute(invocation.getProceedCommand())
-         .onChoosingDefault(Option.CANCEL_OPTION).justClose()
+         .onChoosingDefault("Cancel").justClose()
          .show();
    }
 });
