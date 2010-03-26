@@ -3,7 +3,8 @@
 
 = Activities (Experimental) =
 
-Activities are an experimental addition to pectin to model "things that do stuff" in a similar fashion to Swing's `Action` class.  Activities implement `Command` and provide states for enabled and active (`ValueModel<Boolean>`'s).  They also provide support for interception so view's can confirm actions in an asynchronous manner.
+Activities are an experimental addition to pectin to model "things that do stuff" in a similar fashion to Swing's `Action` class.  There are two basic types of Activities - a basic synchronous version (Activity) and two async versions (AsyncActivity and AbstractIncrementalActivity).  All activities implement `Command` and provide an `enabled` model.  The async activities also provide an `active` model that's `true` while the activity is in progress.
+
 
 Checkout the Activities & Buttons tab [http://scratchpad.pietschy.com/pectin/PectinDemo.html on the demo].  You can read [http://code.google.com/p/gwt-pectin/source/browse/trunk/demo/src/main/java/com/pietschy/gwt/pectin/demo/client/activity/ the source code] for more info.
 
@@ -13,11 +14,13 @@ Checkout the Activities & Buttons tab [http://scratchpad.pietschy.com/pectin/Pec
 One of the difficulties in developing a activity/command style infrastructure is that the effects of operations can be wide spread.  The commands often interact with the model both before and after the operation, their errors need to be displayed in the view and the view probably needs to display indication that the activity is in progress.  Supervising controllers may need to know when an activity is complete or has failed. 
 
 To manage these issues Activities have a number of concepts:
-  * *!AsyncActivity`<R,E>`* - an async activity that performs some async operation and then publishes the results (either successes of type R or errors of type E).  Activities can publish errors of any type so can be used to transform Throwables into a specific error type or message or message key.  Implementations typically extend `AbstractAsyncActivity`.
+  * *Activity* - the base type for all activities.  It extends `Command` and provides an `enabled()` method that returns a `ValueModel<Boolean>` representing the enabled state of the activity.
+  * *!TemporalActivity* - interface that exends `Activity` for activities that execute asynchronously, i.e. execute returns before the activity is completed.  `TemporalActivities` also provide and `active()` method that returns a `ValueModel<Boolean>` representing the active state of the activity.  The two main implementations are `AbstractIncrementalActivity` and `AsyncActivity`.   
+  * *!AsyncActivity`<R,E>`* - a `TemporalActivity` activity that performs some async operation and then publishes the results (either successes of type R or errors of type E).  Activities can publish errors of any type so can be used to transform Throwables into a specific error type or message or message key.  Implementations typically extend `AbstractAsyncActivity`.
   * *Channel`<T>`* - Activities have a result channel and an error channel.  Once the execution is complete the results will be published on the appropriate channel.  Various aspects of the presentation layer can subscribe to the channels as required.
-  * *Callbacks* - Activities also provide convenience methods for executing additional operations when an activity completes or fails.  i.e. `save.onSuccessExecute(someOtherCommand)`.   Behind the scenes this just subscribes to the appropriate channel.
+  * *Callbacks* - Activities also provide convenience methods for executing additional operations when an activity completes or fails.  i.e. `save.always().invokeOnSuccess(someOtherCommand)`.   Behind the scenes this just subscribes to the appropriate channel.
   * *Interceptors* - Activities allow the view to create intercepted instances of the activity.  This allows the view to interact with the user prior to the activity starting.  The intercption is callback based so supports asynchronous operation (i.e. prompting via a dialog or other means).
-  * *!ActivityBinder* - Allows the view to bind Activities to buttons and various widgets (`HasValue`, `HasText`, `HasHTML` and others) to Channels.  Since activities have an active state you can easily show and hide things while they're running e.g. `metadataBinder.show(saveMessage).when(saveActivity.isActive())`. 
+  * *!WidgetBinder* - Allows the view to bind Activities to buttons (`binder.bind(saveActivity).to(saveButton)` and various widgets (`HasValue`, `HasText`, `HasHTML` and others) to Channels.  Since activities have an active state you can easily show and hide things while they're running e.g. `binder.show(saveMessage).when(saveActivity.active())`. 
   
 = Interceptors =
 Interceptors are implemented but have only been lightly trialed.  The following demonstrates the intent of the interceptor.
@@ -47,3 +50,4 @@ metadataBinder.show(deletingMessage).when(deleteCustomerActivity.isActive());
 // once it completes we can diplay errors
 activityBinder.sendErrorsOf(deleteCustomerActivity).to(myErrorDisplay);
 }}}
+
