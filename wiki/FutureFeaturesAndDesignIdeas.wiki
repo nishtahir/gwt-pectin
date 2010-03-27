@@ -12,6 +12,8 @@ It would be nice to support !ValueModelProviders that have type aware keys.  Tha
 ==Widget Bindings==
 Would probably nice to add value interceptors to the bindings.  This would be a more formalised way for watermarks to change the displayed value under certain conditions. 
 
+I'd also like to support binding directly to `ValueModel` and `ListModel` for cases where you don't need a form.
+
 ==Formatted fields==
 Currently formatted fields don't get a chance to re-format the value the user entered with out using a deferred command (since the binding ignores model changes during the update).  The formatted field could probably handle this internally by checking the text version with a freshly formatted version and doing the deferred command thing itself, but I'd rather not use a deferred command at all if possible.   
 
