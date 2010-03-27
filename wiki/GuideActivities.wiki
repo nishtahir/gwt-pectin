@@ -47,3 +47,23 @@ binder.show(deletingMessage).when(deleteCustomerActivity.isActive());
 // once it completes we can display errors
 binder.sendErrorsOf(deleteCustomerActivity).to(myErrorDisplay);
 }}}
+
+= !DelegatingActivity =
+`DelegatingActivity` is an activity that delegates it's behaviour and state to another activity.  This is useful when you need one activity to have different behaviours based on a changing context within the UI.  In such cases you just set the delegate that's relevant at the time.  The delegate will automatically track the enabled and active state of it's delegate.  Setting the delegate to null will remove all handlers from the delegate (so you won't get lingering references).
+
+Another use of delegating activities is to add additional constraints to the activities enabled state.  As an example I have an `PublishActivity` that operates directly on a model but I need the associated button to be disabled while an `IncrementalActivity` builds the view.  The following shows how to do this without out the publish activity having any knowledge of how the view is built. 
+
+{{{
+// An IncrementalActivity that builds the view.
+BuildUiActivity buildUiActivity = new BuildUiActivity();
+
+// Create our delegate.  We'll disable it while we're building
+// the view.
+DelegatingActivity delegatingPublish = new DelegatingActivity();
+delegatingPublish.disableWhen(buildUiActivity.active());
+delegatingPublish.setDelegate(realPublishActivity);
+
+// now our publish button will only be enabled when the realPublishActivity
+// is enabled and the buildUiActivity is not active. 
+widgetBinder.bind(delegatingPublish).to(publishButton);
+}}}
