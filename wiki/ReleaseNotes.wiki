@@ -1,7 +1,7 @@
 #summary Pectin Release Notes
 = Pectin Release Notes=
 == Next Release ==
-  * Initial commit of Activities and Channels.
+  * Initial commit of ~~Activities~~ UiCommands and Channels.
   * Introduced new types `ValueSource` and `MutableValue` that allow the reading and writing of a value without requireing a `ValueModel`.
   * Updated `CopyingBeanModelProvider` to support the above interfaces.
   * Fixed typos and updated protected fields that should be private.
@@ -14,8 +14,9 @@
   * Added bindings for activities and channels to `WidgetBinder`,
   * Added support for binding fields to `MutableValues`.
   * Added `EnhancedPasswordTextBox` that fires value change events on key events and not just blur events.
+  * Cleaned up validation interfaces and updated ValidationBinder to support binding of any thing that implements `HasValidationResult` to a `ValidationDisplay`. 
   * Fixed bug in `ValidationDisplayPanel` where it was displaying 1 less validation message than it should.
-  * Assorted updates.
+  * Assorted updates and clean ups.
   * More tests added.
 
 
