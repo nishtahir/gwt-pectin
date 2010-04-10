@@ -12,7 +12,7 @@ It would be nice to support !ValueModelProviders that have type aware keys.  Tha
 ==Widget Bindings==
 Would probably nice to add value interceptors to the bindings.  This would be a more formalised way for watermarks to change the displayed value under certain conditions. 
 
-== Support more direct !ValueModels bindings ==  
+== Support !ValueModels bindings without FormModels ==  
 I'd also like to support binding directly to `ValueModel` and `ListModel` for the cases where you don't need the additional functionalities (or overhead) of forms and plugins.
 
 ==Formatted fields==
