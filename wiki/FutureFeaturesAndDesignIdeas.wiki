@@ -31,12 +31,6 @@ Would also nice to support validation triggers like ON_BLUR, ON_EDIT etc.
 ==!UndoPlugin==
 Wouldn't be too hard to implement at least basic undo/redo support.  Could also work with the selection model if required.
 
-=!UiCommand/!ViewCallbacks=
-I've ditched this idea in favour of Activies.
-
-=Activities=
-Activities are now covered in GuideActivities.
-
 =Would Like to but...=
 == Native !UiBinder support==
 Not even sure if it's possible yet.
