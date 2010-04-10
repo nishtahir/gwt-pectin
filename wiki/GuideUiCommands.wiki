@@ -3,9 +3,9 @@
 
 = !UiCommands (Experimental - formally Activities) =
 
-UiCommands are an experimental addition to pectin to model "things that do stuff" in a similar fashion to Swing's `Action` class.  There are two basic types - a basic synchronous version (`UiCommand`) and an async version (`TemporalUiCommand`) of which there are two types (`AsyncUiCommand` and `IncrementalUiCommand  All UiCommmands implement GWTs `Command` interface and provide an `enabled` model.  The async commands also provide an `active` model that's `true` while the activity is in progress.
+!UiCommands are an experimental addition to pectin to model "things that do stuff" in a similar fashion to Swing's `Action` class.  There are two basic types - a basic synchronous version (`UiCommand`) and an async version (`TemporalUiCommand`) of which there are two types (`AsyncUiCommand` and `IncrementalUiCommand  All UiCommmands implement GWTs `Command` interface and provide an `enabled` model.  The async commands also provide an `active` model that's `true` while the activity is in progress.
 
-Checkout the UiCommands & Buttons tab [http://scratchpad.pietschy.com/pectin/PectinDemo.html on the demo].  You can read [http://code.google.com/p/gwt-pectin/source/browse/trunk/demo/src/main/java/com/pietschy/gwt/pectin/demo/client/activity/ the source code] for more info.
+Checkout the !UiCommands & Buttons tab [http://scratchpad.pietschy.com/pectin/PectinDemo.html on the demo].  You can read [http://code.google.com/p/gwt-pectin/source/browse/trunk/demo/src/main/java/com/pietschy/gwt/pectin/demo/client/activity/ the source code] for more info.
 
 = Concepts =
 One of the difficulties in developing a command style infrastructure is that the effects of operations can be wide spread.  The commands often interact with the model both before and after the operation, their errors need to be displayed in the view and the view probably needs to display indication that the activity is in progress.  Supervising controllers may need to know when an activity is complete or has failed. 
