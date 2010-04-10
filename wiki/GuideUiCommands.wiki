@@ -1,7 +1,7 @@
 #summary Guide to UiCommand
 #sidebar TableOfContents
 
-= UiCommands (Experimental - formally Activities) =
+= !UiCommands (Experimental - formally Activities) =
 
 UiCommands are an experimental addition to pectin to model "things that do stuff" in a similar fashion to Swing's `Action` class.  There are two basic types - a basic synchronous version (`UiCommand`) and an async version (`TemporalUiCommand`) of which there are two types (`AsyncUiCommand` and `IncrementalUiCommand  All UiCommmands implement GWTs `Command` interface and provide an `enabled` model.  The async commands also provide an `active` model that's `true` while the activity is in progress.
 
