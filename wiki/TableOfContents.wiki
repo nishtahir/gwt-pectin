@@ -7,7 +7,7 @@
      * [GuideMetadataPlugin Metadata Plugin]
      * Validation Plugin
      * Style Plugin
-  * [GuideActivities Activities (Experimental)]
+  * [GuideUiCommands UiCommands (Experimental)]
   * [GuideTesting Testing]
   * [GuideGotchas Gotcha's]
   * [BuildingFromSource Building from source]
