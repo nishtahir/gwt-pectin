@@ -67,19 +67,20 @@ I also use !ValueModels outside of !FormModels quite extensively.  They're very 
 ValueModel<Boolean> disableForm = valueOf(model.getState()).isNot(State.READY));        
 }}}
 
-Typically the model would use a `ValueHolder` to manage the state and simply call `stateHolder.setValue(LOADING)` as needed.  !ValueHolders are just value models that aren't bound to anything.
+== !ValueHolders ==
+Typically the model would use a `ValueHolder` to manage the state and simply call `myState.setValue(LOADING)` as needed.  !ValueHolders are just value models that aren't bound to anything.
 {{{
 // somewhere in our model object
-ValueHolder<State> state = new ValueHolder<State>(State.VIRGIN);
+ValueHolder<State> myState = new ValueHolder<State>(State.VIRGIN);
 
 // then when our model starts loading...
-state.setValue(State.LOADING);
+myState.setValue(State.LOADING);
 
 // .. and some time later when we've loaded.
-state.setValue(State.READY);
+myState.setValue(State.READY);
 }}}
 
-
+== Showing and Hiding things ==
 You can also use the `WidgetBinder` outside of forms to control visibility (and enabledness) of various widgets/elements based on regular value models.
 {{{
 widgetBinder
@@ -90,8 +91,7 @@ widgetBinder
   .when(valueOf(model.getState()).is(State.READY)));
 }}}  
 
-
-I'm also hoping to update `WidgetBinder` at somepoint in the future to allow the binding of regular !ValueModels (i.e. not just !FieldModels) to widgets. 
+The above also applies to enabling and disabling things.
 
 ==Using External !ValueModels in your Forms==
 There will be times when you need to use !ValueModels external to the form that are not available when the form is constructed.  In this case you can use a `DelegatingValueModel` in your form and wire it up as normal.  Then whenever you real model becomes available you just configure the delegate.
@@ -99,13 +99,12 @@ There will be times when you need to use !ValueModels external to the form that 
 {{{
 // Use a delegating model instead of the `real thing`
 DelegatingValueModel<State> modelState = new DelegatingValueModel<State>();
-ValueModel<Boolean> initialised = valueOf(modelState).is(State.READY);
 
-// configure metadata as normal
+// we can use the delegating model as per normal to create conditions etc
+ValueModel<Boolean> initialised = valueOf(modelState).is(State.READY);
 enable(aField).when(initialised)
 
-
-// then bind our delegate at some later point in time.
+// then we bind our delegate at some later point in time.
 public void setModelThingy(ModelThingy thingy)
 {
    // everything will automatically update from here on in.
