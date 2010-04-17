@@ -93,4 +93,29 @@ widgetBinder
 
 I'm also hoping to update `WidgetBinder` at somepoint in the future to allow the binding of regular !ValueModels (i.e. not just !FieldModels) to widgets. 
 
+==Using External !ValueModels in your Forms==
+There will be times when you need to use !ValueModels external to the form that are not available when the form is constructed.  In this case you can use a `DelegatingValueModel` in your form and wire it up as normal.  Then whenever you real model becomes available you just configure the delegate.
+
+{{{
+// Use a delegating model instead of the `real thing`
+DelegatingValueModel<State> modelState = new DelegatingValueModel<State>();
+ValueModel<Boolean> initialised = valueOf(modelState).is(State.READY);
+
+// configure metadata as normal
+enable(aField).when(initialised)
+
+
+// then bind our delegate at some later point in time.
+public void setModelThingy(ModelThingy thingy)
+{
+   // everything will automatically update from here on in.
+   modelState.setDelegate(thingy.getState());
+} 
+}}} 
+
+===A note about memory leaks===
+If your business object is long lived (and your form isn't) then you'll need to remember to clear the delegate when you're done.  Otherwise the business object will reference the delegate and hence your form.  !DelegatingValueModels will remove any existing handler when their delegate changes (either to null or to another model) so simplest way to dispose the form is to call delegatingModel.setDelegate(null). 
+
+  
+
   
