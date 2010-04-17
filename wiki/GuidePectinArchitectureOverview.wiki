@@ -114,7 +114,7 @@ public void setModelThingy(ModelThingy thingy)
 }}} 
 
 ===A note about memory leaks===
-If your business object is long lived (and your form isn't) then you'll need to remember to clear the delegate when you're done.  Otherwise the business object will reference the delegate and hence your form.  !DelegatingValueModels will remove any existing handler when their delegate changes (either to null or to another model) so simplest way to dispose the form is to call delegatingModel.setDelegate(null). 
+If your business object is long lived (and your form isn't) then you'll need to remember to clear the delegate when you're done.  Otherwise the business object will reference the delegate and hence your form.  !DelegatingValueModels will remove any existing handler when their delegate changes (either to null or to another model) so simplest way to dispose the form is to call `modelState.setDelegate(null)`. 
 
   
 
