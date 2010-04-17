@@ -84,14 +84,12 @@ personProvider.revert();
 }}}
 
 
-=== Using Auto Commit ===
-Setting the provider to autocommit mode will cause all changes to be written to the bean as they happen.  In this case the dirty state (see below) will always be false.
+=== The Other Provider Types ===
+There are two additional provider types, `AutoCommitBeanModelProvider` and `CopyingBeanModelProvider`.  
 
-{{{
-// use auto commit
-personProvider.setAutoCommit(true);
-}}}
+The `AutoCommitBeanModelProvider` can be used when you always want changes in the form to be written to the underlying bean. 
 
+The `CopyingBeanModelProvider` copies values to and from beans but doesn't maintain a refernce to any particular bean.  It also supports the ability to write changes to a bean without clearing the dirty state of the provider.  This allows you to write changes to a bean, initiate an RPC call and only clear the dirty state when the RPC call was succeeds.
 
 =Binding to collection properties=
 
