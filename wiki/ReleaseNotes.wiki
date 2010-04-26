@@ -1,9 +1,11 @@
 #summary Pectin Release Notes
 = Pectin Release Notes=
 == Next Release ==
-  * Initial commit of ~~Activities~~ !UiCommands and Channels.
-  * Introduced new types `ValueSource` and `MutableValue` that allow the reading and writing of a value without requireing a `ValueModel`.
-  * Updated `CopyingBeanModelProvider` to support the above interfaces.
+  * Initial commit of [GuideUiCommands UiCommands and Channels].
+  * Added a new `Conditions.valueOf(ValueModel<T>).isIn(T...)` and `.isNotIn(T...)` functionality.  Supports var-args, `Iterables` and `ListModels`.
+  * Introduced new types `HasValueGetter` and `HasValueSetter` that allow the reading and writing of a value without requireing a full `ValueModel`.
+  * Updated `AbstractComputedValueModel` to cache the computed value.
+  * Updated `CopyingBeanModelProvider` to support the `HasValueGetter` and `HasValueSetter`.
   * Fixed typos and updated protected fields that should be private.
   * Updated `AbstractBeanModelProvider`, `BeanPropertyValueModel` and `BeanPropertyListModel` to support read only bean properties (i.e. those with with no setter).  The mutablility of the underlying property is exposed in the value returned by `BeanPropertyValueModel.getMutableModel()`.
   * Fixed defect where !BeanModelProviders weren't picking up inherited properties. 
@@ -12,9 +14,9 @@
   * `ArrayListModel` now supports and array version of setElements(T[]) and also now provides an `Destination<T[]> asDesitination()` method that allows you to send the output of a channel diretly to the list.  
   * Moved `MetadataBinder` show/hide methods to `WidgetBinder`.  `MetadataBinder` is only now required if you want to manually bind all the metadata of a field to a widget.   
   * Added bindings for activities and channels to `WidgetBinder`,
-  * Added support for binding fields to `MutableValues`.
-  * Added `EnhancedPasswordTextBox` that fires value change events on key events and not just blur events.
-  * Cleaned up validation interfaces and updated ValidationBinder to support binding of any thing that implements `HasValidationResult` to a `ValidationDisplay`. 
+  * Added support for binding fields to `HasValueSetter`.
+  * Added `EnhancedPasswordTextBox` that fires value change events on key up events and not just blur events.
+  * Cleaned up validation interfaces and updated ValidationBinder to support binding of anything that implements `HasValidationResult` to a `ValidationDisplay`. 
   * Fixed bug in `ValidationDisplayPanel` where it was displaying 1 less validation message than it should.
   * Assorted updates and clean ups.
   * More tests added.
