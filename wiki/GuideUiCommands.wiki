@@ -23,11 +23,73 @@ The !UiCommand code has the following types and concepts:
   
 
 = !UiCommands =
+Your typical basic non-asyn !UiCommand should extend `AbstractUiCommand` and implement the `doExecute()` method.
 
-= !AsyncUiCommands =
+{{{
+public class MyUiCommand extends AbstractUiCommand
+{
+   @Override
+   protected void doExecute()
+   {
+      // do stuff   
+      ...
+   }
+}
+}}}
+
+
+Once created you can bind your command to buttons using `WidgetBinder`.
+{{{
+binder.bind(myUiCommand).to(someButton);
+}}}
+
+You can configure your commands `enabled` state using either the `enableWhen(ValueModel<Boolean>)` or ``disableWhen(ValueModel<Boolean>)` methods.
+{{{
+public class MyUiCommand extends AbstractUiCommand
+{
+   public MyUiCommand(ValueModel<Boolean> someCondition)
+   {
+      // lets only enable if the condition is met.
+      enableWhen(someCondition);
+   }
+
+   @Override
+   protected void doExecute()
+   {
+      // do stuff   
+      ...
+   }
+}
+}}}
+
+Executing the command while it's disabled will result in an `ExecutedWhileDisabledException`.  This behaviour can be changed by overriding the `onDisabledExecution()` method.
 
 = !IncrementalUiCommand =
 !IncrementalUiCommands are the !UiCommand equivalent of GWTs `IncrementalCommand` (they use an `IncrementalCommand` internally to do the actual work).  I typically use them to build large views in an incremental fashion and then use the `active()` model to disable other parts of the view/UI while the build is in progress.  I also override `onReentrantExecution()` to restart the process from scratch.  This allows the user interupt or change the process before the command has finished (if you don't override it a `ReentrantExecutionException` will be thrown).
+
+{{{
+public class BuildUiCommand extends IncrementalCommand
+{
+   @Override
+   public boolean doIncrementalWork()
+   {
+      // do a bit of the work
+      ...
+      return !finished;
+   }   
+}
+}}}
+
+Other parts of the UI can use the active state to control other parts of the UI.
+{{{
+BuildUiCommand buildUiCommand = ...;
+someOtherCommand.disableWhile(buildUiCommand.active()); 
+}}}
+
+This particular approach works well with delegating commands described below.
+
+
+= !AsyncUiCommands =
 
 = Interceptors =
 `UiCommands` also support the use of interceptors that get invoked prior to the command executing. 
