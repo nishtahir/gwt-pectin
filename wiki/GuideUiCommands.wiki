@@ -121,9 +121,9 @@ binder.displayErrorsOf(deleteCustomerCommand).using(myErrorDisplay);
 
 
 =!DelegatingUiCommand =
-`DelegatingUiCommand` delegates it's behaviour and state to another `UiCommand`.  This is useful when you need one command to have different behaviours based on a changing context within the UI.  In such cases you just set the delegate that's relevant at the time.  The command will automatically track the enabled and active state of the delegate.  Setting the delegate to null will remove all handlers from the delegate (so you won't get leak memory).
+`DelegatingUiCommand` delegates it's behaviour and state to another `UiCommand`.  This is useful when you need one command to have different behaviours based on a changing context within the UI.  In such cases you just set the delegate that's relevant at the time.  The command will automatically track the enabled and active state of the delegate.  Setting the delegate to null will remove all handlers from the delegate (so you won't leak memory).
 
-Another use of delegating commands is to add additional constraints to the commands enabled state.  As an example I have an `PublishCommand` that operates directly on a model but I need the associated button to be disabled while an `IncrementalUiCommand` builds the view.  The following shows how to do this without out the publish command having any knowledge of how the view is built. 
+Another use of delegating commands is to add additional constraints to the commands enabled state.  As an example I have an `PublishCommand` that operates directly on a model but I need the associated button to be disabled while an `IncrementalUiCommand` builds the view.  The following shows how to do this without the publish command having any knowledge of how the view is built. 
 
 {{{
 // An IncrementalActivity that builds the view.
