@@ -25,7 +25,7 @@ To manage these issues Activities have a number of concepts:
 = !AsyncUiCommands =
 
 = !IncrementalUiCommand =
-!IncrementalUiCommands are the UiCommand equivalent of GWTs `IncrementalCommand` (they use an `IncrementalCommand` internally to do the actual work).  I typically use them to build large views in an incremental fashion and then use the `active()` model to disable other parts of the view/UI while the build is in progress.  I also override `onReentrantExecution()` to restart the process from scratch.  This allows the user interupt or change the process before the command has finished (if you don't override it a `ReentrantExecutionException` will be thrown).
+!IncrementalUiCommands are the !UiCommand equivalent of GWTs `IncrementalCommand` (they use an `IncrementalCommand` internally to do the actual work).  I typically use them to build large views in an incremental fashion and then use the `active()` model to disable other parts of the view/UI while the build is in progress.  I also override `onReentrantExecution()` to restart the process from scratch.  This allows the user interupt or change the process before the command has finished (if you don't override it a `ReentrantExecutionException` will be thrown).
 
 = Interceptors =
 `UiCommands` also support the use of interceptors that get invoked prior to the command executing. 
