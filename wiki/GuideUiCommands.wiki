@@ -12,7 +12,7 @@ Checkout the !UiCommands & Buttons tab [http://scratchpad.pietschy.com/pectin/Pe
 = Concepts =
 One of the difficulties in developing a command style infrastructure is that the effects of operations can be wide spread.  The commands often interact with the model both before and after the operation, their errors need to be displayed in the view and the view probably needs to display indication that the activity is in progress.  Supervising controllers may need to know when an activity is complete or has failed. 
 
-To manage these issues Activities have a number of concepts:
+The !UiCommand code has the following types and concepts:
   * *!UiCommand* - the base type for all commands.  It extends `Command` and provides an `enabled()` method that returns a `ValueModel<Boolean>` representing the enabled state of the activity.
   * *!TemporalUiCommand* - (is there a better name??) an interface that exends `UiCommand` for commands  that execute asynchronously, i.e. execute returns before the command is completed.  `TemporalUiCommands` also provide and `active()` method that returns a `ValueModel<Boolean>` representing the active state of the activity.  The two main implementations are `IncrementalUiCommand` and `AbstractAsyncUiCommand`.   
   * *!AsyncUiCommand`<R,E>`* - a `TemporalUiCommand` that performs some async operation and then publishes the results (either successes of type R or errors of type E).  These commands can publish errors of any type so can be used to transform Throwables into a specific error type or message or message key.  Implementations typically extend `AbstractAsyncUiCommand`.
