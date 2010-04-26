@@ -3,7 +3,7 @@
 
 = !UiCommands (Experimental - formally Activities) =
 
-!UiCommands are an experimental addition to pectin to model "things that do stuff" in a similar fashion to Swing's `Action` class.  There are two basic types - a basic synchronous version (`UiCommand`) and an async version (`TemporalUiCommand`) of which there are two types (`AsyncUiCommand` and `IncrementalUiCommand  All UiCommmands implement GWTs `Command` interface and provide an `enabled` model.  The async commands also provide an `active` model that's `true` while the activity is in progress.
+!UiCommands are an experimental addition to pectin to model "things that do stuff" in a similar fashion to Swing's `Action` class.  There are two basic types - a basic synchronous version (`UiCommand`) and an async version (`TemporalUiCommand`) of which there are two types (`AsyncUiCommand` and `IncrementalUiCommand`.  All UiCommmands implement GWTs `Command` interface along with providing an `enabled` model.  The async commands also provide an `active` model that's `true` while the activity is in progress.
 
 Checkout the !UiCommands & Buttons tab [http://scratchpad.pietschy.com/pectin/PectinDemo.html on the demo].  You can read [http://code.google.com/p/gwt-pectin/source/browse/trunk/demo/src/main/java/com/pietschy/gwt/pectin/demo/client/activity/ the source code] for more info.
 
@@ -11,7 +11,7 @@ Checkout the !UiCommands & Buttons tab [http://scratchpad.pietschy.com/pectin/Pe
 One of the difficulties in developing a command style infrastructure is that the effects of operations can be wide spread.  The commands often interact with the model both before and after the operation, their errors need to be displayed in the view and the view probably needs to display indication that the activity is in progress.  Supervising controllers may need to know when an activity is complete or has failed. 
 
 To manage these issues Activities have a number of concepts:
-  * *UiCommand* - the base type for all commands.  It extends `Command` and provides an `enabled()` method that returns a `ValueModel<Boolean>` representing the enabled state of the activity.
+  * *!UiCommand* - the base type for all commands.  It extends `Command` and provides an `enabled()` method that returns a `ValueModel<Boolean>` representing the enabled state of the activity.
   * *!TemporalUiCommand* - (is there a better name??) an interface that exends `UiCommand` for commands  that execute asynchronously, i.e. execute returns before the command is completed.  `TemporalUiCommands` also provide and `active()` method that returns a `ValueModel<Boolean>` representing the active state of the activity.  The two main implementations are `IncrementalUiCommand` and `AbstractAsyncUiCommand`.   
   * *!AsyncUiCommand`<R,E>`* - a `TemporalUiCommand` that performs some async operation and then publishes the results (either successes of type R or errors of type E).  These commands can publish errors of any type so can be used to transform Throwables into a specific error type or message or message key.  Implementations typically extend `AbstractAsyncActivity`.
   * *Channel`<T>`* - `Channels` are a basic event mechanism that allow simple connection of event produces to consumers.  `AsyncUiCommands` have a result channel and an error channel. 
@@ -19,12 +19,18 @@ To manage these issues Activities have a number of concepts:
   * *Interceptors* - Allow you to intercept commands before they start.  This allows the view to interact with the user prior to the command executing.  The intercption is callback based so supports asynchronous operation (i.e. prompting via a dialog or other means).
   * *!WidgetBinder* - Allows the view to bind UiCommands to buttons (`binder.bind(saveCommand).to(saveButton)` and various widgets (`HasValue`, `HasText`, `HasHTML` and others) to Channels.  Since activities have an active state you can easily show and hide things while they're running e.g. `binder.show(saveMessage).when(saveCommand.active())`. 
   
+
+= !UiCommands =
+
+= !AsyncUiCommands =
+
+= !IncrementalUiCommand =
+!IncrementalUiCommands are the UiCommand equivalent of GWTs `IncrementalCommand` (they use an `IncrementalCommand` internally to do the actual work).  I typically use them to build large views in an incremental fashion and then use the `active()` model to disable other parts of the view/UI while the build is in progress.  I also override `onReentrantExecution()` to restart the process from scratch.  This allows the user interupt or change the process before the command has finished (if you don't override it a `ReentrantExecutionException` will be thrown).
+
 = Interceptors =
-`AsyncUiCommands` allow you to add interceptors that get invoked prior to the command executing. 
+`UiCommands` also support the use of interceptors that get invoked prior to the command executing. 
 
 {{{
-// We can add interceptors in the view to prompt the user.  Thhe intercept
-// method returns a new instance the we then use to bind to buttons.
 deleteCustomerCommand.interceptUsing(new Interceptor()
 {
    public void intercept(Invocation invocation)
@@ -48,7 +54,9 @@ binder.show(deletingMessage).when(deleteCustomerCommand.active());
 binder.displayErrorsOf(deleteCustomerCommand).using(myErrorDisplay);
 }}}
 
-= !DelegatingUiCommand =
+
+
+=!DelegatingUiCommand =
 `DelegatingUiCommand` delegates it's behaviour and state to another `UiCommand`.  This is useful when you need one command to have different behaviours based on a changing context within the UI.  In such cases you just set the delegate that's relevant at the time.  The command will automatically track the enabled and active state of the delegate.  Setting the delegate to null will remove all handlers from the delegate (so you won't get leak memory).
 
 Another use of delegating commands is to add additional constraints to the commands enabled state.  As an example I have an `PublishCommand` that operates directly on a model but I need the associated button to be disabled while an `IncrementalUiCommand` builds the view.  The following shows how to do this without out the publish command having any knowledge of how the view is built. 
