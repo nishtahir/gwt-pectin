@@ -91,6 +91,8 @@ This particular approach works well with delegating commands described below.
 
 = !AsyncUiCommands =
 
+= Events =
+
 = Interceptors =
 `UiCommands` also support the use of interceptors that get invoked prior to the command executing. 
 
