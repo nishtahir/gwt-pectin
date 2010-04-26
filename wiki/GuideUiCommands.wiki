@@ -3,7 +3,9 @@
 
 = !UiCommands (Experimental - formally Activities) =
 
-!UiCommands are an experimental addition to pectin to model "things that do stuff" in a similar fashion to Swing's `Action` class.  There are two basic types - a basic synchronous version (`UiCommand`) and an async version (`TemporalUiCommand`) of which there are two types (`AsyncUiCommand` and `IncrementalUiCommand`.  All UiCommmands implement GWTs `Command` interface along with providing an `enabled` model.  The async commands also provide an `active` model that's `true` while the activity is in progress.
+!UiCommands are an experimental addition to pectin to model "things that do stuff" in a similar fashion to Swing's `Action` class.  There are two basic types - a basic synchronous version (`UiCommand`) and an async version (`TemporalUiCommand`) of which there are two types - `AsyncUiCommand` and `IncrementalUiCommand`.  
+
+All !UiCommmands implement GWTs `Command` interface along with providing an `enabled` model.  The async commands also provide an `active` model that's `true` while the activity is in progress.
 
 Checkout the !UiCommands & Buttons tab [http://scratchpad.pietschy.com/pectin/PectinDemo.html on the demo].  You can read [http://code.google.com/p/gwt-pectin/source/browse/trunk/demo/src/main/java/com/pietschy/gwt/pectin/demo/client/activity/ the source code] for more info.
 
@@ -13,11 +15,11 @@ One of the difficulties in developing a command style infrastructure is that the
 To manage these issues Activities have a number of concepts:
   * *!UiCommand* - the base type for all commands.  It extends `Command` and provides an `enabled()` method that returns a `ValueModel<Boolean>` representing the enabled state of the activity.
   * *!TemporalUiCommand* - (is there a better name??) an interface that exends `UiCommand` for commands  that execute asynchronously, i.e. execute returns before the command is completed.  `TemporalUiCommands` also provide and `active()` method that returns a `ValueModel<Boolean>` representing the active state of the activity.  The two main implementations are `IncrementalUiCommand` and `AbstractAsyncUiCommand`.   
-  * *!AsyncUiCommand`<R,E>`* - a `TemporalUiCommand` that performs some async operation and then publishes the results (either successes of type R or errors of type E).  These commands can publish errors of any type so can be used to transform Throwables into a specific error type or message or message key.  Implementations typically extend `AbstractAsyncActivity`.
+  * *!AsyncUiCommand`<R,E>`* - a `TemporalUiCommand` that performs some async operation and then publishes the results (either successes of type R or errors of type E).  These commands can publish errors of any type so can be used to transform Throwables into a specific error type or message or message key.  Implementations typically extend `AbstractAsyncUiCommand`.
   * *Channel`<T>`* - `Channels` are a basic event mechanism that allow simple connection of event produces to consumers.  `AsyncUiCommands` have a result channel and an error channel. 
   * *!AsyncEvents`<R,E>`* - `AsyncUiCommands` provide event hooks so you can perform actions on start, end and error or send the results or errors to various locations.  There are two variants, `always()` and `onNextCall()` events.  e.g. `save.always().sendResultTo(someDestination)` or  `save.onNextCall().invokeOnSuccess(invocation.getProceedCommand())`.   Behind the scenes this just subscribes to the appropriate channel.
   * *Interceptors* - Allow you to intercept commands before they start.  This allows the view to interact with the user prior to the command executing.  The intercption is callback based so supports asynchronous operation (i.e. prompting via a dialog or other means).
-  * *!WidgetBinder* - Allows the view to bind UiCommands to buttons (`binder.bind(saveCommand).to(saveButton)` and various widgets (`HasValue`, `HasText`, `HasHTML` and others) to Channels.  Since activities have an active state you can easily show and hide things while they're running e.g. `binder.show(saveMessage).when(saveCommand.active())`. 
+  * *!WidgetBinder* - Allows the view to bind !UiCommands to buttons (`binder.bind(saveCommand).to(saveButton)` and various widgets (`HasValue`, `HasText`, `HasHTML` and others) to Channels.  Since activities have an active state you can easily show and hide things while they're running e.g. `binder.show(saveMessage).when(saveCommand.active())`. 
   
 
 = !UiCommands =
