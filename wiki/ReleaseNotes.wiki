@@ -3,13 +3,12 @@
 == Release 0.7 ==
   * Initial release of [GuideUiCommands UiCommands and Channels].
   * Added a new `Conditions.valueOf(ValueModel<T>).isIn(T...)` and `.isNotIn(T...)` functionality.  Supports var-args, `Iterables` and `ListModels`.
-  * Introduced new types `HasValueGetter` and `HasValueSetter` that allow the reading and writing of a value without requireing a full `ValueModel`.
-  * Updated `AbstractComputedValueModel` to cache the computed value.
+  * Introduced new interfaces `HasValueGetter` and `HasValueSetter` that allow the reading and writing of a value without requiring a full `ValueModel`.
   * Updated `CopyingBeanModelProvider` to support the `HasValueGetter` and `HasValueSetter`.
-  * Fixed typos and updated protected fields that should be private.
   * Updated `AbstractBeanModelProvider`, `BeanPropertyValueModel` and `BeanPropertyListModel` to support read only bean properties (i.e. those with with no setter).  The mutablility of the underlying property is exposed in the value returned by `BeanPropertyValueModel.getMutableModel()`. (Issue 15)
   * Fixed defect where !BeanModelProviders weren't picking up inherited properties. (Issue 16)
   * Updated `AbstractBeanModelProvider` so that updates are made to the models in the order they are created.
+  * Updated `AbstractComputedValueModel` to cache the computed value.
   * Fixed bug where `DelegatingValueModel` would cache its `HandlerManager` if a null delegate was used thus causing a barf on the next non null `setDelegate(delegate)` call. 
   * `ArrayListModel` now supports and array version of setElements(T[]) and also now provides an `Destination<T[]> asDesitination()` method that allows you to send the output of a channel diretly to the list.  
   * Moved `MetadataBinder` show/hide methods to `WidgetBinder`.  `MetadataBinder` is only now required if you want to manually bind all the metadata of a field to a widget.   
