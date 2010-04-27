@@ -194,18 +194,6 @@ binder.bind(model.errorChannel).to(myErrorDisplay);
 There are a number of interfaces that you can bind events to, `Destination`, `HasValueSetter`, `Publisher`, `ParameterisedCommand`.  Typically when I want to 
 send an event to some other entity I'll create an `asDestination()` style method on it that returns one of the above types.
 
-{{{
-// our save command again.
-public SaveCommand(EditorModel<Customer> model, CustomerServiceAsync customerService, Notifications<Customer> notifications)
-{
-   // configure as normal
-   ...
-
-   // send our events to something...
-   always().sendResultTo(notifications.getUpdateChannel());
-}
-}}}
-
 
 = Interceptors =
 `UiCommands` also support the use of interceptors that get invoked prior to the command executing. 
