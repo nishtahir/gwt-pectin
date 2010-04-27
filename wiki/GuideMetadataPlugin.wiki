@@ -110,27 +110,34 @@ watermark(email, fax).with("Optional");
 There will be cases where you need to apply the metadata of one field to multiple widgets (e.g. the fields label).  In this case the plugin provides a number of useful methods.
 
 === `MetadataBinder` ===
-The `MetadataBinder` provides methods for applying metadata state to arbitrary widgets.  
+The `MetadataBinder` allows you to apply metadata of a field to another widget.  
 
 {{{
 MetadataBinder metadata = new MetadataBinder();
 
-metadata.bindVisibilityOf(formModel.extraComments).to(extraCommentsLabel);
+metadata.bindMetadataOf(formModel.extraComments).to(extraCommentsLabel);
 }}} 
 
-The binder also allows you to control the enabledness and visibility of an arbitrary widget from an arbitrary `ValueModel<Boolean>` (including `FieldModel<Boolean>`).
+*Prior to Release 0.7* the metadata binder provided methods for showing and enabling widgets.  These have now moved to WidgetBinder as they are very useful outside of the metadata context.  So to show/hide or enable/disable an arbitrary widget from an artibrary (e.g. non form) value model you would use the following.
 
 {{{
-ValueModel<Boolean> someModel = ...;
-metadata.bindValueOf(someModel).toVisibilityOf(someWidget);
+WidgetBinder binder = ...;
+ValueModel<Boolean loading = ...;
+
+binder.show(loadingMessageWidget).when(loading);
+binder.hide(realWidget).when(loading);
 }}}
 
-=== `MetadataPlugin.metadataOf` ===
-
-The static `MetadataPlugin.metadataOf(Field)` provides access to value models that reflect the metadata state of the specified field.  This can be used by the `StyleBinder` to track metadata within the view.
+If you need to apply metadata state to another widget (a label for example) you can use `MetadataPlugin.metadataOf(Field)` to access the value models that reflect the metadata state of the specified field.
 
 {{{
+WidgetBinder binder = ...'
 StyleBinder style = new StyleBinder();
+
+// hide our label if the field is hidden..
+binder.hide(nameLabel).when(metadataOf(model.name).isHidden())
+
+// and style it when it's disabled..
 style.style(nameLabel).with("disabled")
      .when(metadataOf(model.name).isDisabled());
 }}}
