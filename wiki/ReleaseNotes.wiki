@@ -2,7 +2,7 @@
 = Pectin Release Notes=
 == Release 0.7 ==
   * Initial release of [GuideUiCommands UiCommands and Channels].
-  * Added a new `Conditions.valueOf(ValueModel<T>).isIn(T...)` and `.isNotIn(T...)` functionality.  Supports var-args, `Iterables` and `ListModels`.
+  * Added a new `Conditions.valueOf(ValueModel<T>).isIn(T...)` and `.isNotIn(T...)`.  Supports var-args, `Iterables` and `ListModels`.
   * Introduced new interfaces `HasValueGetter` and `HasValueSetter` that allow the reading and writing of a value without requiring a full `ValueModel`.
   * Updated `CopyingBeanModelProvider` to support the `HasValueGetter` and `HasValueSetter`.
   * Updated `AbstractBeanModelProvider`, `BeanPropertyValueModel` and `BeanPropertyListModel` to support read only bean properties (i.e. those with with no setter).  The mutablility of the underlying property is exposed in the value returned by `BeanPropertyValueModel.getMutableModel()`. (Issue 15)
