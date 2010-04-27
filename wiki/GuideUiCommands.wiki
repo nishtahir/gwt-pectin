@@ -141,12 +141,14 @@ Another use of delegating commands is to add additional constraints to the comma
 
 {{{
 // An IncrementalActivity that builds the view.
-BuildUiActivity buildUiActivity = new BuildUiActivity();
+BuildUiCommand buildUiCommand = new BuildUiCommand();
 
 // Create our delegate.  We'll disable it while we're building
 // the view.
 DelegatingUiCommand delegatingPublish = new DelegatingUiCommand();
-delegatingPublish.disableWhen(buildUiActivity.active());
+delegatingPublish.disableWhen(buildUiCommand.active());
+
+// now configure the delegate, we can do this at anytime.
 delegatingPublish.setDelegate(realPublishActivity);
 
 // now our publish button will only be enabled when the realPublishActivity
