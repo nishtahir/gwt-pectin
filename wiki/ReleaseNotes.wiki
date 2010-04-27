@@ -22,7 +22,7 @@
   * More tests added.
 
 
-== Release 0.6==
+== Release 0.6 ==
 This release has quite a few changes, let me know if you have any problems.
 
 There have been some breaking changes to `BeanModelProvider`, see below. 
