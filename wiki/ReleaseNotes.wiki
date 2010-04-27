@@ -1,6 +1,6 @@
 #summary Pectin Release Notes
 = Pectin Release Notes=
-== Next Release ==
+== Release 0.7 ==
   * Initial commit of [GuideUiCommands UiCommands and Channels].
   * Added a new `Conditions.valueOf(ValueModel<T>).isIn(T...)` and `.isNotIn(T...)` functionality.  Supports var-args, `Iterables` and `ListModels`.
   * Introduced new types `HasValueGetter` and `HasValueSetter` that allow the reading and writing of a value without requireing a full `ValueModel`.
