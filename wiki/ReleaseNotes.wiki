@@ -15,7 +15,7 @@
   * Added bindings for activities and channels to `WidgetBinder`,
   * Added support for binding fields to `HasValueSetter`.
   * Added `EnhancedPasswordTextBox` that fires value change events on key up events and not just blur events.
-  * Cleaned up validation interfaces and updated ValidationBinder to support binding of anything that implements `HasValidationResult` to a `ValidationDisplay`. 
+  * Cleaned up validation interfaces and updated `ValidationBinder` to support binding of anything that implements `HasValidationResult` to a `ValidationDisplay`. 
   * Fixed bug in `ValidationDisplayPanel` where it was displaying 1 less validation message than it should.
   * Assorted updates and clean ups.
   * More tests added.
