@@ -20,6 +20,8 @@
   * Assorted updates and clean ups.
   * More tests added.
 
+And finally there's a new discussion group at http://groups.google.com/group/gwt-pectin-discuss
+
 
 == Release 0.6 ==
 This release has quite a few changes, let me know if you have any problems.
