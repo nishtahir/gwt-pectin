@@ -57,6 +57,9 @@ exceptions.onCatching(SomeException.class)
      }
   });
 
+// we can install a default handler too for all the common RPC errors
+exceptions.onUnregisteredExceptionsInvoke(myDefaultHandler);
+
 // The manager can be invoked directly from `performAsyncOperation` using
 public void performAsyncOperation(AsyncCommandCallback<R,String> callback) {
   service.doStuff(new AsyncCallback<R>() {
