@@ -1,5 +1,4 @@
 #summary Design thoughts for interacting with ValueStore
-#labels Featured
 
 =Initial thoughts on integration with !ValueStore=
 
