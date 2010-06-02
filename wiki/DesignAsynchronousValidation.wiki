@@ -1,5 +1,4 @@
 #summary Design thoughts for supporting async validation services.
-#labels Featured
 
 =Design thoughs on supporting asynchronous validation=
 
