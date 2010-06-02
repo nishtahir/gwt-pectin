@@ -64,7 +64,7 @@ exceptions.onUnregisteredExceptionsInvoke(myDefaultHandler);
 public void performAsyncOperation(AsyncCommandCallback<R,String> callback) {
   service.doStuff(new AsyncCallback<R>() {
     public void onFailure(Throwable caught) {
-       exceptions.processException(caught, asyncCommandCallback)
+       exceptions.processException(caught, callback)
     }
     public void onSuccess(R result) {...}
   }
