@@ -2,12 +2,12 @@
 #labels Featured
 = Pectin Release Notes=
 == Next Release ==
-BeanModelProvider Changes:
-  * BeanModelProvider now supports basic nested property paths.  So you can go `fieldOfType(T).boundTo(provider, "a.b.c")`.  The binding call ensures the property exists and is of the correct type.  
-     * To support this beans must mark the properties to expose using the @NestedBean annotation.  I.e. bean 'a' would annotate getB() with @NestedBean.
+!BeanModelProvider Changes:
+  * !BeanModelProviders now supports basic nested property paths.  So you can go `fieldOfType(T).boundTo(provider, "a.b.c")`.  The providers ensure the property path exists and the property is of the correct type.  
+     * To support this beans must mark the properties to expose using the `@NestedBean` annotation.  I.e. bean 'a' would annotate getB() with `@NestedBean`.
      * The property path only supports list models as the final property.  Thus `bean.bean.list` is ok while `bean.list.bean` isn't.
      * The value models returned from the provider are only mutable if their property is mutable (i.e. it has a setter) and their parent bean is non null.  You can always read from a value model even if it's souce bean is null, i.e. reading from "a.b.c" will simply return `null` if either `a` or `b` is `null`.  Attempting to write to `c` while `a` or `b` is null will throw a `SourceBeanIsNullException`.
-  * `BeanModelProviders` now implement `ValueModel`  and the `setBean(T)` method has been changed to `BeanModelProvider.setValue(T)`.
+  * !BeanModelProviders now implement `ValueModel`  and the `setBean(T)` method has been changed to `BeanModelProvider.setValue(T)`.
   * Moved `ReflectionBeanModelProvider` from `util` to new `reflect` package.
   * Renamed `TestUtil` to `ReflectionProviders` and simplified method names. 
   * *Casualties*: `CopyingBeanModelProvider` and related classes are no more due to the changes to support nested beans.  The ability to "commit without altering dirty state" is now supported by the standard `BeanModelProvider` by using `provider.commit(false)`. 
