@@ -10,7 +10,7 @@
   * !BeanModelProviders now implement `ValueModel`  and the `setBean(T)` method has been changed to `BeanModelProvider.setValue(T)`.
   * Moved `ReflectionBeanModelProvider` from `util` to new `reflect` package.
   * Renamed `TestUtil` to `ReflectionProviders` and simplified method names. 
-  * *Casualties*: `CopyingBeanModelProvider` and related classes are no more due to the changes to support nested beans.  The ability to "commit without altering dirty state" is now supported by the standard `BeanModelProvider` by using `provider.commit(false)`. 
+  * *Casualties*: `CopyingBeanModelProvider` and related classes are no more due to the changes to support nested beans.  The ability to "commit without losing dirty state" is now supported by the standard `BeanModelProvider` by using `provider.commit(false)`. 
 
 Binding Changes:
   * Renamed `WidgetBinder` to `FormBinder` (but have left a deprecated `WidgetBinder` to ease migration trauma).
