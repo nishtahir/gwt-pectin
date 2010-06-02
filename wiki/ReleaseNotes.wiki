@@ -37,7 +37,7 @@ Other changes:
   * Added `MutableListModel.clear()` method.
   * Added new `InterceptedValueModel`.  This value model can have intercepters added to prevent the value change.  E.g. `selectionModel.interceptUsing(unsavedChangesInterceptor)`
   * Added ability for `AsyncUiCommands` to `abort()` without publishing either a result or error.  On aborting the finish events fire and the `active()` model returns to false.
-  * Added new `ExceptionManager` class for simplifying exception handling in !AsyncCommands.  The usage style is in the form of:
+  * Added new `ExceptionManager` class for simplifying exception handling in !AsyncUiCommands.  The usage style is in the form of:
 {{{
 // create our manager, the String is the error type we're going to publish
 ExceptionManager<String> exceptions = new ExceptionManager<String>();
