@@ -1,5 +1,5 @@
 #summary Maven Details
-
+#sidebar TableOfContents
 = Maven Repository =
 {{{
 <repository>
