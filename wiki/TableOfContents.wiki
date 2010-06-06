@@ -10,7 +10,7 @@
   * [GuideUiCommands UiCommands (Experimental)]
   * [GuideTesting Testing]
   * [GuideGotchas Gotcha's]
-  * [GuideMaven Maven Details
+  * [GuideMaven Maven Details]
   * [BuildingFromSource Building from source]
   * [ComparedToMVP Compared to MVP]
   * [ReleaseNotes Release Notes]
