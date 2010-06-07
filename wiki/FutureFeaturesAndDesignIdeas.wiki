@@ -20,6 +20,30 @@ This is implemented in 0.8.
 ==Formatted fields==
 Currently formatted fields don't get a chance to re-format the value the user entered with out using a deferred command (since the binding ignores model changes during the update).  The formatted field could probably handle this internally by checking the text version with a freshly formatted version and doing the deferred command thing itself, but I'd rather not use a deferred command at all if possible.   
 
+==!BeanModelProvider Ideas== 
+It would be nice if BeanModelProvider supported JSR 303 style validation.  This would allow a reflection variant of the provider to be used on the server to perform validation.  This is a fair bit of work but would support unified server side and client side validation.  I'm holding off on this to see how Google's ValueStore proceeds.  I'm also not sure how to handle conditional validation.
+
+It might be possible for the provider to support 'diffing' between two beans.  This would allow you to present what has changed to the user when handling stale entity exceptions.
+
+It might also also be possible to support compile time type safety using annotations.  E.g.
+{{{
+public class PersonProvider extends BeanModelProvider<Person> {
+   // automatically bound to "firstName" 
+   MutableValueModel<String> firstName;
+
+   // specifies a property different from the value model name.
+   @Path("surname")
+   MutableValueModel<String> lastName;
+}
+}}} 
+
+If this is the case then the following would be possible.
+{{{
+// use in a FormModel
+fieldOfType(String.class).boundTo(personProvider.firstName);
+// or directly bound
+binder.bind(personProvider.firstName).to(someField);
+}}}
 
 = Plugins =
 ==!SelectionPlugin== 
