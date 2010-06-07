@@ -15,6 +15,8 @@ Would probably nice to add value interceptors to the bindings.  This would be a 
 == Support !ValueModels bindings without !FormModels ==  
 I'd also like to support binding directly to `ValueModel` and `ListModel` for the cases where you don't need the additional functionalities (or overhead) of forms and plugins.
 
+This is implemented in 0.8.
+
 ==Formatted fields==
 Currently formatted fields don't get a chance to re-format the value the user entered with out using a deferred command (since the binding ignores model changes during the update).  The formatted field could probably handle this internally by checking the text version with a freshly formatted version and doing the deferred command thing itself, but I'd rather not use a deferred command at all if possible.   
 
@@ -26,7 +28,7 @@ Bring focus/blur and field selection into the presentation layer.  `selectionMod
 ==!ValidationPlugin enhancements== 
 Proper async validation support, see DesignAsynchronousValidation.
 
-Would also nice to support validation triggers like ON_BLUR, ON_EDIT etc.
+Would also nice to support validation triggers like ON_BLUR, ON_EDIT etc.  See https://wave.google.com/wave/?nouacheck&pli=1#restored:wave:googlewave.com!w%252BvIXX8JY-A
 
 ==!UndoPlugin==
 Wouldn't be too hard to implement at least basic undo/redo support.  Could also work with the selection model if required.
