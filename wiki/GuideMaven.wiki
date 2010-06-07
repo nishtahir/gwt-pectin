@@ -5,9 +5,9 @@
 <repository>
    <id>maven.pietschy.com</id>
    <name>Andrew Pietsch's Maven Repository</name>
-   <url>http://maven.pietschy.com</url>
+   <url>http://maven.pietschy.com/repository</url>
 </repository>
-}}}     
+}}}
 
 {{{
 <dependency>
@@ -16,3 +16,19 @@
    <version>0.8</version>
 </dependency>
 }}}   
+
+If you're after snapshots you can use:
+{{{
+<repository>
+   <id>snapshots.maven.pietschy.com</id>
+   <name>Andrew Pietsch's Maven Snapshots</name>
+   <url>http://maven.pietschy.com/snapshots</url>
+   <releases>
+      <enabled>false</enabled>
+   </releases>
+   <snapshots>
+      <enabled>true</enabled>
+   </snapshots>
+</repository>
+}}}     
+
