@@ -1,6 +1,8 @@
 #summary Maven Details
 #sidebar TableOfContents
 = Maven Repository =
+(Note: only available from 0.8 releases onwards)
+
 {{{
 <repository>
    <id>maven.pietschy.com</id>
@@ -12,7 +14,7 @@
 {{{
 <dependency>
    <groupId>com.pietschy.gwt</groupId>
-   <artifactId>gwt-pecting</artifactId>
+   <artifactId>gwt-pectin</artifactId>
    <version>0.8</version>
 </dependency>
 }}}   
@@ -31,4 +33,3 @@ If you're after snapshots you can use:
    </snapshots>
 </repository>
 }}}     
-
