@@ -33,3 +33,10 @@ If you're after snapshots you can use:
    </snapshots>
 </repository>
 }}}     
+{{{
+<dependency>
+   <groupId>com.pietschy.gwt</groupId>
+   <artifactId>gwt-pectin</artifactId>
+   <version>0.8-SNAPSHOT</version>
+</dependency>
+}}}
