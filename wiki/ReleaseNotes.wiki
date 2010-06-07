@@ -2,6 +2,8 @@
 #labels Featured
 = Pectin Release Notes=
 == Next Release ==
+Note: avaliable in [GuideMaven snapshot repository] as 0.8-SNAPSHOT.
+
 !BeanModelProvider Changes:
   * !BeanModelProviders now supports basic nested property paths.  So you can go `fieldOfType(T).boundTo(provider, "a.b.c")`.  
      * To support this beans must mark the properties to expose using the `@NestedBean` annotation.  I.e. bean 'a' would annotate getB() with `@NestedBean`.
