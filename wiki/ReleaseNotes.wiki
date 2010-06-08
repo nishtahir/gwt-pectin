@@ -34,6 +34,8 @@ Other changes:
   * Added new `ReducingValueModel` that operates on !ListModels and corresponding `fieldOfType(T).computedFrom(ListModel<S>).using(Reduce<T,S>)`.
   * Added new `FormModel.allFieldsExcept(..)` method for cases where you want to apply a plugin to all but a few fields. 
   * Added inital support for condtions based on lists e.g. `Conditions.listOf(favoriteWines).isEmpty()`. 
+  * `FormatExceptionPolicy` can now be configured using the builder API (issue 24).
+  * Fixed bug in `AbstractDynamicList` where `setValue(T)` and `setValue(T, false)` were incorrectly firing !ValueChangeEvents.  
   * Updated `DelegatingCommand` and `DelegatingUiCommand` to throw `MissingDelegateExceptions` instead of `NullPointerExceptions` if executed when the delegate isn't configured.  Also added a debugContext to !DelegatingCommands to help locate the command in question (since stack traces are generated during a listener callback and may have no reference to appliation classes). 
   * Renamed `HasValueGetter` to `ValueSource` and `HasValueSetter` to `ValueTarget`.
   * Added `MutableListModel.clear()` method.
