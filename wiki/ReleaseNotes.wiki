@@ -8,10 +8,9 @@ Note: avaliable in [GuideMaven snapshot repository] as 0.8-SNAPSHOT.
   * !BeanModelProviders now supports basic nested property paths.  So you can go `fieldOfType(T).boundTo(provider, "a.b.c")`.  
      * To support this beans must mark the properties to expose using the `@NestedBean` annotation.  I.e. bean 'a' would annotate getB() with `@NestedBean`.
      * The property path only supports list models as the final property.  Thus `bean.bean.list` is ok while `bean.list.bean` isn't.
-     * The value models returned from the provider are only mutable if their property is mutable (i.e. it has a setter) and their parent bean is non null.  You can always read from a value model even if it's souce bean is null, i.e. reading from "a.b.c" will simply return `null` if either `a` or `b` is `null`.  Attempting to write to `c` while `a` or `b` is null will throw a `SourceBeanIsNullException`.
+     * The value models returned from the provider are only mutable if the property is mutable (i.e. it has a setter) and the parent bean is non null.  You can always read from a value model even if it's souce bean is null, i.e. reading from "a.b.c" will simply return `null` if either `a` and/or `b` is `null`.  Attempting to write to `c` while `a` or `b` is null will throw a `SourceBeanIsNullException`.
   * !BeanModelProviders now implement `ValueModel`  and the `setBean(T)` method has been changed to `BeanModelProvider.setValue(T)`.
-  * Moved `ReflectionBeanModelProvider` from `util` to new `reflect` package.
-  * Renamed `TestUtil` to `ReflectionProviders` and simplified method names. 
+  * Renamed `TestUtil` to `ReflectionProviders`, simplified method names and moved from `util` to a new `reflect` package.. 
   * *Casualties*: `CopyingBeanModelProvider` and related classes are no more due to the changes to support nested beans.  The ability to "commit without losing dirty state" is now supported by the standard `BeanModelProvider` by using `provider.commit(false)`. 
 
 Binding Changes:
@@ -35,7 +34,7 @@ Other changes:
   * Added new `FormModel.allFieldsExcept(..)` method for cases where you want to apply a plugin to all but a few fields. 
   * Added inital support for condtions based on lists e.g. `Conditions.listOf(favoriteWines).isEmpty()`. 
   * `FormatExceptionPolicy` can now be configured using the builder API (issue 24).
-  * Binding formatted fields and formatted list fields to `HasText` targets now uses the fields default format if the users doesn't specifiy one (issue 23)..  
+  * Binding formatted fields and formatted list fields to `HasText` targets now uses the fields default format if the builder doesn't specifiy one (issue 23)..  
   * Fixed bug in `AbstractDynamicList` where `setValue(T)` and `setValue(T, false)` were incorrectly firing !ValueChangeEvents.  
   * Updated `DelegatingCommand` and `DelegatingUiCommand` to throw `MissingDelegateExceptions` instead of `NullPointerExceptions` if executed when the delegate isn't configured.  Also added a debugContext to !DelegatingCommands to help locate the command in question (since stack traces are generated during a listener callback and may have no reference to appliation classes). 
   * Renamed `HasValueGetter` to `ValueSource` and `HasValueSetter` to `ValueTarget`.
