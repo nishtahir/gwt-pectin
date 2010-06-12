@@ -33,6 +33,7 @@ Other changes:
   * Added new `ReducingValueModel` that operates on !ListModels and corresponding `fieldOfType(T).computedFrom(ListModel<S>).using(Reduce<T,S>)`.
   * Added new `FormModel.allFieldsExcept(..)` method for cases where you want to apply a plugin to all but a few fields. 
   * Added inital support for condtions based on lists e.g. `Conditions.listOf(favoriteWines).isEmpty()`. 
+  * Added support for text conditions that test for empty and blank string.  i.e. `Conditions.textOf(source).isBlank()`.
   * `FormatExceptionPolicy` can now be configured using the builder API (issue 24).
   * Binding formatted fields and formatted list fields to `HasText` targets now uses the fields default format if the builder doesn't specifiy one (issue 23)..  
   * Fixed bug in `AbstractDynamicList` where `setValue(T)` and `setValue(T, false)` were incorrectly firing !ValueChangeEvents.  
