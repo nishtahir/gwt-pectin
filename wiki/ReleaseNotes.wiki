@@ -31,17 +31,19 @@ Other changes:
   * New `FormModel.allFieldsExcept(..)` method for cases where you want to apply a plugin to all but a few fields. 
   * New text conditions that test for empty and blank string.  i.e. `Conditions.textOf(source).isBlank()`.
   * New (initial) support for list based conditions e.g. `Conditions.listOf(favoriteWines).isEmpty()`. 
-  * New `InterceptedValueModel`.  Intercepters can be added to intercept and prevent value changes.  E.g. `selectionModel.interceptUsing(unsavedChangesInterceptor)` 
-  * Large refactoring and clean up of the bindings and binding builders.
-  * Removed deprecated `toLabel(HasText, DisplayFormat)` binding methods.
-  * Cleanups and fixes to !FormattedFieldBindings (see issue 23).
-  * `FormatExceptionPolicy` can now be configured using the builder API (issue 24).
-  * Binding formatted fields and formatted list fields to `HasText` targets now uses the fields default format if the builder doesn't specifiy one (issue 23)..  
-  * Fixed bug in `AbstractDynamicList` where `setValue(T)` and `setValue(T, false)` were incorrectly firing !ValueChangeEvents.  
-  * Renamed `HasValueGetter` to `ValueSource` and `HasValueSetter` to `ValueTarget`.
-  * Added `MutableListModel.clear()` method.
-  * Updated `DelegatingCommand` and `DelegatingUiCommand` to throw `MissingDelegateExceptions` instead of `NullPointerExceptions` if executed when the delegate isn't configured.  Also added a debugContext to !DelegatingCommands to help locate the command in question (since stack traces are generated during a listener callback and may have no reference to appliation classes). 
-  * Added ability for `AsyncUiCommands` to `abort()` without publishing either a result or error.
+  * New `InterceptedValueModel`.  Intercepters can be added to intercept and prevent value changes.  E.g.
+{{{
+selectionModel.interceptUsing(new Interceptor(){
+   public void intercept(Invocation invocation) {
+      if (editor.hasUnsavedChanges()) {
+         messageDisplay.ask("Do you want to discard your changes?")
+            .onChoosing("Yes, Discard changes").thenExcecute(invocation.getProceedCommand())
+            .onChoosing("Cancel").thenClose()
+            .show();
+      }
+   }
+});
+}}}
   * New `ExceptionManager` class for simplifying exception handling in !AsyncUiCommands.  The usage style is in the form of:
 {{{
 // create our manager, the String is the error type we're going to publish
@@ -76,7 +78,16 @@ public void performAsyncOperation(AsyncCommandCallback<R,String> callback) {
 }
 }}}
   * The `ExceptionManager.containsHandlerFor(..)` method can be used to see if a handler has been registred for a particular exception.  This is useful in unit tests to ensure all exceptions thrown by a RPC service have an associated handler. 
-
+  * Large refactoring and clean up of the bindings and binding builders.
+  * Removed deprecated `toLabel(HasText, DisplayFormat)` binding methods.
+  * Cleanups and fixes to !FormattedFieldBindings (see issue 23).
+  * `FormatExceptionPolicy` can now be configured using the builder API (issue 24).
+  * Binding formatted fields and formatted list fields to `HasText` targets now uses the fields default format if the builder doesn't specifiy one (issue 23)..  
+  * Fixed bug in `AbstractDynamicList` where `setValue(T)` and `setValue(T, false)` were incorrectly firing !ValueChangeEvents.  
+  * Renamed `HasValueGetter` to `ValueSource` and `HasValueSetter` to `ValueTarget`.
+  * Added `MutableListModel.clear()` method.
+  * Updated `DelegatingCommand` and `DelegatingUiCommand` to throw `MissingDelegateExceptions` instead of `NullPointerExceptions` if executed when the delegate isn't configured.  Also added a debugContext to !DelegatingCommands to help locate the command in question (since stack traces are generated during a listener callback and may have no reference to appliation classes). 
+  * Added ability for `AsyncUiCommands` to `abort()` without publishing either a result or error.
 
 == Release 0.7 ==
   * Initial release of [GuideUiCommands UiCommands and Channels].
