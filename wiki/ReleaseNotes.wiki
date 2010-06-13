@@ -88,6 +88,7 @@ public void performAsyncOperation(AsyncCommandCallback<R,String> callback) {
   * Added `MutableListModel.clear()` method.
   * Updated `DelegatingCommand` and `DelegatingUiCommand` to throw `MissingDelegateExceptions` instead of `NullPointerExceptions` if executed when the delegate isn't configured.  Also added a debugContext to !DelegatingCommands to help locate the command in question (since stack traces are generated during a listener callback and may have no reference to appliation classes). 
   * Added ability for `AsyncUiCommands` to `abort()` without publishing either a result or error.
+  * Moved interceptors from `command` package to new `interceptor` package. 
 
 == Release 0.7 ==
   * Initial release of [GuideUiCommands UiCommands and Channels].
