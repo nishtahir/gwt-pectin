@@ -27,10 +27,10 @@ binder.bind(person).to(contactDetailsEditor);
 
 
 Other changes:
-  * New `ReducingValueModel` that operates on !ListModels and corresponding `fieldOfType(T).computedFrom(ListModel<S>).using(Reduce<T,S>)`.
+  * New `ReducingValueModel` that operates on !ListModels and corresponding builder methods.  E.g. `fieldOfType(T).computedFrom(ListModel<S>).using(Reduce<T,S>)`.
   * New `FormModel.allFieldsExcept(..)` method for cases where you want to apply a plugin to all but a few fields. 
-  * New support for conditions based on lists e.g. `Conditions.listOf(favoriteWines).isEmpty()`. 
   * New text conditions that test for empty and blank string.  i.e. `Conditions.textOf(source).isBlank()`.
+  * New (initial) support for list based conditions e.g. `Conditions.listOf(favoriteWines).isEmpty()`. 
   * New `InterceptedValueModel`.  Intercepters can be added to intercept and prevent value changes.  E.g. `selectionModel.interceptUsing(unsavedChangesInterceptor)` 
   * Large refactoring and clean up of the bindings and binding builders.
   * Removed deprecated `toLabel(HasText, DisplayFormat)` binding methods.
