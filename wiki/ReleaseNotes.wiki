@@ -27,22 +27,22 @@ binder.bind(person).to(contactDetailsEditor);
 
 
 Other changes:
+  * New `ReducingValueModel` that operates on !ListModels and corresponding `fieldOfType(T).computedFrom(ListModel<S>).using(Reduce<T,S>)`.
+  * New `FormModel.allFieldsExcept(..)` method for cases where you want to apply a plugin to all but a few fields. 
+  * New support for conditions based on lists e.g. `Conditions.listOf(favoriteWines).isEmpty()`. 
+  * New text conditions that test for empty and blank string.  i.e. `Conditions.textOf(source).isBlank()`.
+  * New `InterceptedValueModel`.  Intercepters can be added to intercept and prevent value changes.  E.g. `selectionModel.interceptUsing(unsavedChangesInterceptor)` 
   * Large refactoring and clean up of the bindings and binding builders.
   * Removed deprecated `toLabel(HasText, DisplayFormat)` binding methods.
   * Cleanups and fixes to !FormattedFieldBindings (see issue 23).
-  * Added new `ReducingValueModel` that operates on !ListModels and corresponding `fieldOfType(T).computedFrom(ListModel<S>).using(Reduce<T,S>)`.
-  * Added new `FormModel.allFieldsExcept(..)` method for cases where you want to apply a plugin to all but a few fields. 
-  * Added inital support for condtions based on lists e.g. `Conditions.listOf(favoriteWines).isEmpty()`. 
-  * Added support for text conditions that test for empty and blank string.  i.e. `Conditions.textOf(source).isBlank()`.
   * `FormatExceptionPolicy` can now be configured using the builder API (issue 24).
   * Binding formatted fields and formatted list fields to `HasText` targets now uses the fields default format if the builder doesn't specifiy one (issue 23)..  
   * Fixed bug in `AbstractDynamicList` where `setValue(T)` and `setValue(T, false)` were incorrectly firing !ValueChangeEvents.  
-  * Updated `DelegatingCommand` and `DelegatingUiCommand` to throw `MissingDelegateExceptions` instead of `NullPointerExceptions` if executed when the delegate isn't configured.  Also added a debugContext to !DelegatingCommands to help locate the command in question (since stack traces are generated during a listener callback and may have no reference to appliation classes). 
   * Renamed `HasValueGetter` to `ValueSource` and `HasValueSetter` to `ValueTarget`.
   * Added `MutableListModel.clear()` method.
-  * Added new `InterceptedValueModel`.  This value model can have intercepters added to prevent the value change.  E.g. `selectionModel.interceptUsing(unsavedChangesInterceptor)`
-  * Added ability for `AsyncUiCommands` to `abort()` without publishing either a result or error.  On aborting the finish events fire and the `active()` model returns to false.
-  * Added new `ExceptionManager` class for simplifying exception handling in !AsyncUiCommands.  The usage style is in the form of:
+  * Updated `DelegatingCommand` and `DelegatingUiCommand` to throw `MissingDelegateExceptions` instead of `NullPointerExceptions` if executed when the delegate isn't configured.  Also added a debugContext to !DelegatingCommands to help locate the command in question (since stack traces are generated during a listener callback and may have no reference to appliation classes). 
+  * Added ability for `AsyncUiCommands` to `abort()` without publishing either a result or error.
+  * New `ExceptionManager` class for simplifying exception handling in !AsyncUiCommands.  The usage style is in the form of:
 {{{
 // create our manager, the String is the error type we're going to publish
 ExceptionManager<String> exceptions = new ExceptionManager<String>();
