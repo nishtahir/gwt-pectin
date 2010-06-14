@@ -40,6 +40,8 @@ selectionModel.interceptUsing(new Interceptor(){
             .onChoosing("Yes, Discard changes").thenExcecute(invocation.getProceedCommand())
             .onChoosing("Cancel").thenClose()
             .show();
+      } else {
+         invocation.proceed();
       }
    }
 });
