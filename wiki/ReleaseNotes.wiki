@@ -24,7 +24,8 @@ MutableValueModel<ContactDetails> contactDetails = provider.getValueModel("depar
 binder.bind(person).to(contactDetailsEditor);
 // where `contactDetailsEditor` implements `HasValue<ContactDetails>` or `ValueTarget<ContactDetails>`.
 }}}
-  * Deprecated `Binder.bind(ValueModel).toLabel(HasText)` and replaced with `Binder.bind(ValueModel).toText(HasText)` and `Binder.bind(ValueModel).toHtml(HasHTML)`.  Applied the same changes to the !ListModel variants.
+  * New `Binder.bind(ValueModel).toHtml(HasHTML)` and equivalent !ListModel variant.
+  * Deprecated `Binder.bind(ValueModel).toLabel(HasText)` and replaced with `Binder.bind(ValueModel).toText(HasText)`.
 
 
 Other changes:
