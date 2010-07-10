@@ -62,7 +62,8 @@ Wouldn't be too hard to implement at least basic undo/redo support.  Could also 
 
 =Would Like to but...=
 == Native !UiBinder support==
-Not even sure if it's possible yet.
+Still not sure if this is possible, but here's what we'd like to be able to do: https://wave.google.com/wave/?nouacheck#restored:wave:googlewave.com%252Fw%252BCE2z1X_0A
+
 
 ==Integration with Drag&Drop layout tools==
 And in my dreams... it would be to drag value models onto widgets and have the bind(model.name).to(firstName) automagically done.  I'd get to use visual layout tool (where it makes sense) and keep my OO models...
