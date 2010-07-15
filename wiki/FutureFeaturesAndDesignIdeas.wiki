@@ -50,11 +50,11 @@ binder.bind(personProvider.firstName).to(someField);
 
 =Controllers=
 I'm slowly starting to create some standard controllers that I'd like to incorporate into Pectin. e.g.
-  * SingleSelectionController
-  * MultiSelectionController
-  * EditorController
-  * EditorListController (Automatically handles binding to ListModels<T> using a Provider<EditorController<T>>)
-  * WorkflowController
+  * !SingleSelectionController
+  * !MultiSelectionController
+  * !EditorController
+  * !EditorListController (Automatically handles binding to `ListModels<T>` using a `Provider<EditorController<T>>`)
+  * !WorkflowController
 
 The idea being that the contollers provide standard interfaces so you can do things like this:
 {{{
@@ -66,25 +66,37 @@ public class MasterController {
   
   public MasterController() {
      
-    // bind the selection to our editor controller
+    // bind the selectionControllers selection value model to our 
+    // editor controller
     binder.bind(selectionController.selection()).to(editorController);  
 
     // intercept selection changes and promt the user if there are unsaved
     // changes..
     selectionController.selection().interceptUsing(new Interceptor() {
       public void intercept(Invocation invocation) {
+
         if (editorController.isDirty()) {
-          messages.ask("Do you want to discard you changes?")
-            .onChoosingDestructive("Discard Changes").thenExecute(invocation.getProceedCommand())
-            .onChoosing("Cancel").thenClose()
+          // promt the user in an async/non-blocking way.
+          messageService.ask("Do you want to discard you changes?")
+            .onChoosingDestructive("Discard Changes")
+              .thenExecute(invocation.getProceedCommand())
+            .onChoosing("Cancel")
+              .thenClose()
             .show();
+
+        } else {
+
+          // no unsaved changes so proceed imeadiatly.  The selection will
+          // update and the binding will update the editorController.
+          invocation.proceed();
         }
       }
     }
   }
 }
+// * `messageService` not included.
 }}}
-* `messages` not included.
+
 
 = Plugins =
 ==!SelectionPlugin== 
