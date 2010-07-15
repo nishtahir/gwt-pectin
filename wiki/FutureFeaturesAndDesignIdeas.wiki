@@ -24,12 +24,11 @@ public class MasterDetailController {
   
   public MasterController() {
      
-    // bind the selectionControllers selection value model to our 
-    // editor controller
+    // bind the selection to our editor
     binder.bind(selectionController.selection()).to(editorController);  
 
-    // intercept selection changes and promt the user if there are unsaved
-    // changes..
+    // intercept selection changes and promt the user if there are 
+    // unsaved changes..
     selectionController.selection().interceptUsing(new Interceptor() {
       public void intercept(Invocation invocation) {
         if (editorController.isDirty()) {
