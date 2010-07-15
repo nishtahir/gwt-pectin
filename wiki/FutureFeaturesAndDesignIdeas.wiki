@@ -12,9 +12,9 @@ I'd also like to support binding directly to `ValueModel` and `ListModel` for th
 *This will be implemented in 0.8.*
 
 ==Controllers==
-I'm slowly starting to create some standard controllers that I'd like to incorporate into Pectin (in the style of Cocoa/SproutCore etc).  Using Controllers in conjunction with Value/ListModel bindings allows some pretty complex behaviour to be built pretty quickly. 
+I'm slowly starting to create some standard controllers that I'd like to incorporate into Pectin (in the style of Cocoa/!SproutCore etc).  Using Controllers in conjunction with Value/!ListModel bindings allows some pretty complex behaviour to be built pretty quickly. 
 
-The following is a very quick example of a MasterDetail controller that binds a SelectionControllers selected value to an EditorController.  Selection changes are intercepted to prompt the user to save changes if required.
+The following is a very quick example of a !MasterDetail controller that binds a !SelectionControllers selected value to an !EditorController.  Selection changes are intercepted to prompt the user to save changes if required.
 {{{
 public class MasterDetailController {
 
