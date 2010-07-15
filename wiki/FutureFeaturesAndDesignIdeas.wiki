@@ -5,11 +5,11 @@
 
 Things that would be nice:
 
-= Pectin Core =
+= Pectin Bindings =
 == Support more generalised bindings of regular !ValueModels and !ListModels==  
 I'd also like to support binding directly to `ValueModel` and `ListModel` for the cases where you don't need the additional functionalities (or overhead) of forms and plugins.
 
-This is has started to be implemented in 0.8.
+*This will be implemented in 0.8.*
 
 ==Controllers==
 I'm slowly starting to create some standard controllers that I'd like to incorporate into Pectin (in the style of Cocoa/SproutCore etc).  Using Controllers in conjunction with Value/ListModel bindings allows some pretty complex behaviour to be built pretty quickly. 
@@ -32,7 +32,6 @@ public class MasterDetailController {
     // changes..
     selectionController.selection().interceptUsing(new Interceptor() {
       public void intercept(Invocation invocation) {
-
         if (editorController.isDirty()) {
           // promt the user in an async/non-blocking way.
           messageService.ask("Do you want to discard you changes?")
@@ -41,9 +40,7 @@ public class MasterDetailController {
             .onChoosing("Cancel")
               .thenClose()
             .show();
-
         } else {
-
           // no unsaved changes so proceed imeadiatly.  The selection will
           // update and the binding will update the editorController.
           invocation.proceed();
