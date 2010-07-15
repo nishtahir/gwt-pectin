@@ -48,6 +48,44 @@ fieldOfType(String.class).boundTo(personProvider.firstName);
 binder.bind(personProvider.firstName).to(someField);
 }}}
 
+=Controllers=
+I'm slowly starting to create some standard controllers that I'd like to incorporate into Pectin. e.g.
+  * SingleSelectionController
+  * MultiSelectionController
+  * EditorController
+  * EditorListController (Automatically handles binding to ListModels<T> using a Provider<EditorController<T>>)
+  * WorkflowController
+
+The idea being that the contollers provide standard interfaces so you can do things like this:
+{{{
+public class MasterController {
+
+  SingleSelectionController selectionController = ...;
+  EditorController editorController = ...;
+  Binder binder = new Binder();
+  
+  public MasterController() {
+     
+    // bind the selection to our editor controller
+    binder.bind(selectionController.selection()).to(editorController);  
+
+    // intercept selection changes and promt the user if there are unsaved
+    // changes..
+    selectionController.selection().interceptUsing(new Interceptor() {
+      public void intercept(Invocation invocation) {
+        if (editorController.isDirty()) {
+          messages.ask("Do you want to discard you changes?")
+            .onChoosingDestructive("Discard Changes").thenExecute(invocation.getProceedCommand())
+            .onChoosing("Cancel").thenClose()
+            .show();
+        }
+      }
+    }
+  }
+}
+}}}
+* `messages` not included.
+
 = Plugins =
 ==!SelectionPlugin== 
 Bring focus/blur and field selection into the presentation layer.  `selectionModel.addSelectionHandler(...)`, `selectionModel.select(firstName)`.  A typical use case would be focussing a field with validation errors.  I would imagine something like `selectionModel.select(validationManager.getFirstFieldWithErrors())`.  There are issues to consider here with multi-field widgets etc but by using nested form models I think we can get around most cases.
