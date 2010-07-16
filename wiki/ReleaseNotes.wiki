@@ -21,7 +21,7 @@ Binding Changes:
 Binder binder = new Binder();
 MutableValueModel<ContactDetails> contactDetails = provider.getValueModel("department.manager.contactDetails", ContactDetails.class) 
 // bind our model to our widget directly.
-binder.bind(person).to(contactDetailsEditor);
+binder.bind(contactDetails).to(contactDetailsEditor);
 // where `contactDetailsEditor` implements `HasValue<ContactDetails>` or `ValueTarget<ContactDetails>`.
 }}}
   * Deprecated `Binder.bind(ValueModel).toLabel(HasText)` and replaced with `Binder.bind(ValueModel).toTextOf(HasText)`.
