@@ -24,8 +24,7 @@ MutableValueModel<ContactDetails> contactDetails = provider.getValueModel("depar
 binder.bind(contactDetails).to(contactDetailsEditor);
 // where `contactDetailsEditor` implements `HasValue<ContactDetails>` or `ValueTarget<ContactDetails>`.
 }}}
-  * Deprecated `Binder.bind(ValueModel).toLabel(HasText)` and replaced with `Binder.bind(ValueModel).toTextOf(HasText)`.
-  * New `Binder.bind(ValueModel).toHtmlOf(HasHTML)` and equivalent !ListModel variant.
+  * New `Binder.bind(ValueModel).toTextOf(HasText)` and `Binder.bind(ValueModel).toHtmlOf(HasHTML)` to replace the deprecated `Binder.bind(ValueModel).toLabel(HasText)`.  Formats are also support (i.e. `bind(model).to(hasText).withFormat(format)`) and there are variants that work with list models.
 
 Other changes:
   * New `Functions` class that has static methods for creating computed models from regular value and list models using functions and converters.  E.g. `ValueModel<T> result = Functions.computedFrom(ValueModel<S>).using(Function<T,S>)` and `ValueModel<T> result = Functions.computedFrom(ListModel<S>).using(Reduce<T,S>)` etc. 
