@@ -28,6 +28,7 @@ binder.bind(person).to(contactDetailsEditor);
   * New `Binder.bind(ValueModel).toHtmlOf(HasHTML)` and equivalent !ListModel variant.
 
 Other changes:
+  * New `Functions` class that has static methods for creating computed models from regular value and list models using functions and converters.  E.g. `ValueModel<T> result = Functions.computedFrom(ValueModel<S>).using(Function<T,S>)` and `ValueModel<T> result = Functions.computedFrom(ListModel<S>).using(Reduce<T,S>)` etc. 
   * New `ReducingValueModel` that operates on !ListModels and corresponding builder methods.  E.g. `fieldOfType(T).computedFrom(ListModel<S>).using(Reduce<T,S>)`.
   * New `FormModel.allFieldsExcept(..)` method for cases where you want to apply a plugin to all but a few fields. 
   * New text conditions that test for empty and blank string.  i.e. `Conditions.textOf(source).isBlank()`.
