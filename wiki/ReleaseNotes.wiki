@@ -9,7 +9,7 @@
 
 ====Painful Form Changes:====
   * All form releated classes (including plugins) have moved to a new `form` subpackage.
-  * WidgetBinder has been renamed to FormBinder.
+  * `WidgetBinder` has been renamed to `FormBinder`.
 
 ====Binding Changes:====
   * New `Binder` class *supports binding regular* `ValueModels` and `ListModels` directly to `HasValue<T>`, `ValueTarget<T>` and `MutableValueModel<T>` without the need of a `FormModel`.  This means you can use `BeanModelProvider` (or any `ValueModel` for that matter) directly in cases where you don't need the features of the form.  E.g.
@@ -20,7 +20,7 @@ MutableValueModel<ContactDetails> contactDetails = provider.getValueModel("depar
 binder.bind(contactDetails).to(contactDetailsEditor);
 // where `contactDetailsEditor` implements `HasValue<ContactDetails>` or `ValueTarget<ContactDetails>`.
 }}}
-`FormBinder` (formally `WidgetBinder`) extends the new `Binder` so the following changes apply to both.   
+  * `FormBinder` (formally `WidgetBinder`) extends the new `Binder` and the following changes apply to both.   
   * New `Binder.bind(ValueModel).toTextOf(HasText)` and `Binder.bind(ValueModel).toHtmlOf(HasHTML)` to replace the deprecated `Binder.bind(ValueModel).toLabel(HasText)`.  Formats are also support (i.e. `bind(model).toTextOf(hasText).withFormat(format)`) and there are variants that work with list models.
   * New `Functions` class that has static methods for creating computed models from regular value and list models using functions and converters etc.  E.g. `ValueModel<T> result = Functions.computedFrom(ValueModel<S>).using(Function<T,S>)` and `ValueModel<T> result = Functions.computedFrom(ListModel<S>).using(Reduce<T,S>)` etc. 
   * New text conditions that test for empty and blank string.  i.e. `Conditions.textOf(source).isBlank()`.
