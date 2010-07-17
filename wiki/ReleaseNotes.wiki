@@ -4,7 +4,29 @@
 == Next Release ==
 Note: avaliable in the [GuideMaven snapshot repository] as 0.8-SNAPSHOT.
 
-!BeanModelProvider Changes:
+===Theme of this release===
+This release sees pectin move from a primarily form orientated library to one that provides a much more general binding solution.  Notably this realease also now supports basic property paths in `BeanModelProvider`.
+
+====Painful Form Changes:====
+  * All form releated classes (including plugins) have moved to a new `form` subpackage.
+  * WidgetBinder has been renamed to FormBinder.
+
+====Binding Changes:====
+  * New `Binder` class *supports binding regular* `ValueModels` and `ListModels` directly to `HasValue<T>`, `ValueTarget<T>` and `MutableValueModel<T>` without the need of a `FormModel`.  This means you can use `BeanModelProvider` (or any `ValueModel` for that matter) directly in cases where you don't need the features of the form.  E.g.
+{{{
+Binder binder = new Binder();
+MutableValueModel<ContactDetails> contactDetails = provider.getValueModel("department.manager.contactDetails", ContactDetails.class) 
+// bind our model to our widget directly.
+binder.bind(contactDetails).to(contactDetailsEditor);
+// where `contactDetailsEditor` implements `HasValue<ContactDetails>` or `ValueTarget<ContactDetails>`.
+}}}
+`FormBinder` (formally `WidgetBinder`) extends the new `Binder` so the following changes apply to both.   
+  * New `Binder.bind(ValueModel).toTextOf(HasText)` and `Binder.bind(ValueModel).toHtmlOf(HasHTML)` to replace the deprecated `Binder.bind(ValueModel).toLabel(HasText)`.  Formats are also support (i.e. `bind(model).toTextOf(hasText).withFormat(format)`) and there are variants that work with list models.
+  * New `Functions` class that has static methods for creating computed models from regular value and list models using functions and converters etc.  E.g. `ValueModel<T> result = Functions.computedFrom(ValueModel<S>).using(Function<T,S>)` and `ValueModel<T> result = Functions.computedFrom(ListModel<S>).using(Reduce<T,S>)` etc. 
+  * New text conditions that test for empty and blank string.  i.e. `Conditions.textOf(source).isBlank()`.
+  * New (initial) support for list based conditions e.g. `Conditions.listOf(favoriteWines).isEmpty()`. 
+
+====!BeanModelProvider Changes:====
   * !BeanModelProviders now supports basic nested property paths.  So you can go `fieldOfType(T).boundTo(provider, "a.b.c")`.  
      * To support this beans must mark the properties to expose using the `@NestedBean` annotation.  I.e. bean 'a' would annotate getB() with `@NestedBean`.
      * The property path only supports list models as the final property.  Thus `bean.bean.list` is ok while `bean.list.bean` isn't.
@@ -13,26 +35,10 @@ Note: avaliable in the [GuideMaven snapshot repository] as 0.8-SNAPSHOT.
   * Renamed `TestUtil` to `ReflectionProviders`, simplified method names and moved from `util` to a new `reflect` package.. 
   * *Casualties*: `CopyingBeanModelProvider` and related classes are no more due to the changes to support nested beans.  The ability to "commit without losing dirty state" is now supported by the standard `BeanModelProvider` by using `provider.commit(false)`. 
 
-Binding Changes:
-  * Renamed `WidgetBinder` to `FormBinder` (but have left a deprecated `WidgetBinder` to ease migration trauma).
-  * Pulled all non `Field` binding methods from `FormBinder` into a new `Binder` super class.    
-  * The new `Binder` class *supports binding regular* `ValueModels` and `ListModels` directly to `HasValue<T>`, `ValueTarget<T>` and `MutableValueModel<T>` without the need of a `FormModel`.  This means you can use `BeanModelProvider` (or any `ValueModel` for that matter) directly in cases where you don't need the features of the form.  E.g.
-{{{
-Binder binder = new Binder();
-MutableValueModel<ContactDetails> contactDetails = provider.getValueModel("department.manager.contactDetails", ContactDetails.class) 
-// bind our model to our widget directly.
-binder.bind(contactDetails).to(contactDetailsEditor);
-// where `contactDetailsEditor` implements `HasValue<ContactDetails>` or `ValueTarget<ContactDetails>`.
-}}}
-  * New `Binder.bind(ValueModel).toTextOf(HasText)` and `Binder.bind(ValueModel).toHtmlOf(HasHTML)` to replace the deprecated `Binder.bind(ValueModel).toLabel(HasText)`.  Formats are also support (i.e. `bind(model).to(hasText).withFormat(format)`) and there are variants that work with list models.
-
-Other changes:
-  * New `Functions` class that has static methods for creating computed models from regular value and list models using functions and converters.  E.g. `ValueModel<T> result = Functions.computedFrom(ValueModel<S>).using(Function<T,S>)` and `ValueModel<T> result = Functions.computedFrom(ListModel<S>).using(Reduce<T,S>)` etc. 
-  * New `ReducingValueModel` that operates on !ListModels and corresponding builder methods.  E.g. `fieldOfType(T).computedFrom(ListModel<S>).using(Reduce<T,S>)`.
+====Other changes:====
+  * New `ReducingValueModel` that operates on !ListModels and corresponding builder methods.  E.g. `fieldOfType(T).computedFrom(ListModel<S>).using(Reduce<T,S>)` and `Functions.computedFrom(ListModel<S>).using(Reduce<T,S>)`.
   * New `FormModel.allFieldsExcept(..)` method for cases where you want to apply a plugin to all but a few fields. 
-  * New text conditions that test for empty and blank string.  i.e. `Conditions.textOf(source).isBlank()`.
-  * New (initial) support for list based conditions e.g. `Conditions.listOf(favoriteWines).isEmpty()`. 
-  * New `InterceptedValueModel`.  Intercepters can be added to intercept and prevent value changes.  E.g.
+  * New `InterceptedValueModel` interface and `InterceptedValueHolder` implementation thereof.  Intercepters can be added to intercept and prevent value changes.  E.g.
 {{{
 selectionModel.interceptUsing(new Interceptor(){
    public void intercept(Invocation invocation) {
