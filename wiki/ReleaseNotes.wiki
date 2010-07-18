@@ -76,7 +76,7 @@ exceptionManager.onCatching(SomeException.class)
 // we can install a default handler too for all the common RPC errors
 exceptionManager.onUnregisteredExceptionsInvoke(myDefaultHandler);
 }}}
-  * AbstractAsyncUiCommand now has an `asAsyncCallback` callback method that takes the `AsyncCommandCallback` and `ExceptionManager`.
+  * `AbstractAsyncUiCommand` now has an `asAsyncCallback(..)` convenience method that takes the `AsyncCommandCallback` and `ExceptionManager`.
 {{{
 // The manager can be invoked directly from `performAsyncOperation` using
 public void performAsyncOperation(AsyncCommandCallback<R,String> callback) {
