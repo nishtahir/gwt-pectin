@@ -78,8 +78,9 @@ exceptionManager.onUnregisteredExceptionsInvoke(myDefaultHandler);
 }}}
   * `AbstractAsyncUiCommand` now has an `asAsyncCallback(..)` convenience method that takes the `AsyncCommandCallback` and `ExceptionManager`.
 {{{
-// The manager can be invoked directly from `performAsyncOperation` using
 public void performAsyncOperation(AsyncCommandCallback<R,String> callback) {
+  // our convenience method creates a regular callback we can use directly
+  // with our RPC service.
   service.doStuff(asAsyncCallback(callback, exceptionManager);
 }
 
