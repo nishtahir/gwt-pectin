@@ -56,14 +56,14 @@ selectionModel.interceptUsing(new Interceptor(){
   * New `ExceptionManager` class for simplifying exception handling in !AsyncUiCommands.  The usage style is in the form of:
 {{{
 // create our manager, the String is the error type we're going to publish
-ExceptionManager<String> exceptions = new ExceptionManager<String>();
+ExceptionManager<String> exceptionManager = new ExceptionManager<String>();
 
 // basic convert exception to message...
-exceptions.onCatching(SomeException.class)
+exceptionManager.onCatching(SomeException.class)
   .publishError(constants.anErrorMessage());
 
 // or do some additional work..
-exceptions.onCatching(SomeException.class)
+exceptionManager.onCatching(SomeException.class)
   .invoke(new ExceptionHandler<StaleEntityException>() { 
      public void handle(StaleEntityException error) {
         // refresh the entity...
@@ -74,17 +74,15 @@ exceptions.onCatching(SomeException.class)
   });
 
 // we can install a default handler too for all the common RPC errors
-exceptions.onUnregisteredExceptionsInvoke(myDefaultHandler);
-
+exceptionManager.onUnregisteredExceptionsInvoke(myDefaultHandler);
+}}}
+  * AbstractAsyncUiCommand now has an `asAsyncCallback` callback method that takes the `AsyncCommandCallback` and `ExceptionManager`.
+{{{
 // The manager can be invoked directly from `performAsyncOperation` using
 public void performAsyncOperation(AsyncCommandCallback<R,String> callback) {
-  service.doStuff(new AsyncCallback<R>() {
-    public void onFailure(Throwable caught) {
-       exceptions.processException(caught, callback)
-    }
-    public void onSuccess(R result) {...}
-  }
+  service.doStuff(asAsyncCallback(callback, exceptionManager);
 }
+
 }}}
   * The `ExceptionManager.containsHandlerFor(..)` method can be used to see if a handler has been registred for a particular exception.  This is useful in unit tests to ensure all exceptions thrown by a RPC service have an associated handler. 
   * Large refactoring and clean up of the bindings and binding builders.
