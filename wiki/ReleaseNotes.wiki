@@ -35,9 +35,15 @@ binder.bind(contactDetails).to(contactDetailsEditor);
   * Renamed `TestUtil` to `ReflectionProviders`, simplified method names and moved from `util` to a new `reflect` package.. 
   * *Casualties*: `CopyingBeanModelProvider` and related classes are no more due to the changes to support nested beans.  The ability to "commit without losing dirty state" is now supported by the standard `BeanModelProvider` by using `provider.commit(false)`. 
 
-====Other changes:====
-  * New `ReducingValueModel` that operates on !ListModels and corresponding builder methods.  E.g. `fieldOfType(T).computedFrom(ListModel<S>).using(Reduce<T,S>)` and `Functions.computedFrom(ListModel<S>).using(Reduce<T,S>)`.
-  * New `FormModel.allFieldsExcept(..)` method for cases where you want to apply a plugin to all but a few fields. 
+====Formatted Field Changes====
+  * `FormattedFieldModel` and `FormattedFieldListModel` both now provide a sanitiseText() method that can be used to run the current text value through the formatter.  This method doesn't affect the current value and will leave invalid text values alone.  There is also a `sanitiseTextCommand()` method that returns a command that will invoke sanitise text.
+  * Fixed for issue 29.  The above can be triggered onBlur using the Binder.  e.g. `binder.bind(formattedField).to(widget).sanitiseTextOnBlur()`.  An alternate `sanitiseTextOnBlurOf(HasBlurHandlers)` can also be used.
+  * `FormatExceptionPolicy` can now be configured using the builder API (issue 24).
+  * Binding formatted fields and formatted list fields to `HasText` targets now uses the fields default format if the builder doesn't specifiy one (issue 23).. 
+  * Cleanups and fixes to !FormattedFieldBindings (see issue 23). 
+
+====Interceptor Changes:====
+  * Moved interceptors from `command` package to new `interceptor` package.  
   * New `InterceptedValueModel` interface and `InterceptedValueHolder` implementation thereof.  Intercepters can be added to intercept and prevent value changes.  E.g.
 {{{
 selectionModel.interceptUsing(new Interceptor(){
@@ -53,6 +59,10 @@ selectionModel.interceptUsing(new Interceptor(){
    }
 });
 }}}
+
+====Command Changes:====
+  * Added ability for `AsyncUiCommands` to `abort()` without publishing either a result or error.
+  * Updated `DelegatingCommand` and `DelegatingUiCommand` to throw `MissingDelegateExceptions` instead of `NullPointerExceptions` if executed when the delegate isn't configured.  Also added a debugContext to !DelegatingCommands to help locate the command in question (since stack traces are generated during a listener callback and may have no reference to appliation classes). 
   * New `ExceptionManager` class for simplifying exception handling in !AsyncUiCommands.  The usage style is in the form of:
 {{{
 // create our manager, the String is the error type we're going to publish
@@ -86,17 +96,15 @@ public void performAsyncOperation(AsyncCommandCallback<R,String> callback) {
 
 }}}
   * The `ExceptionManager.containsHandlerFor(..)` method can be used to see if a handler has been registred for a particular exception.  This is useful in unit tests to ensure all exceptions thrown by a RPC service have an associated handler. 
+
+====Other changes:====
+  * New `ReducingValueModel` that operates on !ListModels and corresponding builder methods.  E.g. `fieldOfType(T).computedFrom(ListModel<S>).using(Reduce<T,S>)` and `Functions.computedFrom(ListModel<S>).using(Reduce<T,S>)`.
+  * New `FormModel.allFieldsExcept(..)` method for cases where you want to apply a plugin to all but a few fields.
   * Large refactoring and clean up of the bindings and binding builders.
   * Removed deprecated `toLabel(HasText, DisplayFormat)` binding methods.
-  * Cleanups and fixes to !FormattedFieldBindings (see issue 23).
-  * `FormatExceptionPolicy` can now be configured using the builder API (issue 24).
-  * Binding formatted fields and formatted list fields to `HasText` targets now uses the fields default format if the builder doesn't specifiy one (issue 23)..  
   * Fixed bug in `AbstractDynamicList` where `setValue(T)` and `setValue(T, false)` were incorrectly firing !ValueChangeEvents.  
   * Renamed `HasValueGetter` to `ValueSource` and `HasValueSetter` to `ValueTarget`.
   * Added `MutableListModel.clear()` method.
-  * Updated `DelegatingCommand` and `DelegatingUiCommand` to throw `MissingDelegateExceptions` instead of `NullPointerExceptions` if executed when the delegate isn't configured.  Also added a debugContext to !DelegatingCommands to help locate the command in question (since stack traces are generated during a listener callback and may have no reference to appliation classes). 
-  * Added ability for `AsyncUiCommands` to `abort()` without publishing either a result or error.
-  * Moved interceptors from `command` package to new `interceptor` package. 
 
 == Release 0.7 ==
   * Initial release of [GuideUiCommands UiCommands and Channels].
