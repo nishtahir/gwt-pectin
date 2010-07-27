@@ -36,7 +36,7 @@ binder.bind(contactDetails).to(contactDetailsEditor);
   * *Casualties*: `CopyingBeanModelProvider` and related classes are no more due to the changes to support nested beans.  The ability to "commit without losing dirty state" is now supported by the standard `BeanModelProvider` by using `provider.commit(false)`. 
 
 ====Formatted Field Changes====
-  * `FormattedFieldModel` and `FormattedFieldListModel` both now provide a sanitiseText() method that can be used to run the current text value through the formatter.  This method doesn't affect the current value and will leave invalid text values alone.  There is also a `sanitiseTextCommand()` method that returns a command that will invoke sanitise text.
+  * `FormattedFieldModel` and `FormattedFieldListModel` both now provide a `sanitiseText()` method that can be used to run the current text value through the formatter.  This method doesn't affect the current value and will leave invalid text values alone.  There is also a `sanitiseTextCommand()` method that returns a command that invokes `sanitiseText()`.
   * Fixed for issue 29.  The above can be triggered onBlur using the Binder.  e.g. `binder.bind(formattedField).to(widget).sanitiseTextOnBlur()`.  An alternate `sanitiseTextOnBlurOf(HasBlurHandlers)` can also be used.
   * `FormatExceptionPolicy` can now be configured using the builder API (issue 24).
   * Binding formatted fields and formatted list fields to `HasText` targets now uses the fields default format if the builder doesn't specifiy one (issue 23).. 
