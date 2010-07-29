@@ -1,7 +1,7 @@
 #summary Table of Contents
 
   * [GuidePectinArchitectureOverview Architectural Overview]
-  * [GuideGettingStarted Quick Start]
+  * [GuideQuickStart Quick Start]
   * [GuideBindingToBeans Binding to beans]
   * [GuideForms Pectin Forms]
      * [GuideMetadataPlugin Metadata Plugin]
