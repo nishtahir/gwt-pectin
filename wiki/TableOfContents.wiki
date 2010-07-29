@@ -6,7 +6,7 @@
   * [GuideForms Pectin Forms]
   * Plugins
      * [GuideMetadataPlugin Metadata Plugin]
-     * Validation Plugin
+     * [GuideValidationPlugin Validation Plugin]
      * Style Plugin
   * [GuideUiCommands UiCommands]
   * [GuideTesting Testing]
