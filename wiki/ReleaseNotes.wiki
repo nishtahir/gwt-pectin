@@ -105,6 +105,7 @@ public void performAsyncOperation(AsyncCommandCallback<R,String> callback) {
   * Fixed bug in `AbstractDynamicList` where `setValue(T)` and `setValue(T, false)` were incorrectly firing !ValueChangeEvents.  
   * Renamed `HasValueGetter` to `ValueSource` and `HasValueSetter` to `ValueTarget`.
   * Added `MutableListModel.clear()` method.
+  * Various binding methods of the form `.to(T)` have been updated to `.to(<? super T>)`. 
 
 == Release 0.7 ==
   * Initial release of [GuideUiCommands UiCommands and Channels].
