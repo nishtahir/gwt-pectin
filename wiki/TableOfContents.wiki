@@ -1,13 +1,14 @@
 #summary Table of Contents
 
   * [GuidePectinArchitectureOverview Architectural Overview]
-  * Getting Started
+  * [GuideGettingStarted Getting Started]
   * [GuideBindingToBeans Binding to beans]
+  * [GuideForms Pectin Forms]
   * Plugins
      * [GuideMetadataPlugin Metadata Plugin]
      * Validation Plugin
      * Style Plugin
-  * [GuideUiCommands UiCommands (Experimental)]
+  * [GuideUiCommands UiCommands]
   * [GuideTesting Testing]
   * [GuideGotchas Gotcha's]
   * [GuideMaven Maven Details]
