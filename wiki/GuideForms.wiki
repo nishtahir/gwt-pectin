@@ -1,0 +1,284 @@
+#summary Building Forms with Pectin
+
+= Pectin Forms =
+
+== The quick example ==
+One of the goals is to provide an API that describes the form in English like terms.  The aim is to end up with a `FormModel` that looks something like:
+
+{{{
+// create some fields for our form.
+FieldModel<Boolean> likesCheese = fieldOfType(Boolean.class).boundTo(someBean, "cheeseLover");
+FieldModel<String> whyILikeCheese = fieldOfType(String.class).boundTo(someBean, "reasonForLikingCheese");
+
+// and configure the behaviour.
+enable(whyILikeCheese).when(likesCheese);
+watermark(whyILikeCheese).with("Tell us why you like cheese!");
+validateField(whyILikeCheese)
+   .using(new NotEmptyValidator("Please share your cheese passion with us."))
+   .when(likesCheese);
+
+}}}
+
+Once the model is defined we can then bind it to our view.
+
+{{{
+// works well with UiBinder
+@UiField CheckBox likerOfCheese;
+@UiField TextArea cheeseLikingReason;
+
+WidgetBinder binder = new WidgetBinder();
+binder.bind(model.likesCheese).to(likerOfCheese);
+binder.bind(model.whyILikeCheese).to(cheeseLikingReason);
+
+}}}
+
+The language elements such as enable(..), watermark(..) and validateField(..) are defined by plugins (see below) which get the chance to configure widgets during the binding process.
+
+== The longer example ==
+
+Inherit Pectin in your module:
+{{{
+<module>
+
+   <inherits name='com.pietschy.gwt.pectin.Pectin'/>
+
+</module>
+}}}
+
+Create your model:
+{{{
+public class MyFormModel extends FormModel {
+
+  // Use deferred binding to bind to bean properties.
+  public static abstract class PersonModelProvider extends BeanModelProvider<Person>{}
+  private PersonModelProvider personProvider = GWT.create(PersonModelProvider.class);
+
+  // define some simple fields, I'm using protected final fields for convenience.
+  protected final FieldModel<String> givenName;
+  protected final FieldModel<String> surname;
+  protected final FieldModel<Gender> gender;
+
+  // ...and a formatted field 
+  protected final FormattedFieldModel<Integer> age;
+
+  // ..and a list of wines
+  protected final ListFieldModel<Wine> favoriteWines;
+
+  public MyForm() {
+
+    // create our fields and bind them to our bean.
+    givenName = fieldOfType(String.class).boundTo(personProvider, "givenName");
+    surname = fieldOfType(String.class).boundTo(personProvider, "surname");
+    gender = fieldOfType(Gender.class).boundTo(personProvider, "gender");
+
+    // formatted fields allow us to bind HasValue<String> widgets to non string value models.
+    age = formattedFieldOfType(Integer.class).using(new AgeFormat()).boundTo(personProvider, "age");
+
+    // we can bind to bean properties of the various collection types.
+    // i.e. person.get/setFavoriteWines(List<Wine> wines)
+    favoriteWines = listOfType(Wine.class).boundTo(personProvider, "favoriteWines");
+
+  }
+
+  public void setPerson(Person person) {
+    // setting the bean on the provider will update the model and
+    // all widgets that are bound to it.
+    personProvider.setBean(person);
+  }
+}
+
+}}}
+
+Now bind it to our widgets.  The binder binds `FieldModel<T>` instances to any `HasValue<T>` widget.  It also supports binding fields with specific values to `HasValue<Boolean>`.
+
+{{{
+public class MyForm extends Composite {
+
+  private WidgetBinder binder = new WidgetBinder();
+
+  private TextBox givenNameField = new TextBox();
+  private TextBox surnameField = new TextBox();
+  private TextBox ageField = new TextBox();
+
+  private String buttonGroupId = DOM.createUniqueId();
+  private RadionButton maleRadio = new RadioButton(buttonGroupId, "Male");
+  private RadionButton femaleRadio = new RadioButton(buttonGroupId, "Female");
+
+  private CheckBox cabSav = new CheckBox("Cab Sav");
+  private CheckBox merlot = new CheckBox("Merlot");
+  private CheckBox shiraz = new CheckBox("Shiraz");
+
+  public MyForm(MyFormModel model) {
+
+    // bind our fields to our models.
+    binder.bind(model.givenName).to(givenNameField);
+    binder.bind(model.surname).to(surnameField);
+    binder.bind(model.age).to(age);
+
+    // bind our gender to some radio buttons
+    binder.bind(model.gender).withValue(Gender.MALE).to(maleRadio);
+    binder.bind(model.gender).withValue(Gender.FEMALE).to(femaleRadio);
+
+    // bind to our list to a bunch of checkboxes.  Selecting and unselecting a
+    // checkbox will add and remove the value from the list.  We could also 
+    // bind to any component that implements HasValue<Collection<Wine>>.
+    binder.bind(model.favoriteWines).containingValue(Wine.CAB_SAV).to(cabSav);
+    binder.bind(model.favoriteWines).containingValue(Wine.MERLOT).to(merlot);
+    binder.bind(model.favoriteWines).containingValue(Wine.SHIRAZ).to(shiraz);
+
+    doLayout();
+  }
+
+  protected void doLayout() {
+    ....
+  }
+}
+
+}}}
+
+= Plugins =
+
+The intent of plugins is to allow you to create a business level language for your forms that you can deploy across your projects.  For example, if your forms required obfucated fields (such as limiting the display of credit card numbers or account details) you would create a plugin that provides an `obfuscate(creditCard).when(...)` style methods and bindings to support it.  This way the complex behaviour required for obfuscation is contained within the plugin and there's no need to worry that every developer has implemented obfuscation correctly (the DRY principle).
+
+By using this approach Pectin doesn't force you to use a one-size-fits-all solution.  Plugins are accessed using static methods so they won't clutter the API if you're not using them.  If you don't like the plugins provided or need more advanced functionality you can develop your own (or feel free to hire me to do it for you).
+
+Pectin provides basic plugins for validation and one for metadata (enabled, visible & watermarks). 
+
+== Metadata Plugin ==
+
+The metadata plugin adds metadata to fields to support enabledness, visibility and watermarks.
+
+In our `FormModel`:
+{{{
+  // import the plugin methods
+  import static com.pietschy.gwt.pectin.metadata.MetadataPlugin.*;
+
+  // create our models
+  shipToDifferentAddress = fieldOfType(Boolean.class).boundTo(...);
+  shippingAddressLineOne = fieldOfType(String.class).boundTo(...);
+
+  // now use the static methods of MetadataPlugin (imported previously) to
+  // bind the enabled state to the value of another field
+  enable(shippingAddressLineOne).when(shipToDifferentAddress);  
+
+  // lets add a water mark, currently this only works for FieldModel<String> and 
+  // FormattedFieldModels bound to TextBoxes. 
+  watermark(shippingAddressLineOne).with("Enter your shipping address");
+
+}}}
+
+Now if your component implements GWT's `Focusable` or the plugins `HasEnabled` interface it will be automatically enabled and disabled when ever `shipToDifferentAddress` changes.  Any `TextBox` will also automatically have the watermark applied when it isn't focused and it's value is empty.
+
+In our Form/Widget we just bind as normal, the plugin takes care of the rest:
+{{{
+
+  // bind our check box for shipping to a different address
+  binder.bind(model.shipToDifferentAddress).to(shipToDifferentAddressCheckBox);
+
+  // the plugin will automatically install metadata bindings our widget
+  // will only be enabled when shipToDifferentAddress is selected. 
+  binder.bind(model.shippingAddressLineOne).to(shipAddressLineOneTextBox);   
+}}} 
+
+Clicking the check box will automatically enable and disable the text box, and whenever the text box is empty and not focused the watermark will be displayed.
+
+You can also manually configure the metadata.  In our `FormModel`:
+{{{
+  // use the MetadataPlugin.getMetadata(FieldModel) method to manually configure the metadata
+  getMetadata(shippingAddressLineOne).setEnabled(false);
+}}}
+
+*Please note* that `WidgetBinder` now directly supports show/hide and enable/disable methods for cases where you want to configure widgets from arbitrary value models.  This allows you to do things like the following (without having to use the metadata plugin or even a FormModel for that matter).
+{{{
+WidgetBinder binder = new WidgetBinder();
+// lets show and hide things based on the value of a ValueModel<State>
+// which is updated in our model layer as things are loaded...
+binder.show(loadingMessage).when(valueOf(model.state).is(State.LOADING));
+binder.show(mainWidget).when(valueOf(model.state).is(State.LOADED));
+}}}
+
+
+
+
+== Other Stuff ==
+!FormModels also support:
+
+===Computed Fields===
+{{{
+  moneyInMattress = fieldOfType(Double.class).boundTo(...);
+  moneyInBank = fieldOfType(Double.class).boundTo(...);
+  
+  // create a computed field.  You can also compute values of a different type from the source values.
+  netWorth = fieldOfType(Double.class)
+    .computedFrom(moneyInMattress, moneyInBank)
+    .using(new SumDoubles());
+}}}
+
+===Converted Fields===
+{{{  
+  // create a converted field.  You can also convert between different types.
+  netWorthInCents = fieldOfType(Double.class)
+    .convertedFrom(netWorth)
+    .using(new MultiplyBy(100));
+}}}
+
+===Form only values===
+{{{
+  // create field that isn't bound to anything..
+  backgroundColor = fieldOfType(Color.class).create();
+
+  // and this time with an initial value.
+  color = fieldOfType(Color.class).createWithValue(MyColors.THE_NEW_BLACK);
+}}}
+
+===Conditions===
+{{{
+// import our condition builder methods like valueOf(..) etc
+import static com.pietschy.gwt.pectin.client.condition.Conditions.*;
+
+ValueModel<String> sourceModel = ...;
+
+// changes in the source model will change the state of the condition.
+Condition sourceEqualsAbc = valueOf(sourceModel).is("abc");
+
+// you can also match to other Models
+ValueModel<String> otherModel = ...;
+Condition sourceEqualsOther = valueOf(sourceModel).isSameAs(otherModel);
+
+// there's also regex functionality for sources of type ValueModel<String> 
+Condition sourceMatchesRegex = textOf(sourceModel).matches("^pectin rocks$");
+
+
+// conditions can also be chained.
+Condition multi = valueOf(sourceModel).is("abc")
+   .and(valueOf(otherModel).matches("^pectin rocks$"));
+}}}
+
+Conditions implement `ValueModel<Boolean>` so you can use them where ever you'd use a boolean value model.  For example they are very useful when combined with plugins.
+
+{{{
+enable(aField).when(valueOf(thisField).isSameAs(thatField));
+}}} 
+
+=== Dirty Models ===
+
+The `BeanModelProvider` also supports dirty tracking.  The dirty model will be `true` if any of the models it creates have a value different from the bean.
+
+{{{
+ValueModel<Boolean> dirty = personProvider.getDirtyModel();
+}}}
+
+If you have more than one provider you can use conditions to create a global dirty model.
+
+{{{
+ValueModel<Boolean> dirty = Conditions.or(personProvider.getDirtyModel(), addressProvider.getDirtyModel());
+}}}
+
+
+Then the dirty model can be easily used to enabled and disable buttons in the view.
+
+{{{
+MetadataBinder metadata = new MetadataBinder();
+
+metadata.enable(saveButton).when(model.dirty);
+}}}
