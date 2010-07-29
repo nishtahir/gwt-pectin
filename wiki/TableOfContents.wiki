@@ -4,10 +4,8 @@
   * [GuideGettingStarted Getting Started]
   * [GuideBindingToBeans Binding to beans]
   * [GuideForms Pectin Forms]
-  * Plugins
      * [GuideMetadataPlugin Metadata Plugin]
      * [GuideValidationPlugin Validation Plugin]
-     * Style Plugin
   * [GuideUiCommands UiCommands]
   * [GuideTesting Testing]
   * [GuideGotchas Gotcha's]
