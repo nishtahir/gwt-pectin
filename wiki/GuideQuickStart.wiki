@@ -1,16 +1,18 @@
 #summary Quick Start to Pectin
 #sidebar TableOfContents
 
-= Examples =
-
+= Basic Types =
   * ValueModel/ListModel
   * Functions
   * Binding
   * BeanModelsProvider
-  * Forms
-    * FormModels
-    * Plugins
-    * FormBinder
+  * Interceptors
+
+= Forms =
+  * FormModels
+  * Plugins
+  * FormBinder
+
+= Commands =
   * UiCommands
   * Channels
-  * Interceptors
