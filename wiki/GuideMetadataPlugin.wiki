@@ -48,7 +48,7 @@ binder.bind(model.shippingAddressLineOne).to(shippingAddressLineOne);
 }}}
 
 == Visibility Example ==
-
+ 
 To control the visibilty of fields you use the `show` and `hide` methods of the plugin.  Each method takes a field and condition.  The condition can be any `ValueModel<Boolean>`.
 
 Static methods defined by `MetadataPlugin`.
@@ -74,14 +74,15 @@ In your `FormModel`
 
 In your View:
 {{{
-WidgetBinder binder = new WidgetBinder();
+FormBinder binder = new FormBinder();
 
 binder.bind(model.hasComments).to(commentsCheckBox);
 binder.bind(model.comments).to(comments);
 }}}
 
+
 == Watermarks ==
-Watermarks allow you to add a water mark text boxes that are bound to `FieldModel<String>` or `FormattedFieldModel<?>`.  Watermarks can be either static strings or values held by other value models.
+Watermarks allow you to add a water mark to !TextBoxes or instances of !Watermarkable that are bound to `FieldModel<String>` or `FormattedFieldModel<?>`.  Watermarks can be either static strings or values held by other value models.
 
 Static methods defined by `MetadataPlugin`.  All methods also apply to `FormattedFieldModel<?>`
 
@@ -106,8 +107,21 @@ There are also var-arg versions of the `watermark()` method so you can watermark
 watermark(email, fax).with("Optional");
 }}} 
 
+
 == Controlling Other Widgets ==
 There will be cases where you need to apply the metadata of one field to multiple widgets (e.g. the fields label).  In this case the plugin provides a number of useful methods.
+
+Since Pectin 0.8 most of the binding methods of MetadataBinder have been absorbed into both `Binder` and `FormBinder`.
+
+{{{
+FormBinder binder = ...;
+// we can use any value model, not just form fields..
+ValueModel<Boolean> loading = ...;
+
+binder.show(loadingMessageWidget).when(loading);
+binder.hide(realWidget).when(loading);
+}}}
+ 
 
 === `MetadataBinder` ===
 The `MetadataBinder` allows you to apply metadata of a field to another widget.  
@@ -118,21 +132,10 @@ MetadataBinder metadata = new MetadataBinder();
 metadata.bindMetadataOf(formModel.extraComments).to(extraCommentsLabel);
 }}} 
 
-*Prior to Release 0.7* `MetadataBinder` provided methods for showing and enabling widgets.  These have now moved to `WidgetBinder` as they're useful outside of the metadata context.  To show/hide or enable/disable an arbitrary widget from an artibrary value model you would use the following.
-
-{{{
-WidgetBinder binder = ...;
-// we can use any value model, not just form fields..
-ValueModel<Boolean> loading = ...;
-
-binder.show(loadingMessageWidget).when(loading);
-binder.hide(realWidget).when(loading);
-}}}
-
 If you need to apply metadata state to another widget (a label for example) you can use `MetadataPlugin.metadataOf(Field)` to access the value models that reflect the metadata state of the specified field.
 
 {{{
-WidgetBinder binder = ...;
+FormBinder binder = new Formbinder();
 StyleBinder style = new StyleBinder();
 
 // hide our label if the field is hidden..
