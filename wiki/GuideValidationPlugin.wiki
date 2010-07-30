@@ -20,8 +20,10 @@ public MyModel() {
    
   // formatted fields can also be validated with their formatter.
   validateField(age).usingFieldFormat();
+
   // or with a text validator that operates on the raw string
   validateField(age).usingTextValidator(new FancyTextValidator());
+
   // or with a regular validator that operates on the parsed value.
   validateField(age).using(new AgeOver18Validator()); 
 }
@@ -37,8 +39,8 @@ If your widgets implement `ValidationDisplay` then they will automatically notif
 {{{
 public class MyForm extends Composite {
   
-  // define our binder and widgets as before..
-  WidgetBinder binder = ...;
+  // define our binder and widgets as normal..
+  FormBinder binder = ...;
   ...
   
   // We'll use some additional validation bindings..
@@ -74,5 +76,6 @@ TODO
 
 ==Validating Individual Fields==
 TODO
+
 ==Wishlist==
 https://wave.google.com/wave/waveref/googlewave.com/w+vIXX8JY-A 
