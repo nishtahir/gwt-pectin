@@ -1,7 +1,7 @@
 #summary One-sentence summary of this page.
 #sidebar TableOfContents
 
-= Introduction =
+= Pectin Forms =
 
 *TODO*
 
@@ -166,3 +166,10 @@ Conditions implement `ValueModel<Boolean>` so you can use them where ever you'd 
 {{{
 enable(aField).when(valueOf(thisField).isSameAs(thatField));
 }}} 
+
+===Functions===
+Pectin also supports stand alone functions using the the static methods of the Functions class.  The functionality is equivalent to the converted/computed fields above but creates regular value models.
+
+{{{
+ValueModel<Double> sum = Functions.computedFrom(aListOfNumbers).using(new SumDoubles());
+}}}
