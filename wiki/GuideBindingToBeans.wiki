@@ -3,7 +3,22 @@
 
 =Binding to Beans=
 
-The process of binding bean properties to fields is relatively simple.  The steps are as follows:
+==Overview==
+Pectin providers a `BeanModelProvider` class for creating !ValueModels and !ListModels from regular Java Beans.
+
+The providers can be used directly or can be used with forms as follows:
+{{{
+// providers are created using GWT.create(...)
+public class PersonProvider extends BeanModelProvider<Person>{}
+PersonProvider provider = GWT.create(PersonProvider.class);
+
+// use it directly..
+ValueModel<PostCode> postCode = provider.getValueModel("address.postCode", PostCode.class);
+
+// or use it within a form
+FieldModel<PostCode> postCode = fieldOfType(PostCode.class).boundTo(provider, "address.postCode");
+}}}
+
 
 ==1. Define our Bean==
 
