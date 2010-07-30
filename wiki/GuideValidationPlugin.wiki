@@ -1,4 +1,5 @@
 #summary Validation Plugin Guide
+#sidebar TableOfContents
 
 == Validation Plugin ==
 You use the validation plugin by including static methods from `ValidationPlugin`.
