@@ -5,12 +5,12 @@
 
 The `MetadataPlugin` provides adds basic metadata support including enabledness, visibility and watermarks.
 
-The plugin is accessed by importing the static methods of `MetadataPlugin` into your form model.  Once you've defined the metadata for you model the bindings automatically configure your components during the normal binding process (i.e. when you're using `WidgetBinder`).
+The plugin is accessed by importing the static methods of `MetadataPlugin` into your form model.  Once you've defined the metadata for you model the bindings automatically configure your components during the normal binding process (i.e. when you're using `FormBinder`).
 
 == Key Classes ==
 The key classes of the plugin are:
   * `MetadataPlugin` - provides static methods controlling and accessing metadata
-  * `MetadataBinder` - provides additional methods to support binding metadata to additional widgets.
+  * `MetadataBinder` - Still exists but has been mostly made redundant by `Binder` and `FormBinder`. 
 
 == Enabled Example ==
 
@@ -40,7 +40,7 @@ In your `FormModel`
 Then in your view you use the `WidgetBinder` as per normal.
 
 {{{
-WidgetBinder binder = new WidgetBinder();
+FormBinder binder = new FormBinder();
 
 binder.bind(model.shipToDifferentAddress).to(shipToDifferentAddressCheckBox);
 binder.bind(model.shippingAddressLineOne).to(shippingAddressLineOne);
@@ -108,7 +108,7 @@ watermark(email, fax).with("Optional");
 }}} 
 
 
-= Controlling Other Widgets =
+= Using Built-in Binder Support for Enable/Show =
 Since Pectin 0.8 both `Binder` and `FormBinder` provide built in methods for enabling and showing widgets based on the state of an arbitrary `ValueModel<Boolean>`.
 
 {{{
