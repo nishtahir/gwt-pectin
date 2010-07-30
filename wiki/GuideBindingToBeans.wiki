@@ -36,30 +36,7 @@ public abstract class PersonProvider extends BeanModelProvider<Person>{};
 PersonProvider personProvider = GWT.create(PersonProvider.class);
 }}}
 
-
-==3. Use the provider in our `FormModel`==
-
-Now we can use the provider when creating our field models.  The builder methods support binding to the providers. 
-
-{{{
-public class PersonFormModel extends FormModel {
-
-   protected final FieldModel<String> givenName;
-   protected final FieldModel<String> surname;
-
-   public PersonFormModel(PersonProvider personProvider) {
-      
-      // bind to our "givenName" property.
-      givenName = fieldOfType(String.class).boundTo(personProvider, "givenName");
-
-      // bind to our "surname" property.      
-      surname = fieldOfType(String.class).boundTo(personProvider, "surname");
-   }
-}
-}}}
-
-
-==4. Set the bean on the provider==
+==3. Set the bean on the provider==
 
 Once all the wiring has been done all that is left is to configure the provider with the bean we wish to display or edit.
 
@@ -69,7 +46,7 @@ Once all the wiring has been done all that is left is to configure the provider 
 personProvider.setBean(new Person());
 }}}
 
-==5. Committing changes==
+==4. Committing changes==
 By default changes are not automatically propegated back to the bean.  To update the bean you need to call `commit()` on the provider.
 
 {{{
@@ -84,13 +61,28 @@ personProvider.revert();
 }}}
 
 
-=== The Other Provider Types ===
-There are two additional provider types, `AutoCommitBeanModelProvider` and `CopyingBeanModelProvider`.  
+==5. AutoCommit==
+Pectin also supports auto commit features.  There are 2 options, you can either use the `AutoCommitBeanModelProvider` or call `BeanModelProvider.setAutoCommit(true)`.  In both cases the changes will be writen directly to the bean as they happen and the provider will never be dirty (see below).  
 
-The `AutoCommitBeanModelProvider` writes all changes to the underlying bean as they happen. 
+==6. Dirty Tracking==
+The !BeanModelProvider also provides a `ValueModel<Boolean> dirty()` model that tracks the dirty state of the data.  If any value is changed from the state defined by the bean then the value model will change to `true`.  If the change is reverted (either by calling revert or by a user change) the dirty state will change back to `false`.  Likewise committing the changes will also revert the dirty state back to `false`. 
 
-The `CopyingBeanModelProvider` copies values to and from beans without maintaining a refernce to any particular bean.  It also supports the ability to write changes without clearing the dirty state of the provider.  This allows you to write changes to a bean, initiate an RPC call and only clear the dirty state when the RPC call was succeeds.
+{{{
+// expose our providers dirty state from our FormModel
+public class MyForm extends FormModel {
 
+   PersonProvider personProvider = GWT.create(PersonProvider);
+
+   public final ValueModel<Boolean> dirty = personProvider.dirty()
+}
+}}}
+
+The dirty model can be easily used to enabled and disable buttons in the view.
+
+{{{
+Binder binder = new Binder();
+binder.enable(saveButton).when(myForm.dirty);
+}}}
 
 =Binding to nested beans=
 
@@ -257,26 +249,4 @@ CollectionConverter converter = new CollectionConverter<HashSet>() {
 
 // now register the converter
 personProvider.registerCollectionConverter(HashSet.class, converter);
-}}}
-
-= Dirty Tracking =
-The !BeanModelProvider also provides a `ValueModel<Boolean>` that tracks the dirty state of the data.  If any value is changed from the state defined by the bean then the value model will change to `true`.  If the change is reverted (either by calling revert or by a user change) the dirty state will change back to `false`.  Likewise committing the changes will also revert the dirty state back to `false`. 
-
-{{{
-ValueModel<Boolean> dirty = personProvider.getDirtyModel();
-}}}
-
-If you have more than one provider you can use conditions to create a global dirty model.
-
-{{{
-ValueModel<Boolean> dirty = Conditions.or(personProvider.getDirtyModel(), addressProvider.getDirtyModel());
-}}}
-
-
-Then the dirty model can be easily used to enabled and disable buttons in the view.
-
-{{{
-Binder binder = new Binder();
-
-binder.enable(saveButton).when(model.dirty);
 }}}
