@@ -9,10 +9,13 @@ You use the validation plugin by including static methods from `ValidationPlugin
 import static com.pietschy.gwt.pectin.validation.ValidationPlugin.*;
 
 public MyModel() {
+
   // Create models as normal
-  givenName = fieldOfType(...);
-  surname = fieldOfType(...);
-  age = formattedFieldOfType(...);
+  givenName = fieldOfType(String.class).boundTo(provider, "givenName");
+  surname = fieldOfType(String.class).boundTo(provider, "surname");
+  age = formattedFieldOfType(Integer.class).boundTo(provider, "age");
+  likesCheese = fieldOfType(Boolean.class).boundTo(provider, "likesCheese")
+  whyILikeCheese = fieldOfType(String.class).boundTo(provider, "whyILikeCheese")
 
   // and add some validation rules using the ValidationPlugin imported earlier.
   validateField(givenName).using(new NotEmptyValidator("Given name is required"));
@@ -26,6 +29,11 @@ public MyModel() {
 
   // or with a regular validator that operates on the parsed value.
   validateField(age).using(new AgeOver18Validator()); 
+
+  // now we create a conditional validation.
+  validateField(whyILikeCheese)
+     .using(new NotEmptyValidator("Please share your cheese passion with us."))
+     .when(likesCheese);
 }
 
 public boolean validate() {
@@ -64,18 +72,19 @@ public class MyForm extends Composite {
     // to arbitrary widgets.
     validation.bindValidationOf(model.giveName).toStyleOf(givenNameLabel);
 
-    // do the layout as normal..
+    // bind the rest
     ...
   }
 }
-
 }}}  
 
-==Conditional validation==
-TODO
+It's also possible to bind the results of the whole form to anything that implements ValidationDisplay.
 
-==Validating Individual Fields==
-TODO
+{{{
+ValidationBinder validation = ...;
+validation.bind(model).to(validationDisplay);
+}}}
 
-==Wishlist==
+
+==Wishlist & Future Ideas==
 https://wave.google.com/wave/waveref/googlewave.com/w+vIXX8JY-A 
