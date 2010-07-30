@@ -28,11 +28,14 @@ binder.bind(contactDetails).to(contactDetailsEditor);
 
 ====!BeanModelProvider Changes:====
   * !BeanModelProviders now supports basic nested property paths.  So you can go `fieldOfType(T).boundTo(provider, "a.b.c")`.  
-     * To support this beans can mark the properties to expose using the `@NestedBean` annotation.  I.e. bean 'a' would annotate getB() with `@NestedBean` or you can annotate the provdier with `@NestedTypes({B.class, C.class}}`.
+     * There are two mechanisms. 
+        * Beans can expose properties by placing a `@NestedBean` annotation on the corresponding getter..  I.e. bean 'a' would annotate getB() with `@NestedBean` etc.
+        * The provider can be annotated with a `@NestedTypes` annotation. I.e. the above provider would be annotated using `@NestedTypes({B.class, C.class}}`.  See GuideBindingToBeans for more information.
      * The property path only supports list models as the final property.  Thus `bean.bean.list` is ok while `bean.list.bean` isn't.
      * The value models returned from the provider are only mutable if the property is mutable (i.e. it has a setter) and the parent bean is non null.  You can always read from a value model even if it's souce bean is null, i.e. reading from "a.b.c" will simply return `null` if either `a` and/or `b` is `null`.  Attempting to write to `c` while `a` or `b` is null will throw a `SourceBeanIsNullException`.
   * !BeanModelProviders now implement `ValueModel`  and the `setBean(T)` method has been changed to `BeanModelProvider.setValue(T)`.
   * Renamed `TestUtil` to `ReflectionProviders`, simplified method names and moved from `util` to a new `reflect` package.. 
+  * Renamed `BeanModelProvider.getDirtyModel()` to `dirty()` to be consistent with the rest of the library and added a `HasDirtyModel` interface to denote it.  The interface is also implemented by the value & list models created by providers.
   * *Casualties*: `CopyingBeanModelProvider` and related classes are no more due to the changes to support nested beans.  The ability to "commit without losing dirty state" is now supported by the standard `BeanModelProvider` by using `provider.commit(false)`. 
 
 ====Formatted Field Changes====
@@ -106,6 +109,7 @@ public void performAsyncOperation(AsyncCommandCallback<R,String> callback) {
   * Renamed `HasValueGetter` to `ValueSource` and `HasValueSetter` to `ValueTarget`.
   * Added `MutableListModel.clear()` method.
   * Various binding methods of the form `.to(T)` have been updated to `.to(<? super T>)`. 
+
 
 == Release 0.7 ==
   * Initial release of [GuideUiCommands UiCommands and Channels].
