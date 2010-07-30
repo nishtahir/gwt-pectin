@@ -61,7 +61,7 @@ personProvider.revert();
 }}}
 
 
-==5. AutoCommit==
+==5. !AutoCommit==
 Pectin also supports auto commit features.  There are 2 options, you can either use the `AutoCommitBeanModelProvider` or call `BeanModelProvider.setAutoCommit(true)`.  In both cases the changes will be writen directly to the bean as they happen and the provider will never be dirty (see below).  
 
 ==6. Dirty Tracking==
