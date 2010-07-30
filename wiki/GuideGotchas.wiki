@@ -58,3 +58,6 @@ public class MyBean
 }}}
 
 See GuideBindingToBeans for more info.  
+
+==DelegatingUiCommands with missing delegates ==
+TODO:
