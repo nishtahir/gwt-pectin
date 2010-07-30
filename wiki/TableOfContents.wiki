@@ -2,6 +2,7 @@
 
   * [GuideIntroduction Introduction]
   * [GuideQuickStart Quick Start]
+  * [GuidePectinConcepts Basic Types & Concepts]
   * [GuideBindingToBeans Binding to beans]
   * [GuideForms Pectin Forms]
      * [GuideFormBasics Form Basics]
