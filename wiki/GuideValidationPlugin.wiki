@@ -1,7 +1,7 @@
 #summary Validation Plugin Guide
 #sidebar TableOfContents
 
-== Validation Plugin ==
+= Validation Plugin =
 You use the validation plugin by including static methods from `ValidationPlugin`.
 
 {{{
@@ -68,3 +68,11 @@ public class MyForm extends Composite {
 }
 
 }}}  
+
+==Conditional validation==
+TODO
+
+==Validating Individual Fields==
+TODO
+==Wishlist==
+https://wave.google.com/wave/waveref/googlewave.com/w+vIXX8JY-A 
