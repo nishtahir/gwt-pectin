@@ -5,13 +5,7 @@
 
 Things that would be nice:
 
-= Pectin Bindings =
-== Support more generalised bindings of regular !ValueModels and !ListModels==  
-I'd also like to support binding directly to `ValueModel` and `ListModel` for the cases where you don't need the additional functionalities (or overhead) of forms and plugins.
-
-*This will be implemented in 0.8.*
-
-==Controllers==
+=Controllers=
 I'm slowly starting to create some standard controllers that I'd like to incorporate into Pectin (in the style of Cocoa/!SproutCore etc).  Using Controllers in conjunction with Value/!ListModel bindings allows some pretty complex behaviour to be built pretty quickly. 
 
 The following is a very quick example of a !MasterDetail controller that binds a !SelectionControllers selected value to an !EditorController.  Selection changes are intercepted to prompt the user to save changes if required.
@@ -57,15 +51,25 @@ Some example controllers would be:
   * !EditorListController - handles binding of a `ListModels<T>` using a `Provider<EditorController<T>>` as an editor factory.  Could/would use an incremental command to build the UI and expose a `ValueModel<Boolean> busy()` that can be used to 'do stuff' tm. 
   * !WorkflowController - handles wizard like stuff.
 
+=Native !UiBinder support=
+Still not sure if this is possible, but here's what we'd like to be able to do: https://wave.google.com/wave/waveref/googlewave.com/w+CE2z1X_0A
+
+=Pectin Binders=
+==Standard Event Bindings==
+Would like to see command binding for common view events.
+{{{
+Binder binder = ...;
+
+binder.onClicking(HasClickHandlers).invoke(someCommand);
+binder.onBlurOf(HasBlurHandlers).invoke(someCommand);
+}}}
+
 = Forms =
 ==Field bindings==
 It would be nice to support !ValueModelProviders that have type aware keys.  That way I can use something like `FieldModel<String> name = fieldBoundTo(provider, key)`.  The `fieldOfType(String.class).boundTo/create` syntax would still remain for existing use cases. 
 
 ==Form Bindings==
-Would probably nice to add value interceptors to the bindings.  This would be a more formalised way for watermarks to change the displayed value under certain conditions. 
-
-==Formatted fields==
-Currently formatted fields don't get a chance to re-format the value the user entered with out using a deferred command (since the binding ignores model changes during the update).  The formatted field could probably handle this internally by checking the text version with a freshly formatted version and doing the deferred command thing itself, but I'd rather not use a deferred command at all if possible.   
+Would be nice to add interceptors to the widget bindings.  This would be a more formalised way for watermarks to change the displayed value under certain conditions.  
 
 ==!BeanModelProvider Wish List== 
 ===Validation Support===
@@ -97,21 +101,16 @@ binder.bind(personProvider.firstName).to(someField);
 
 
 = Plugins =
-==!SelectionPlugin== 
-Bring focus/blur and field selection into the presentation layer.  `selectionModel.addSelectionHandler(...)`, `selectionModel.select(firstName)`.  A typical use case would be focussing a field with validation errors.  I would imagine something like `selectionModel.select(validationManager.getFirstFieldWithErrors())`.  There are issues to consider here with multi-field widgets etc but by using nested form models I think we can get around most cases.
-
 ==!ValidationPlugin enhancements== 
 Proper async validation support, see DesignAsynchronousValidation.
 
 Would also nice to support validation triggers like ON_BLUR, ON_EDIT etc.  See https://wave.google.com/wave/?nouacheck&pli=1#restored:wave:googlewave.com!w%252BvIXX8JY-A
 
+==!SelectionPlugin== 
+Bring focus/blur and field selection into the presentation layer.  `selectionModel.addSelectionHandler(...)`, `selectionModel.select(firstName)`.  A typical use case would be focussing a field with validation errors.  I would imagine something like `selectionModel.select(validationManager.getFirstFieldWithErrors())`.  There are issues to consider here with multi-field widgets etc but by using nested form models I think we can get around most cases.
+
 ==!UndoPlugin==
 Wouldn't be too hard to implement at least basic undo/redo support.  Could also work with the selection model if required.
-
-=Would Like to but...=
-== Native !UiBinder support==
-Still not sure if this is possible, but here's what we'd like to be able to do: https://wave.google.com/wave/waveref/googlewave.com/w+CE2z1X_0A
-
 
 ==Integration with Drag&Drop layout tools==
 And in my dreams... it would be to drag value models onto widgets and have the bind(model.name).to(firstName) automagically done.  I'd get to use visual layout tool (where it makes sense) and keep my OO models...
