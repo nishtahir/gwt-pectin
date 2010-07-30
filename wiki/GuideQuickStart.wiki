@@ -1,4 +1,5 @@
 #summary Quick Start to Pectin
+#sidebar TableOfContents
 
 = Introduction =
 
