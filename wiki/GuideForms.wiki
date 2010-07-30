@@ -29,7 +29,7 @@ Once the model is defined we can then bind it to our view.
 @UiField CheckBox likerOfCheese;
 @UiField TextArea cheeseLikingReason;
 
-WidgetBinder binder = new WidgetBinder();
+FormBinder binder = new FormBinder();
 binder.bind(model.likesCheese).to(likerOfCheese);
 binder.bind(model.whyILikeCheese).to(cheeseLikingReason);
 
@@ -97,7 +97,7 @@ Now bind it to our widgets.  The binder binds `FieldModel<T>` instances to any `
 {{{
 public class MyForm extends Composite {
 
-  private WidgetBinder binder = new WidgetBinder();
+  private FormBinder binder = new FormBinder();
 
   private TextBox givenNameField = new TextBox();
   private TextBox surnameField = new TextBox();
@@ -146,61 +146,6 @@ The intent of plugins is to allow you to create a business level language for yo
 By using this approach Pectin doesn't force you to use a one-size-fits-all solution.  Plugins are accessed using static methods so they won't clutter the API if you're not using them.  If you don't like the plugins provided or need more advanced functionality you can develop your own (or feel free to hire me to do it for you).
 
 Pectin provides basic plugins for validation and one for metadata (enabled, visible & watermarks). 
-
-== Metadata Plugin ==
-
-The metadata plugin adds metadata to fields to support enabledness, visibility and watermarks.
-
-In our `FormModel`:
-{{{
-  // import the plugin methods
-  import static com.pietschy.gwt.pectin.metadata.MetadataPlugin.*;
-
-  // create our models
-  shipToDifferentAddress = fieldOfType(Boolean.class).boundTo(...);
-  shippingAddressLineOne = fieldOfType(String.class).boundTo(...);
-
-  // now use the static methods of MetadataPlugin (imported previously) to
-  // bind the enabled state to the value of another field
-  enable(shippingAddressLineOne).when(shipToDifferentAddress);  
-
-  // lets add a water mark, currently this only works for FieldModel<String> and 
-  // FormattedFieldModels bound to TextBoxes. 
-  watermark(shippingAddressLineOne).with("Enter your shipping address");
-
-}}}
-
-Now if your component implements GWT's `Focusable` or the plugins `HasEnabled` interface it will be automatically enabled and disabled when ever `shipToDifferentAddress` changes.  Any `TextBox` will also automatically have the watermark applied when it isn't focused and it's value is empty.
-
-In our Form/Widget we just bind as normal, the plugin takes care of the rest:
-{{{
-
-  // bind our check box for shipping to a different address
-  binder.bind(model.shipToDifferentAddress).to(shipToDifferentAddressCheckBox);
-
-  // the plugin will automatically install metadata bindings our widget
-  // will only be enabled when shipToDifferentAddress is selected. 
-  binder.bind(model.shippingAddressLineOne).to(shipAddressLineOneTextBox);   
-}}} 
-
-Clicking the check box will automatically enable and disable the text box, and whenever the text box is empty and not focused the watermark will be displayed.
-
-You can also manually configure the metadata.  In our `FormModel`:
-{{{
-  // use the MetadataPlugin.getMetadata(FieldModel) method to manually configure the metadata
-  getMetadata(shippingAddressLineOne).setEnabled(false);
-}}}
-
-*Please note* that `WidgetBinder` now directly supports show/hide and enable/disable methods for cases where you want to configure widgets from arbitrary value models.  This allows you to do things like the following (without having to use the metadata plugin or even a FormModel for that matter).
-{{{
-WidgetBinder binder = new WidgetBinder();
-// lets show and hide things based on the value of a ValueModel<State>
-// which is updated in our model layer as things are loaded...
-binder.show(loadingMessage).when(valueOf(model.state).is(State.LOADING));
-binder.show(mainWidget).when(valueOf(model.state).is(State.LOADED));
-}}}
-
-
 
 
 == Other Stuff ==
@@ -268,13 +213,13 @@ enable(aField).when(valueOf(thisField).isSameAs(thatField));
 The `BeanModelProvider` also supports dirty tracking.  The dirty model will be `true` if any of the models it creates have a value different from the bean.
 
 {{{
-ValueModel<Boolean> dirty = personProvider.getDirtyModel();
+ValueModel<Boolean> dirty = personProvider.dirty();
 }}}
 
 If you have more than one provider you can use conditions to create a global dirty model.
 
 {{{
-ValueModel<Boolean> dirty = Conditions.or(personProvider.getDirtyModel(), addressProvider.getDirtyModel());
+ValueModel<Boolean> dirty = Conditions.or(personProvider.dirty(), addressProvider.dirty());
 }}}
 
 
@@ -284,27 +229,3 @@ Then the dirty model can be easily used to enabled and disable buttons in the vi
 Binder binder = new Binder();
 binder.enable(saveButton).when(model.dirty);
 }}}
-
-==Overview of the Pectin Approach==
-Pectin's approach is to segregate UI code into three basic facets or 'zones of responsibility' if you like, the domain, the presentation model and the View.  The following illustrates.  One of the advantages of this approach is that it brings consistency to developing views.  Behaviour and state is defined by the Presentation Model and the View remains passive.  
-
-The following illustrates the chain of data as it passes from the domain to the view. 
-
-{{{
-[Domain Data/Services] <-[Adapters]-> [Presentation Model] <-[Bindings]-> [View]
-                                               |
-                                           [Plugins]
-}}} 
-
-*Please note:* The above diagram demonstrates the data path and relationships between the various components of pectin.  It doesn't imply an architectural pattern or an approach to implementing your app or form.  Typically I embed presentation models inside views, those views implement some kind of `Editor` or `Display` interface which then interacts with a supervising controller of some kind.  The view typically delegates most of the `Display` interface to the presentation model.  When creating complex widgets (e.g. an `Address` editor) I tend to create the `AddressModel` separately.  This way other form models can be embedded the address model (and tweak it to their requirements) and pass it to the view which then goes `addressWidget = new AddressWidget(formModel.addressModel)`.
-
-The following outlines the roles of the various bits and pieces.
-  # *Domain Data* - data like the fields of a Customer, Address etc.
-  # *Domain Services* - the things that are used to load/save the domain data and do other server side things.  Pectin doesn't use these currently but I'm hoping I can for async validation.
-  # *Adapters* - The Adapters are responsible for creating `ValueModel`'s from your domain data.  Pectin currently provides `BeanModelProvider`, `AutoCommitBeanModelProvider` and `CopyBeanModelProvider`.  These adapters can either buffer changes (and track dirty state) or pass them directly through.  By using an adaption layer pectin can use data from practically any source.  If !ValueModels created by adapter implement auxiliary interfaces these can also be utilised by plugins.
-  # *Presentation Model* - This is your `FormModel`.  It holds the data, event handlers and other things required by the view. 
-    * View data includes includes such things as enabled, visible, validation information and anything else you view requires that isn't provided by your domain model.  This additional state is typically managed by plugins or simple value models that hold custom state (e.g. `ValueModel<Boolean> showMoreDetail = ....`)
-    * The Presentation Model also typically contains items such as actions/commands (or just plain click handlers) that operate within the scope of the view (e.g. a cancel button, a show/hide button).  This keeps the behaviour out of the view (i.e. no `@UiHandlers`) and you end up with view code like `button.addClickHandler(model.cancelHandler)`.
-  # *Plugins* - allow you to add new language elements to forms (such as `enable(someField).when(someCondition)`.  Plugins have to the opportunity to decorate form fields with additional state and to apply these to widgets during the binding process.  
-  # *Bindings* - These are created by pectin using `WidgetBinder.bind(model.field).to(widget)` style code in your view.  Plugins also generate bindings but this is typically automated during the widget binding process.  Most plugins will also support additional binding helpers like `MetadataBinder.bindValueOf(model.showMoreDetail).toVisibilityOf(detailsPanel)`. If the bindings don't meet your requirements you can always hook directly into the !ValueChangeEvents generated by the values in the presentation model.  
-  # *View* - responsible for binding widgets to the presentation model, laying things out and managing things like tab orders and what not.  It may well implement your 'Display' interface but will ideally delegate most of this to the model (but this all depends on your approach to your applications infrastructure).
