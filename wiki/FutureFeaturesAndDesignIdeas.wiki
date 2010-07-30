@@ -6,7 +6,7 @@
 Things that would be nice:
 
 =Controllers=
-I'm slowly starting to create some standard controllers that I'd like to incorporate into Pectin (in the style of Cocoa/!SproutCore etc).  Using Controllers in conjunction with Value/!ListModel bindings allows some pretty complex behaviour to be built pretty quickly. 
+I'd like to incorporate standard controllers into Pectin (in the style of Cocoa/!SproutCore etc).  Using Controllers in conjunction with Value/!ListModel bindings allows some pretty complex behaviour to be built pretty quickly. 
 
 The following is a very quick example of a !MasterDetail controller that binds a !SelectionControllers selected value to an !EditorController.  Selection changes are intercepted to prompt the user to save changes if required.
 {{{
@@ -48,7 +48,7 @@ public class MasterDetailController {
 Some example controllers would be:
   * !SingleSelectionController & !MultiSelectionController
   * !EditorController - edits stuff.  Exposes models like `ValueModel<Boolean> dirty()` and `ValueModel<Boolean> editing()` along with `validate()`, `commit()` methods etc.
-  * !EditorListController - handles binding of a `ListModels<T>` using a `Provider<EditorController<T>>` as an editor factory.  Could/would use an incremental command to build the UI and expose a `ValueModel<Boolean> busy()` that can be used to 'do stuff' (tm).
+  * !EditorListController - a much needed controller that handles binding of a `ListModel<T>` using a `Provider<EditorController<T>>` as an editor factory.  Could/would use an incremental command to build the UI and expose a `ValueModel<Boolean> busy()` that can be used to 'do stuff' (tm).
   * !WorkflowController - handles wizard like stuff.
 
 =Native !UiBinder support=
