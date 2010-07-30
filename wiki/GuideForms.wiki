@@ -207,25 +207,3 @@ Conditions implement `ValueModel<Boolean>` so you can use them where ever you'd 
 {{{
 enable(aField).when(valueOf(thisField).isSameAs(thatField));
 }}} 
-
-=== Dirty Models ===
-
-The `BeanModelProvider` also supports dirty tracking.  The dirty model will be `true` if any of the models it creates have a value different from the bean.
-
-{{{
-ValueModel<Boolean> dirty = personProvider.dirty();
-}}}
-
-If you have more than one provider you can use conditions to create a global dirty model.
-
-{{{
-ValueModel<Boolean> dirty = Conditions.or(personProvider.dirty(), addressProvider.dirty());
-}}}
-
-
-Then the dirty model can be easily used to enabled and disable buttons in the view.
-
-{{{
-Binder binder = new Binder();
-binder.enable(saveButton).when(model.dirty);
-}}}
