@@ -14,5 +14,5 @@
   * [ComparedToMVP Compared to MVP]
   * [ReleaseNotes Release Notes]
 
-  * [GuideMaven Maven Details]
-  * [BuildingFromSource Building from source]
+[GuideMaven Maven Details]
+[BuildingFromSource Building from source]
