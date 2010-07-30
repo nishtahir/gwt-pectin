@@ -2,3 +2,7 @@
 #sidebar TableOfContents
 
 = Introduction =
+
+Yes, yet another empty introduction.... 
+
+but all is not lost Kaspar Fischer has begun working on documentation which you can read at http://code.google.com/p/gwt-pectin-docs/wiki/PectinAPIOverview
