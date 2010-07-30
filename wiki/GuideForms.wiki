@@ -145,7 +145,7 @@ The intent of plugins is to allow you to create a business level language for yo
 
 By using this approach Pectin doesn't force you to use a one-size-fits-all solution.  Plugins are accessed using static methods so they won't clutter the API if you're not using them.  If you don't like the plugins provided or need more advanced functionality you can develop your own (or feel free to hire me to do it for you).
 
-Pectin provides basic plugins for validation and one for metadata (enabled, visible & watermarks). 
+Pectin provides basic plugins for [GuideValidationPlugin validation] and one for [GuideMetadataPlugin metadata] (enabled, visible & watermarks). 
 
 
 == Other Stuff ==
