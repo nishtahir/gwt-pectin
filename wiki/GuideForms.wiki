@@ -9,30 +9,34 @@
 One of the goals is to provide an API that describes the form in English like terms.  The aim is to end up with a `FormModel` that looks something like:
 
 {{{
-// create some fields for our form.
-FieldModel<Boolean> likesCheese = fieldOfType(Boolean.class).boundTo(someBean, "cheeseLover");
-FieldModel<String> whyILikeCheese = fieldOfType(String.class).boundTo(someBean, "reasonForLikingCheese");
+public class MyFormModel extends FormModel {
 
-// and configure the behaviour.
-enable(whyILikeCheese).when(likesCheese);
-watermark(whyILikeCheese).with("Tell us why you like cheese!");
-validateField(whyILikeCheese)
-   .using(new NotEmptyValidator("Please share your cheese passion with us."))
-   .when(likesCheese);
+  // create some fields for our form.
+  FieldModel<Boolean> likesCheese = fieldOfType(Boolean.class).boundTo(someBean, "cheeseLover");
+  FieldModel<String> whyILikeCheese = fieldOfType(String.class).boundTo(someBean, "reasonForLikingCheese");
 
+  // and configure the behaviour.
+  enable(whyILikeCheese).when(likesCheese);
+  watermark(whyILikeCheese).with("Tell us why you like cheese!");
+  validateField(whyILikeCheese)
+     .using(new NotEmptyValidator("Please share your cheese passion with us."))
+     .when(likesCheese);
 }}}
 
 Once the model is defined we can then bind it to our view.
 
 {{{
-// works well with UiBinder
-@UiField CheckBox likerOfCheese;
-@UiField TextArea cheeseLikingReason;
+public class MyView extends Composite {
+  // works well with UiBinder
+  @UiField CheckBox likerOfCheese;
+  @UiField TextArea cheeseLikingReason;
 
-FormBinder binder = new FormBinder();
-binder.bind(model.likesCheese).to(likerOfCheese);
-binder.bind(model.whyILikeCheese).to(cheeseLikingReason);
-
+  public MyView() {
+    FormBinder binder = new FormBinder();
+    binder.bind(model.likesCheese).to(likerOfCheese);
+    binder.bind(model.whyILikeCheese).to(cheeseLikingReason);
+  }
+}
 }}}
 
 The language elements such as enable(..), watermark(..) and validateField(..) are defined by plugins (see below) which get the chance to configure widgets during the binding process.
