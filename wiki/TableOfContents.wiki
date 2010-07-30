@@ -4,6 +4,7 @@
   * [GuideQuickStart Quick Start]
   * [GuideBindingToBeans Binding to beans]
   * [GuideForms Pectin Forms]
+     * [GuideFormBasics Form Basics]
      * [GuideMetadataPlugin Metadata Plugin]
      * [GuideValidationPlugin Validation Plugin]
   * [GuideUiCommands UiCommands]
