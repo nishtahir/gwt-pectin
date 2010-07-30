@@ -1,18 +1,11 @@
 #summary Quick Start to Pectin
 #sidebar TableOfContents
 
-= Basic Concepts & Types =
-  * ValueModel/ListModel
-  * Conditions & Functions
-  * Binding
-  * BeanModelsProvider
-  * Interceptors
+Inherit Pectin in your module:
+{{{
+<module>
 
-= Forms =
-  * FormModels
-  * Plugins
-  * FormBinder
+   <inherits name='com.pietschy.gwt.pectin.Pectin'/>
 
-= Commands =
-  * UiCommands
-  * Channels
+</module>
+}}}
