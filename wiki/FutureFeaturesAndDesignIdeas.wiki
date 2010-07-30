@@ -16,7 +16,7 @@ public class MasterDetailController {
   EditorController<Person> editorController = ...;
   Binder binder = new Binder();
   
-  public MasterController() {
+  public MasterDetailController() {
      
     // bind the selection to our editor
     binder.bind(selectionController.selection()).to(editorController);  
@@ -48,7 +48,7 @@ public class MasterDetailController {
 Some example controllers would be:
   * !SingleSelectionController & !MultiSelectionController
   * !EditorController - edits stuff.  Exposes models like `ValueModel<Boolean> dirty()` and `ValueModel<Boolean> editing()` along with `validate()`, `commit()` methods etc.
-  * !EditorListController - handles binding of a `ListModels<T>` using a `Provider<EditorController<T>>` as an editor factory.  Could/would use an incremental command to build the UI and expose a `ValueModel<Boolean> busy()` that can be used to 'do stuff' tm. 
+  * !EditorListController - handles binding of a `ListModels<T>` using a `Provider<EditorController<T>>` as an editor factory.  Could/would use an incremental command to build the UI and expose a `ValueModel<Boolean> busy()` that can be used to 'do stuff' (tm).
   * !WorkflowController - handles wizard like stuff.
 
 =Native !UiBinder support=
