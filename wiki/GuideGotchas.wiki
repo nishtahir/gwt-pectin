@@ -59,8 +59,23 @@ public class MyBean
 
 See GuideBindingToBeans for more info.  
 
-==Using Binder instead of FormBinder with FormModel==
-You'll wonder why your plugins aren't working....
+==Using Binder with a !FormModel==
+
+If you forget to use a `FormBinder` with your form models you'll wonder why your plugins aren't working....
+
+{{{
+// Don't use a regular binder in forms!!!
+Binder binder = new Binder();
+binder.bind(formModel.firstName).to(firstName);
+}}}
+
+{{{
+// This will work!!
+FormBinder binder = new FormBinder();
+binder.bind(formModel.firstName).to(firstName);
+}}}
+
+
 
 ==DelegatingUiCommands with missing delegates ==
 TODO:
