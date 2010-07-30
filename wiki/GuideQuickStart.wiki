@@ -1,6 +1,8 @@
 #summary Quick Start to Pectin
 #sidebar TableOfContents
 
+=Quickstart=
+
 Inherit Pectin in your module:
 {{{
 <module>
@@ -9,3 +11,5 @@ Inherit Pectin in your module:
 
 </module>
 }}}
+
+Todo:  what should I put in for a basic overview....
