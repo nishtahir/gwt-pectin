@@ -188,6 +188,10 @@ address.setValue(new Address());
 
 *Note:*  Please note that directly modifying the Address bean above won't cause change events to fire.  There are hooks in pectin to achive this but the default `BeanModelProvider` doesn't support it.  If you want to do this send me a note.
 
+===Mutability===
+The value models returned from the provider are mutable if and only if the underlying property is mutable (i.e. it has a setter) and the parent bean is non null.  You can always read from a value model even if it's souce bean is null, i.e. reading from "address.postCode" will simply return `null` if either `address` and/or `postCode` is `null`.  Attempting to write to `postCode` while `address` is null will throw a `SourceBeanIsNullException`.
+
+
 =Binding to collection properties=
 
 Pectin also allows you to bind collection properties to `ListModel`s.  In this case the bean must define getters and setters for the collection properties.  Please note Pectin doesn't support indexed Java bean properties.
