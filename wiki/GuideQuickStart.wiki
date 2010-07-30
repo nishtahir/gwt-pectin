@@ -3,7 +3,7 @@
 
 = Basic Concepts & Types =
   * ValueModel/ListModel
-  * Functions
+  * Conditions & Functions
   * Binding
   * BeanModelsProvider
   * Interceptors
