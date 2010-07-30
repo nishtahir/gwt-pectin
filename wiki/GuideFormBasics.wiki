@@ -44,6 +44,7 @@ public class MyFormModel extends FormModel {
 
     // formatted fields allow us to bind HasValue<String> widgets to non string value models.
     age = formattedFieldOfType(Integer.class).using(new AgeFormat()).boundTo(personProvider, "age");
+    moneyInBank = formattedFieldOfType(Double.class).using(new CurrencyFormat()).boundTo(personProvider, "moneyInBank");
 
     // we can bind to bean properties of the various collection types.
     // i.e. person.get/setFavoriteWines(List<Wine> wines)
@@ -67,9 +68,10 @@ public class MyForm extends Composite {
 
   private FormBinder binder = new FormBinder();
 
-  private TextBox givenNameField = new TextBox();
-  private TextBox surnameField = new TextBox();
-  private TextBox ageField = new TextBox();
+  private TextBox givenName = new TextBox();
+  private TextBox surname = new TextBox();
+  private TextBox age = new TextBox();
+  private TextBox moneyInBank = new TextBox();
 
   private String buttonGroupId = DOM.createUniqueId();
   private RadionButton maleRadio = new RadioButton(buttonGroupId, "Male");
@@ -82,9 +84,10 @@ public class MyForm extends Composite {
   public MyForm(MyFormModel model) {
 
     // bind our fields to our models.
-    binder.bind(model.givenName).to(givenNameField);
-    binder.bind(model.surname).to(surnameField);
+    binder.bind(model.givenName).to(givenName);
+    binder.bind(model.surname).to(surname);
     binder.bind(model.age).to(age);
+    binder.bind(model.moneyInBank).to(moneyInBank);
 
     // bind our gender to some radio buttons
     binder.bind(model.gender).withValue(Gender.MALE).to(maleRadio);
@@ -106,6 +109,26 @@ public class MyForm extends Composite {
 }
 
 }}}
+
+== Formatted Field Bits ==
+Pectin doesn't automatically reformat user entered text (since there's no one way that will always work) but does provide a mechanism to do it.
+
+If you need to do it from you model you can call the following:
+{{{
+// in my form model
+moneyInBank.sanitiseText();
+
+// using a command
+moneyInBank.sanitiseTextCommand().execute();
+}}}
+
+Alternatively you can do it directly in your view.
+{{{
+FormBinder binder = new FormBinder();
+
+binder.bind(model.moneyInBank).to(monyInBank).sanitiseTextOnBlur();
+}}}
+
 
 == Other Stuff ==
 !FormModels also support:
