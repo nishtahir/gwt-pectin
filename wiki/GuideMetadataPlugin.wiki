@@ -108,10 +108,8 @@ watermark(email, fax).with("Optional");
 }}} 
 
 
-== Controlling Other Widgets ==
-There will be cases where you need to apply the metadata of one field to multiple widgets (e.g. the fields label).  In this case the plugin provides a number of useful methods.
-
-Since Pectin 0.8 most of the binding methods of MetadataBinder have been absorbed into both `Binder` and `FormBinder`.
+= Controlling Other Widgets =
+Since Pectin 0.8 both `Binder` and `FormBinder` provide built in methods for enabling and showing widgets based on the state of an arbitrary `ValueModel<Boolean>`.
 
 {{{
 FormBinder binder = ...;
@@ -121,16 +119,6 @@ ValueModel<Boolean> loading = ...;
 binder.show(loadingMessageWidget).when(loading);
 binder.hide(realWidget).when(loading);
 }}}
- 
-
-=== `MetadataBinder` ===
-The `MetadataBinder` allows you to apply metadata of a field to another widget.  
-
-{{{
-MetadataBinder metadata = new MetadataBinder();
-
-metadata.bindMetadataOf(formModel.extraComments).to(extraCommentsLabel);
-}}} 
 
 If you need to apply metadata state to another widget (a label for example) you can use `MetadataPlugin.metadataOf(Field)` to access the value models that reflect the metadata state of the specified field.
 
@@ -145,3 +133,9 @@ binder.hide(nameLabel).when(metadataOf(model.name).isHidden())
 style.style(nameLabel).with("disabled")
      .when(metadataOf(model.name).isDisabled());
 }}}
+ 
+The `MetadataBinder` also allows you to apply metadata of a field to another widget in one go.
+{{{
+MetadataBinder metadata = new MetadataBinder();
+metadata.bindMetadataOf(formModel.extraComments).to(extraCommentsLabel);
+}}} 
