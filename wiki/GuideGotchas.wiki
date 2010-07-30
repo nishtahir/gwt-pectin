@@ -59,5 +59,8 @@ public class MyBean
 
 See GuideBindingToBeans for more info.  
 
+==Using Binder instead of FormBinder with FormModel==
+You'll wonder why your plugins aren't working....
+
 ==DelegatingUiCommands with missing delegates ==
 TODO:
