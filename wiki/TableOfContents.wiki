@@ -1,6 +1,6 @@
 #summary Table of Contents
 
-  * [GuidePectinArchitectureOverview Architectural Overview]
+  * [GuideIntroduction Introduction]
   * [GuideQuickStart Quick Start]
   * [GuideBindingToBeans Binding to beans]
   * [GuideForms Pectin Forms]
