@@ -3,11 +3,11 @@
 = Pectin Release Notes=
 == Release 0.8 ==
 
-*The theme of this release* is a move from a primarily form orientated library to one that provides a much more general binding solution and UI framework.  Most notably this realease support binding to regular value models, basic property paths in `BeanModelProvider`, more command enhancements plus various other odds and sods.
+*The theme of this release* is a move towards a much more general binding solution and UI framework.  Most notably this realease support binding to regular value models, basic property paths in `BeanModelProvider`, more command enhancements plus various other odds and sods.
 
 ====Painful Form Changes:====
   * All form releated classes (including plugins) have moved to a new `form` subpackage.
-  * `WidgetBinder` has been renamed to `FormBinder`.
+  * `FormBinder` has replaced `WidgetBinder`.
 
 ====Binding Changes:====
   * New `Binder` class *supports binding regular* `ValueModels` and `ListModels` directly to `HasValue<T>`, `ValueTarget<T>` and `MutableValueModel<T>` without the need of a `FormModel`.  This means you can use `BeanModelProvider` (or any `ValueModel` for that matter) directly in cases where you don't need the features of the form.  E.g.
