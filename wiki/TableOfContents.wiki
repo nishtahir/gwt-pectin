@@ -1,7 +1,6 @@
 #summary Table of Contents
 
   * [GuideIntroduction Introduction]
-  * [GuideQuickStart Quick Start]
   * [GuidePectinConcepts Basic Types & Concepts]
   * [GuideBindingToBeans Binding to beans]
   * [GuideForms Pectin Forms]
