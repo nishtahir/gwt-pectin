@@ -12,14 +12,14 @@
 ====Binding Changes:====
   * New `Binder` class *supports binding regular* `ValueModels` and `ListModels` directly to `HasValue<T>`, `ValueTarget<T>` and `MutableValueModel<T>` without the need of a `FormModel`.  This means you can use `BeanModelProvider` (or any `ValueModel` for that matter) directly in cases where you don't need the features of the form.  E.g.
 {{{
-// using a ValueModel of your choice...
+// Using a ValueModel<T> of your choice...
 MutableValueModel<ContactDetails> contactDetails = provider.getValueModel("department.manager.contactDetails", ContactDetails.class) 
 
 // ...and our new binder...
 Binder binder = new Binder();
 
-// ...we can bind to any thing that implements HasValue<ContactDetails> or
-// MutableValueModel<ContactDetails> or ValueTarget<ContactDetails> etc. 
+// ...you can bind to anything that implements HasValue<T> or
+// MutableValueModel<T> or ValueTarget<T> or ParameteriseCommand<T> etc. 
 binder.bind(contactDetails).to(contactDetailsEditor);
 }}}
   * `FormBinder` (formally `WidgetBinder`) extends the new `Binder` so the following changes apply to both.   
