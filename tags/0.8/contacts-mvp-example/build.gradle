@@ -1,0 +1,56 @@
+usePlugin(com.pietschy.gradle.gwt.GwtAppPlugin)
+
+version = "0.${buildNumber}"
+
+defaultTasks "run"
+
+dependencies {
+   compile project(':gwt-pectin')
+
+   testCompile 'easymock:easymock:2.0', 'junit:junit:3.8'
+
+   // I like testng
+   testCompile("org.testng:testng:5.8:jdk15", "org.mockito:mockito-all:1.8.4")
+}
+
+// ensure our parent project get's cleaned.
+clean.dependsOn(':gwt-pectin:clean')
+
+compileGwt {
+   modules('com.google.gwt.sample.contacts.Contacts')
+}
+
+test {
+   useTestNG()
+}
+
+task shell(type: com.pietschy.gradle.plugin.gwt.task.GwtDevelopmentShell) {
+   modules('com.google.gwt.sample.contacts.Contacts')
+   startupUrl = 'Contacts.html'
+}
+
+task run(dependsOn: ['classes', 'shell'])
+
+// build the demo so we can upload it
+task dist(overwrite: true, dependsOn: ['classes', 'compileGwt'])
+dist << {
+
+   File compileOutput = compileGwt.destinationDir;
+   File webAppDir = project.webAppDir;
+
+   File dest = new File((File)project.buildDir, 'web')
+   ant.copy(toDir: dest) {
+      fileset(dir: compileOutput)
+      fileset(dir: webAppDir, excludes: 'WEB-INF/**')
+   }
+}
+
+// Task for creating the gradle wrapper for this project.
+task wrapper(type: org.gradle.api.tasks.wrapper.Wrapper) {
+   gradleVersion = '0.8'
+}
+
+String getBuildNumber()
+{
+   return readBuildNumber(project)
+}
