@@ -6,9 +6,7 @@
 Inherit Pectin in your module:
 {{{
 <module>
-
    <inherits name='com.pietschy.gwt.pectin.Pectin'/>
-
 </module>
 }}}
 
