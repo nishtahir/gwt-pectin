@@ -7,7 +7,7 @@
 
 ====Painful Form Changes:====
   * All form releated classes (including plugins) have moved to a new `form` subpackage.
-  * ~~`WidgetBinder`~~ has been renamed to `FormBinder`.
+  * `WidgetBinder` has been renamed to `FormBinder`.
 
 ====Binding Changes:====
   * New `Binder` class *supports binding regular* `ValueModels` and `ListModels` directly to `HasValue<T>`, `ValueTarget<T>` and `MutableValueModel<T>` without the need of a `FormModel`.  This means you can use `BeanModelProvider` (or any `ValueModel` for that matter) directly in cases where you don't need the features of the form.  E.g.
