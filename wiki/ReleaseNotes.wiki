@@ -87,7 +87,7 @@ exceptionManager.onCatching(SomeException.class)
 // we can install a default handler too for all the common RPC errors
 exceptionManager.onUnregisteredExceptionsInvoke(myDefaultHandler);
 }}}
-  * `AbstractAsyncUiCommand` now has an `asAsyncCallback(..)` convenience method that takes the `AsyncCommandCallback` and `ExceptionManager`.
+  * `AbstractAsyncUiCommand` now has an `asAsyncCallback(..)` convenience method that returns a regular GWT `AsyncCallback` given a `AsyncCommandCallback` and `ExceptionManager`.
 {{{
 public void performAsyncOperation(AsyncCommandCallback<R,String> callback) {
   // our convenience method creates a regular callback we can use directly
@@ -96,7 +96,7 @@ public void performAsyncOperation(AsyncCommandCallback<R,String> callback) {
 }
 
 }}}
-  * The `ExceptionManager.containsHandlerFor(..)` method can be used to see if a handler has been registred for a particular exception.  This is useful in unit tests to ensure all exceptions thrown by a RPC service have an associated handler. 
+  * The `ExceptionManager.containsHandlerFor(..)` method can be used to see if a handler has been registred for a particular exception.  This is useful in unit tests to pick up when if added a new exception to an RPC service and forgotten to add a handler.
 
 ====Other changes:====
   * New `ReducingValueModel` that operates on !ListModels and corresponding builder methods.  E.g. `fieldOfType(T).computedFrom(ListModel<S>).using(Reduce<T,S>)` and `Functions.computedFrom(ListModel<S>).using(Reduce<T,S>)`.
@@ -106,7 +106,7 @@ public void performAsyncOperation(AsyncCommandCallback<R,String> callback) {
   * Fixed bug in `AbstractDynamicList` where `setValue(T)` and `setValue(T, false)` were incorrectly firing !ValueChangeEvents.  
   * Renamed `HasValueGetter` to `ValueSource` and `HasValueSetter` to `ValueTarget`.
   * Added `MutableListModel.clear()` method.
-  * Various binding methods of the form `.to(T)` have been updated to `.to(<? super T>)`. 
+  * Various binder methods of the form `.to(T)` have been updated to `.to(<? super T>)`. 
 
 
 == Release 0.7 ==
