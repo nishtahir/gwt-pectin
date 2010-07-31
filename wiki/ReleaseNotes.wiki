@@ -24,6 +24,7 @@ binder.bind(contactDetails).to(contactDetailsEditor);
 }}}
   * `FormBinder` (formally `WidgetBinder`) extends the new `Binder` so the following changes apply to both.   
   * New `Binder.bind(ValueModel).toTextOf(HasText)` and `Binder.bind(ValueModel).toHtmlOf(HasHTML)` to replace the deprecated `Binder.bind(ValueModel).toLabel(HasText)`.  Formats are also support (i.e. `bind(model).toTextOf(hasText).withFormat(format)`) and there are variants that work with list models.
+  * New `Binder.onTransitionOf(ValueModel<T>).to(T).invoke(Command)` bindings.
   * New `Functions` class that has static methods for creating computed models from regular value and list models using functions and converters etc.  E.g. `ValueModel<T> result = Functions.computedFrom(ValueModel<S>).using(Function<T,S>)` and `ValueModel<T> result = Functions.computedFrom(ListModel<S>).using(Reduce<T,S>)` etc. 
   * New text conditions that test for empty and blank string.  i.e. `Conditions.textOf(source).isBlank()`.
   * New (initial) support for list based conditions e.g. `Conditions.listOf(favoriteWines).isEmpty()`. 
