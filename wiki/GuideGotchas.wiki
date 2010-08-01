@@ -76,9 +76,15 @@ binder.bind(formModel.firstName).to(firstName);
 }}}
 
 
+==!DelegatingUiCommands with missing delegates ==
+One of the side effects of declarative coding is that there are cases where stack traces contain no user code.  Invoking a `DelegatingUiCommands` with a null delegate is one such case and can be very painful experience.  
 
-==DelegatingUiCommands with missing delegates ==
-TODO:
+To overcome this `DelegatingUiCommands` allow you to configure a debug context that will be included in the stack trace.  So when you create a debug command consider using the following:
+{{{
+myDelegatingCommand = new DelegatingUiCommand().withDebugContext("myDelegatingCommand");
+}}}
+
+I'll probably improve this in the future to include the owning class and some debug info.
 
 == Event Ordering ==
-TODO:
+TODO: Talk about cases where event order is important.
