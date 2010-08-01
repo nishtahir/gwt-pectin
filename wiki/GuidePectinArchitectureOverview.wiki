@@ -1,5 +1,4 @@
 #summary Architectural overview of Pectin
-#labels Featured
 #sidebar TableOfContents
 
 TODO: Out of date.
