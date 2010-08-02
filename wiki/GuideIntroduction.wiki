@@ -29,7 +29,7 @@ public interface MyController<T> {
 
 And now we can define our delete command.
 {{{
-public class DeleteCommand extends AbstratUiCommand {
+public class DeleteCommand extends AbstractUiCommand {
 
   private ListController<T> controller;
   private ListModel<T> selectedItems;
@@ -64,19 +64,15 @@ public class DeleteCommand extends AbstratUiCommand {
 
 Ok, so now that we have our controller/command/models sorted lets bind it to our button.
 {{{
-// the button to which we'll bind
-Button deleteButton = new Button();
-
-// the binder that will do the magic...
+// Pectins binder does the hard work....
 Binder binder = new Binder();
+
+Button deleteButton = new Button();
 
 // bind the click and enabled state...
 binder.bind(deleteCommand).to(deleteButton);
 // bind the text...
 binder.bind(deleteCommand.text()).toTextOf(deleteButton);
-
-// TODO: this example could be simplified if Pectin defined various interfaces like
-// `HasTextModel` etc which could be automatically queried and used by the binder.
 }}}    
 
 ===OMG!??! He put view state in the command!!!===
