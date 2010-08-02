@@ -82,7 +82,7 @@ binder.bind(deleteCommand.text()).toTextOf(deleteButton);
 ===OMG!??! He put view state in the command!!!===
 Yes... he did.  
 
-But if you find that egregious you could replace `DeleteCommand.text()` with `DeleteCommand.multipleSelected()` and use a format (or function) in the view.
+Anyway, if you find that egregious you can replace `DeleteCommand.text()` with `DeleteCommand.multipleSelected()` and use a format (or function) in the view.
 {{{
    // define a multipleSelected model instead of text...
    ValueModel<Boolean> multipleSelected = sizeOf(selectedItems).isGreaterThan(1);
