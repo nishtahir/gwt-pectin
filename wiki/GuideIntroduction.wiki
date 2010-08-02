@@ -30,21 +30,21 @@ public interface MyController<T> {
 DeleteCommand extends AbstratUiCommand {
 
   private ListController<T> controller;
-  private ListModel<T> selection;
+  private ListModel<T> selectedItems;
   private ValueModel<String> text;
 
   public DeleteCommand(MyController<T> controller) {
      this.controller = controller;
-     this.selection = controller.selection();
+     this.selectedItems = controller.selection();
 
      // we'll disable when emtpy using a computed model
-     disableWhen(Conditions.listOf(selection).isEmtpy());
+     disableWhen(Conditions.listOf(selectedItems).isEmtpy());
 
      // lets compute our text from the size of the selection using a Reduce function...
-     text = Functions.computedFrom(selection)
+     text = Functions.computedFrom(selectedItems)
        .using(new Reduce<String, T>() {
-          public String compute(List<? extends T> list) {
-             return list.size() < 2 "Delete" : "Delete All"; 
+          public String compute(List<? extends T> items) {
+             return items.size() < 2 "Delete" : "Delete All"; 
           }
         });
   }
@@ -55,7 +55,7 @@ DeleteCommand extends AbstratUiCommand {
 
   public void doExecute() {
      // do the delete...
-     controller.removeItems(selection.asUnmodifiableList());
+     controller.removeItems(selectedItems.asUnmodifiableList());
   }
 }
 }}}
@@ -82,12 +82,12 @@ This example is a little simplistic, we didn't ask the user to confirm and it's 
 
 Pectin commands also support interceptors so you can do things like:
 {{{
-`deleteCommand.interceptUsing(confirmDeleteInterceptor)`. 
+deleteCommand.interceptUsing(confirmDeleteInterceptor);
 }}}
  
 Pectin also has an !AsyncUiCommand specifically for async operations that defines a `ValueModel<Boolean> active()` method.   It's then easy to disable our button while active by changing our disable logic to be:
 {{{
-`disableWhen(is(active())or(listOf(selection).isEmpty()))`.
+disableWhen(is(active())or(listOf(selectedItems).isEmpty()));
 }}}
 
 It also wouldn't be too hard to update the above example to have the button disble and change it's text to to "Deleting" if the delete was proceeding.
