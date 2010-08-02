@@ -87,8 +87,8 @@ But if you find that egregious you could replace `DeleteCommand.text()` with `De
    // define a multipleSelected model instead of text...
    ValueModel<Boolean> multipleSelected = sizeOf(selectedItems).isGreaterThan(1);
 
-   // Please note: this is slightly false advertising here... the sizeOf(..).isGreaterThan() 
-   // and affiliated methods aren't in the current release..
+   // Please note: this is slightly false advertising here, the sizeOf(..) stuff
+   // isn't in the current release.
 }}}
 
 And then define a format...
@@ -101,7 +101,7 @@ DisplayFormat<Boolean> deleteFormat = new DisplayFormat<Boolean>() {
 }}}
 And use it in our view.
 {{{
-binder.bind(deleteCommand.multiple())
+binder.bind(deleteCommand.multipleSelected())
   .toTextOf(deleteButton)
   .withFormat(deleteFormat);
 }}}
