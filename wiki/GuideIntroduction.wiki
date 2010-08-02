@@ -90,7 +90,7 @@ Pectin also has an !AsyncUiCommand specifically for async operations that define
 disableWhen(is(active())or(listOf(selectedItems).isEmpty()));
 }}}
 
-It also wouldn't be too hard to update the above example to have the button disble and change it's text to to "Deleting" if the delete was proceeding.
+It also wouldn't be too hard to update the above example to have the button change it's text to to "Deleting" while the delete was proceeding.
 
 ==The nice thing about !FormModels==
 TODO
