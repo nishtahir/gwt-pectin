@@ -17,7 +17,7 @@ In this exmample we'll create a button that deletes the currently selected items
   # It must be disabled when the selection is empty
   # It must display "Delete" for single selections and "Delete All" for multiple.
 
-So now lets implement it.  Pectins !UiCommands come with enable/disable built in so we only need to create a new model for our text that changes.  But first lets define our controller.
+So now lets implement it.  Pectins !UiCommands come with enable/disable built in so we only need to create a new model for our dynamically changing text.  But first lets define our controller.
 
 {{{
 // Our controller that has a selection...
@@ -27,7 +27,7 @@ public interface MyController<T> {
 }
 }}}
 
-Now that we have something to work with we can create our delete command.
+And now we can define our delete command.
 {{{
 public class DeleteCommand extends AbstratUiCommand {
 
