@@ -93,6 +93,7 @@ This particular approach works well with delegating commands described below.
 
 !AsyncUiCommands are designed for calling async services.  They fire events for success and errors along with the normal start and finish events of other !UiCommands.  !AsyncUiCommands are parameterised by their return and error types.  The following is a simple example that save the changes from an editor.
 
+TODO: Update to include `ExceptionManager`...
 {{{
 // A basic command that takes a value from and editor and saves it using an
 // async service interface
@@ -206,8 +207,7 @@ binder.bind(model.errorChannel).to(myErrorDisplay);
 }}}
 
 There are a number of interfaces that you can bind events to, `Destination`, `HasValueSetter`, `Publisher`, `ParameterisedCommand`.  Typically when I want to 
-send an event to some other entity I'll create an `asDestination()` style method on it that returns one of the above types.
-
+send an event to some other entity I'll create an `asDestination()` style method on it that returns one of the above types.   
 
 = Interceptors =
 `UiCommands` also support the use of interceptors that get invoked prior to the command executing. 
@@ -259,3 +259,5 @@ delegatingPublish.setDelegate(realPublishActivity);
 // is enabled and the buildUiActivity is not active. 
 binder.bind(delegatingPublish).to(publishButton);
 }}}
+
+TODO: Talk about debug info for delegating commands.
