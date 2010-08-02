@@ -80,7 +80,7 @@ binder.bind(deleteCommand.text()).toTextOf(deleteButton);
 }}}    
 
 ===OMG!??! He put view state in the command!!!===
-Yes... I did.  
+Yes... he did.  
 
 But if you find that egregious you could replace `DeleteCommand.text()` with `DeleteCommand.multipleSelected()` and use a format (or function) in the view.
 {{{
