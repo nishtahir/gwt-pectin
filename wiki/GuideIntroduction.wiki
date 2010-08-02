@@ -82,18 +82,18 @@ binder.bind(deleteCommand.text()).toTextOf(deleteButton);
 ===OMG!??! He put view state in the command!!!===
 Yes... I did.  
 
-But if you find that egregious you could do it using the raw state and using a format (or function) in the view.
+But if you find that egregious you could replace `DeleteCommand.text()` with `DeleteCommand.multipleSelected()` and use a format (or function) in the view.
 {{{
-   // define a state of multiple instead of text...
-   ValueModel<Boolean> multiple = listOf(selectedItems).isGreaterThan(1);
+   // define a multipleSelected model instead of text...
+   ValueModel<Boolean> multipleSelected = listOf(selectedItems).isGreaterThan(1);
 
    // Please note: this is slightly false advertising here... the isGreaterThan() 
-   // method isn't in the current release..
+   // and affiliated methods aren't in the current release..
 }}}
 
 And then define a format...
 {{{ 
-DisplayFormat<Boolean> deleteButtonFormat = new DisplayFormat<Boolean>() {
+DisplayFormat<Boolean> deleteFormat = new DisplayFormat<Boolean>() {
   public String format(Boolean multiple) {
     return multiple ? "Delete All" : "Delete";
   }
@@ -103,15 +103,15 @@ And use it in our view.
 {{{
 binder.bind(deleteCommand.multiple())
   .toTextOf(deleteButton)
-  .withFormat(deleteButtonFormat);
+  .withFormat(deleteFormat);
 }}}
 
 ===Taking the example further===
-This example is a little simplistic, we didn't ask the user to confirm the drastic action of deleting things and it's also highly likely the command needs to do it's thing in an async manner.  !UiCommands support interceptors so prompting the user is as simple as:
+To this point, the example has been a little simplistic, we didn't ask the user to confirm the drastic action of deleting things and it's also highly likely the command needs to do it's thing in an async manner.  !UiCommands support interceptors so prompting the user is as simple as:
 {{{
 deleteCommand.interceptUsing(new Interceptor() {
   public void intercept(Invocation invocation) {
-    // promt the user in an async/non-blocking way.  We should really
+    // prompt the user in an async/non-blocking way.  We should really
     // give different messages based on selectedItems.size() but 
     // I'm too lazy for the demo..
     messageService.ask("Do you really want to delete?")
