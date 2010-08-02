@@ -17,7 +17,7 @@ In this exmample we'll create a button that deletes the currently selected items
   # It must be disabled when the selection is empty
   # It must display "Delete" for single selections and "Delete All" for multiple.
 
-So now lets implement it.  Pectins UiCommand come with enable/disable built in so we only need to create a new model for our text that changes.
+So now lets implement it.  Pectins !UiCommands come with enable/disable built in so we only need to create a new model for our text that changes.
 
 {{{
 // lets define a controller that has a selection...
@@ -77,8 +77,8 @@ binder.bind(deleteCommand.text()).toTextOf(deleteButton);
 // `HasTextModel` etc which could be automatically queried and used by the binder.
 }}}    
 
-===Taking the exmple further===
-This example is a little simplistic, we didn't ask the user to confirm and it's likely the command needs to do async things.  
+===Taking the example further===
+This example is a little simplistic, we didn't ask the user to confirm and it's highly likely the command needs to do async things.  
 
 Pectin commands also support interceptors so you can do things like `deleteCommand.interceptUsing(confirmDeleteInterceptor)`.  
 Pectin also has an !AsyncUiCommand that defins a `ValueModel<Boolean> active()` method so we could automatically disable while active by changing our disable logic to be `disableWhen(is(active())or(listOf(selection).isEmpty()))`.
@@ -87,3 +87,6 @@ It also wouldn't be too hard to update the above example to have the button disb
 
 ==The nice thing about !FormModels==
 TODO
+
+==Garbage collection and you==
+TODO: Talk about `Disposable` and `GarbageCollector`.
