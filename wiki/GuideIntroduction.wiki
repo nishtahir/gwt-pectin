@@ -5,7 +5,7 @@
 
 Kaspar Fischer has begun working on a good introduction to the basics at http://code.google.com/p/gwt-pectin-docs/wiki/PectinAPIOverview
 
-==The nice thing about !ValueModels & !ListModels==
+==The nice thing about !ValueModels & !ListModels and so forth==
 One of the really nice things about !ValueModels and !ListModels is that you can define all kinds of things using these simple interface without having to create getters/setters and different event/handler types all over the place. 
 
 For example, if we had an object that had a `text` property of type String, instead of creating setText/getText/addTextChangeHandler etc methods and events and what not you can just define a `text()` method (or public final field) that returns a `ValueModel<String>`.
