@@ -58,7 +58,7 @@ public class DeleteCommand extends AbstratUiCommand {
 }
 }}}
 
-Now that we've created our controller/command/models lets bind it to our passive view.
+Now that we've created our controller/command/models lets bind it to our view.
 {{{
 // the button to which we'll bind
 Button deleteButton = new Button();
@@ -76,11 +76,23 @@ binder.bind(deleteCommand.text()).toTextOf(deleteButton);
 }}}    
 
 ===Taking the example further===
-This example is a little simplistic, we didn't ask the user to confirm and it's highly likely the command needs to do async things.  
+This example is a little simplistic, we didn't ask the user to confirm the drastic action of deleting things and it's also highly likely the command needs to do it's thing in an async manner.  
 
 Pectin commands also support interceptors so you can do things like:
 {{{
-deleteCommand.interceptUsing(confirmDeleteInterceptor);
+deleteCommand.interceptUsing(new Interceptor() {
+  public void intercept(Invocation invocation) {
+    // promt the user in an async/non-blocking way.  Could also
+    // give different messages based on selectedItems.size() but 
+    // I'm too lazy for the demo..
+    messageService.ask("Do you really want to delete?")
+      .onChoosingDestructive("Yes, destroy them all!!!").thenExecute(invocation.getProceedCommand())
+      .onChoosing("Cancel").thenClose()
+      .show();
+  }
+);
+
+// Note: MessageService not included.
 }}}
  
 Pectin also has an !AsyncUiCommand specifically for async operations that defines a `ValueModel<Boolean> active()` method.   It's then easy to disable our button while active by changing our disable logic to be:
