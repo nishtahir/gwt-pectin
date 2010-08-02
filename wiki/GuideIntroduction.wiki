@@ -80,7 +80,7 @@ binder.bind(deleteCommand.text()).toTextOf(deleteButton);
 }}}    
 
 ===Taking the example further===
-This example is a little simplistic, we didn't ask the user to confirm the drastic action of deleting things and it's also highly likely the command needs to do it's thing in an async manner.  UiCommands support interceptors so prompting the user is as simple as:
+This example is a little simplistic, we didn't ask the user to confirm the drastic action of deleting things and it's also highly likely the command needs to do it's thing in an async manner.  !UiCommands support interceptors so prompting the user is as simple as:
 {{{
 deleteCommand.interceptUsing(new Interceptor() {
   public void intercept(Invocation invocation) {
@@ -94,7 +94,7 @@ deleteCommand.interceptUsing(new Interceptor() {
   }
 );
 
-// Note: MessageService not included.
+// * MessageService not included.
 }}}
  
 In addition to regular UiCommands Pectin also has !AsyncUiCommands specifically for async operations.  Async commands also define a `ValueModel<Boolean> active()` method.   It's then easy to disable our button while active by changing our disable logic to be:
