@@ -80,8 +80,15 @@ binder.bind(deleteCommand.text()).toTextOf(deleteButton);
 ===Taking the example further===
 This example is a little simplistic, we didn't ask the user to confirm and it's highly likely the command needs to do async things.  
 
-Pectin commands also support interceptors so you can do things like `deleteCommand.interceptUsing(confirmDeleteInterceptor)`.  
-Pectin also has an !AsyncUiCommand that defins a `ValueModel<Boolean> active()` method so we could automatically disable while active by changing our disable logic to be `disableWhen(is(active())or(listOf(selection).isEmpty()))`.
+Pectin commands also support interceptors so you can do things like:
+{{{
+`deleteCommand.interceptUsing(confirmDeleteInterceptor)`. 
+}}}
+ 
+Pectin also has an !AsyncUiCommand specifically for async operations that defines a `ValueModel<Boolean> active()` method.   It's then easy to disable our button while active by changing our disable logic to be:
+{{{
+`disableWhen(is(active())or(listOf(selection).isEmpty()))`.
+}}}
 
 It also wouldn't be too hard to update the above example to have the button disble and change it's text to to "Deleting" if the delete was proceeding.
 
