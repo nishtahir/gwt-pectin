@@ -36,19 +36,19 @@ public class DeleteCommand extends AbstratUiCommand {
   private ValueModel<String> text;
 
   public DeleteCommand(MyController<T> controller) {
-     this.controller = controller;
-     this.selectedItems = controller.selection();
+    this.controller = controller;
+    this.selectedItems = controller.selection();
 
-     // we'll disable when emtpy using a computed model
-     disableWhen(Conditions.listOf(selectedItems).isEmtpy());
+    // we'll disable when emtpy using a computed model
+    disableWhen(Conditions.listOf(selectedItems).isEmtpy());
 
-     // lets compute our text from the size of the selection using a Reduce function...
-     text = Functions.computedFrom(selectedItems)
-       .using(new Reduce<String, T>() {
-          public String compute(List<? extends T> items) {
-             return items.size() < 2 "Delete" : "Delete All"; 
-          }
-        });
+    // lets compute our text from the size of the selection using a Reduce function...
+    text = Functions.computedFrom(selectedItems)
+      .using(new Reduce<String, T>() {
+         public String compute(List<? extends T> items) {
+            return items.size() < 2 "Delete" : "Delete All"; 
+         }
+       });
   }
  
   public ValueModel<String> text() {
