@@ -19,7 +19,7 @@ The !UiCommand code has the following types and concepts:
   * *Channel`<T>`* - `Channels` are a basic event mechanism that allow simple connection of event produces to consumers.  `AsyncUiCommands` have a result channel and an error channel. 
   * *!AsyncEvents`<R,E>`* - `AsyncUiCommands` provide event hooks so you can perform actions on start, end and error or send the results or errors to various locations.  There are two variants, `always()` and `onNextCall()` events.  e.g. `save.always().sendResultTo(someDestination)` or  `save.onNextCall().invokeOnSuccess(invocation.getProceedCommand())`.   Behind the scenes this just subscribes to the appropriate channel.
   * *Interceptors* - Allow you to intercept commands before they start.  This allows the view to interact with the user prior to the command executing.  The intercption is callback based so supports asynchronous operation (i.e. prompting via a dialog or other means).
-  * *!FormBinder* - Allows the view to bind !UiCommands to buttons (`binder.bind(saveCommand).to(saveButton)`) and various widgets (`HasValue`, `HasText`, `HasHTML` and others) to Channels.  Since activities have an active state you can easily show and hide things while they're running e.g. `binder.show(saveMessage).when(saveCommand.active())`. 
+  * *!Binder* - Allows the view to bind !UiCommands to buttons (`binder.bind(saveCommand).to(saveButton)`) and various widgets (`HasValue`, `HasText`, `HasHTML` and others) to Channels.  Since activities have an active state you can easily show and hide things while they're running e.g. `binder.show(saveMessage).when(saveCommand.active())`. 
   
 
 = !UiCommands =
