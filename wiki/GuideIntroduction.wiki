@@ -62,16 +62,15 @@ public class DeleteCommand extends AbstratUiCommand {
 
 Now that we've created our controller/command/models lets bind it to our passive view.
 {{{
-
+// the button to which we'll bind
 Button deleteButton = new Button();
 
-
-// the binder does the magic...
+// the binder that will do the magic...
 Binder binder = new Binder();
 
-// binds the click and enabled state...
+// bind the click and enabled state...
 binder.bind(deleteCommand).to(deleteButton);
-// binds the text...
+// bind the text...
 binder.bind(deleteCommand.text()).toTextOf(deleteButton);
 
 // TODO: this example could be simplified if Pectin defined various interfaces like
