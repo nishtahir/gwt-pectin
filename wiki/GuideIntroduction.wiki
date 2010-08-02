@@ -85,9 +85,9 @@ Yes... he did.
 But if you find that egregious you could replace `DeleteCommand.text()` with `DeleteCommand.multipleSelected()` and use a format (or function) in the view.
 {{{
    // define a multipleSelected model instead of text...
-   ValueModel<Boolean> multipleSelected = listOf(selectedItems).isGreaterThan(1);
+   ValueModel<Boolean> multipleSelected = sizeOf(selectedItems).isGreaterThan(1);
 
-   // Please note: this is slightly false advertising here... the isGreaterThan() 
+   // Please note: this is slightly false advertising here... the sizeOf(..).isGreaterThan() 
    // and affiliated methods aren't in the current release..
 }}}
 
