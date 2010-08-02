@@ -60,8 +60,9 @@ DeleteCommand extends AbstratUiCommand {
 }
 }}}
 
-Now that we've created our controller/command and models lets bind it to our completely passive view.
+Now that we've created our controller/command/models lets bind it to our passive view.
 {{{
+// the binder does the magic...
 Binder binder = new Binder();
 Button deleteButton = new Button();
 
