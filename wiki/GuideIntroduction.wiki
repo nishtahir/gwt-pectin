@@ -15,16 +15,18 @@ In this exmample we'll create a button that deletes the currently selected items
   # It must be disabled when the selection is empty
   # It must display "Delete" for single selections and "Delete All" for multiple.
 
-So now lets implement it.  Pectins !UiCommands come with enable/disable built in so we only need to create a new model for our text that changes.
+So now lets implement it.  Pectins !UiCommands come with enable/disable built in so we only need to create a new model for our text that changes.  But first lets define our controller.
 
 {{{
-// lets define a controller that has a selection...
+// Our controller that has a selection...
 public interface MyController<T> {
   ListModel<T> selection();
   void removeItems(Collection<T> itemsToRemove);
 }
+}}}
 
-// and a command that acts on that selection.
+Now that we have something to work with we can create our delete command.
+{{{
 public class DeleteCommand extends AbstratUiCommand {
 
   private ListController<T> controller;
@@ -58,7 +60,7 @@ public class DeleteCommand extends AbstratUiCommand {
 }
 }}}
 
-Now that we've created our controller/command/models lets bind it to our view.
+Ok, so now that we have our controller/command/models sorted lets bind it to our button.
 {{{
 // the button to which we'll bind
 Button deleteButton = new Button();
@@ -82,7 +84,7 @@ Pectin commands also support interceptors so you can do things like:
 {{{
 deleteCommand.interceptUsing(new Interceptor() {
   public void intercept(Invocation invocation) {
-    // promt the user in an async/non-blocking way.  Could also
+    // promt the user in an async/non-blocking way.  We should really
     // give different messages based on selectedItems.size() but 
     // I'm too lazy for the demo..
     messageService.ask("Do you really want to delete?")
