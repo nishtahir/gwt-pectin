@@ -27,7 +27,7 @@ public interface MyController<T> {
 }
 
 // and a command that acts on that selection.
-DeleteCommand extends AbstratUiCommand {
+public class DeleteCommand extends AbstratUiCommand {
 
   private ListController<T> controller;
   private ListModel<T> selectedItems;
@@ -62,16 +62,16 @@ DeleteCommand extends AbstratUiCommand {
 
 Now that we've created our controller/command/models lets bind it to our passive view.
 {{{
-// the binder does the magic...
-Binder binder = new Binder();
+
 Button deleteButton = new Button();
 
-// Now the button will execute the command when clicked and will
-// disable when the selection is empty 
-binder.bind(deleteCommand).to(deleteButton);
 
-// And the button text will update when the selection contains more 
-// than one item.  
+// the binder does the magic...
+Binder binder = new Binder();
+
+// binds the click and enabled state...
+binder.bind(deleteCommand).to(deleteButton);
+// binds the text...
 binder.bind(deleteCommand.text()).toTextOf(deleteButton);
 
 // TODO: this example could be simplified if Pectin defined various interfaces like
