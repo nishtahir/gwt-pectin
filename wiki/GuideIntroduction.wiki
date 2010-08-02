@@ -50,10 +50,12 @@ DeleteCommand extends AbstratUiCommand {
 Binder binder = new Binder();
 Button deleteButton = new Button();
 
-// After binding every thing will automatically update, the button
-// will disable when the selection is empty and the text will update
-// when the selection contains more than one item.  
+// the button will execute the command when clicked and will
+// disable when the selection is empty 
 binder.bind(deleteCommand).to(deleteButton);
+
+// the button text will update when the selection contains more 
+// than one item.  
 binder.bind(deleteCommand.text()).toTextOf(deleteButton);
 }}}
     
