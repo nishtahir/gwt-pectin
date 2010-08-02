@@ -13,6 +13,12 @@ For example, if we had an object that had a `text` property of type String, inst
 Using this approach our bindings only need to work with few simple types, but those types can be use together in anyway you need.  It also lends itself to easy reuse of basic building blocks like functions, formats, converters and the like.
 
 ==An Example==
+In this exmample we'll create a button that deletes the currently selected items (held in a `ListModel`).  Lets define a few simple requirements are as follows:
+  # It must be disabled when the selection is empty
+  # It must display "Delete" for single selections and "Delete All" for multiple.
+
+So now lets implement it.  Pectins UiCommand come with enable/disable built in so we only need to create a new model for our text that changes.
+
 {{{
 // lets define a controller that has a selection...
 public interface MyController<T> {
@@ -41,22 +47,28 @@ DeleteCommand extends AbstratUiCommand {
           }
         });
   }
+ 
+  public ValueModel<String> text() {
+    return text;
+  }
 
   public void doExecute() {
      // do the delete...
      controller.removeItems(selection.asUnmodifiableList());
   }
 }
+}}}
 
-// And lets bind our contoller/commands/model to our view... 
+Now that we've created our controller/command and models lets bind it to our completely passive view.
+{{{
 Binder binder = new Binder();
 Button deleteButton = new Button();
 
-// the button will execute the command when clicked and will
+// Now the button will execute the command when clicked and will
 // disable when the selection is empty 
 binder.bind(deleteCommand).to(deleteButton);
 
-// the button text will update when the selection contains more 
+// And the button text will update when the selection contains more 
 // than one item.  
 binder.bind(deleteCommand.text()).toTextOf(deleteButton);
 }}}
