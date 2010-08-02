@@ -5,14 +5,14 @@
 
 Kaspar Fischer has begun working on a good introduction to the basics at http://code.google.com/p/gwt-pectin-docs/wiki/PectinAPIOverview
 
-==The nice thing about !ValueModels, !ListModels and Commands and things==
+=The nice thing about !ValueModels, !ListModels and Commands and things=
 One of the really nice things about using !ValueModels and !ListModels is that you can define all kinds of observable state using these simple interfaces without having to create getters/setters and different event/handler types all over the place. 
 
 For example, if we had an object that had a `text` property of type `String`, instead of creating `setText`/`getText`/`addTextChangeHandler` methods and events and what not we can just define a `text()` method (or public final field) that returns a `ValueModel<String>`.
 
 With this approach our bindings only need to work with few simple types, but those types can be use wired together in anyway you need.  It also lends itself to easy reuse of basic building blocks like functions, formats, converters and the like.
 
-===An Example===
+==An Example==
 In this exmample we'll create a button that deletes the currently selected items (held in a `ListModel`).  The button must dynamically update as follows:
   # It must be disabled when the selection is empty
   # It must display "Delete" for single selections and "Delete All" for multiple.
@@ -92,8 +92,8 @@ disableWhen(is(active())or(listOf(selectedItems).isEmpty()));
 
 It also wouldn't be too hard to update the above example to have the button change it's text to to "Deleting" while the delete was proceeding.
 
-==The nice thing about !FormModels==
+=The nice thing about !FormModels=
 TODO
 
-==Garbage collection and you==
-TODO: Talk about `Disposable` and `GarbageCollector`.
+=Garbage collection and you=
+TODO: Talk about `Binder.dispose()`, `Disposable` and `GarbageCollector`.
