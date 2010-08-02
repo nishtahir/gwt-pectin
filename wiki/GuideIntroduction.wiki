@@ -79,6 +79,31 @@ binder.bind(deleteCommand.text()).toTextOf(deleteButton);
 // `HasTextModel` etc which could be automatically queried and used by the binder.
 }}}    
 
+===OMG!??! He put view state in the command!!!===
+Yes... I did.  But if you find that egregious you could do it using the raw state and using a format (or function) in the view.
+{{{
+   // define a state of multiple instead of text...
+   ValueModel<Boolean> multiple = listOf(selectedItems).isGreaterThan(1);
+
+   // Please note: this is slightly false advertising here... the isGreaterThan() 
+   // method isn't in the current release..
+}}}
+
+And then define a format...
+{{{
+DisplayFormat<Boolean> deleteButtonFormat = new DisplayFormat<Boolea>() {
+  public String format(Boolean value) {
+    return value ? "Delete All" : "Delete";
+  }
+}
+}}}
+And use it in our view.
+{{{
+binder.bind(deleteCommand.multiple())
+  .toTextOf(deleteButton)
+  .usingFormat(deleteButtonFormat);
+}}}
+
 ===Taking the example further===
 This example is a little simplistic, we didn't ask the user to confirm the drastic action of deleting things and it's also highly likely the command needs to do it's thing in an async manner.  !UiCommands support interceptors so prompting the user is as simple as:
 {{{
