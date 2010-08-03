@@ -17,7 +17,7 @@ In this exmample we'll create a button that deletes a list of selected items (he
   # It must be disabled when the selection is empty
   # It must display "Delete" for single selections and "Delete All" for multiple.
 
-So now lets implement it.  Pectins !UiCommands come with enable/disable built in so we only need to create a new model for our dynamically changing text.  But first lets define our controller.
+To do this, we'll use Pectins `UiCommand` along with a ListModel<T> for the selection and a ValueModel<String> for the button text.  Pectins !UiCommands come with enable/disable built in so we only need to create a new model for our dynamically changing text.  But first lets define a simple controller we can use.
 
 {{{
 // Our controller that has a selection...
@@ -64,9 +64,10 @@ public class DeleteCommand extends AbstractUiCommand {
 
 Ok, so now that we have our controller/command/models sorted lets bind it to our button.
 {{{
-// Pectins binder does the hard work....
+// The binder does the hard work....
 Binder binder = new Binder();
 
+// Our unsuspecting button...
 Button deleteButton = new Button();
 
 // bind the click and enabled state...
