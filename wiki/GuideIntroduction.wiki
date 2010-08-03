@@ -76,7 +76,7 @@ binder.bind(deleteCommand.text()).toTextOf(deleteButton);
 }}}    
 
 ===OMG!??! He put button text in the command!!!===
-Yep, I did.  I really don't mind putting things like text in a command, mainly since I see the UiCommand as the "model" for the button.   So if the text changes it needs to be modelled somewhere and the command seems a pretty good place for it.  But if that's not your thing you could replace `DeleteCommand.text()` with `DeleteCommand.multipleSelected()` and use a format (or function) in the view.
+Yep, I did.  I really don't mind putting things like text in a command, mainly since I see the !UiCommand as the "model" for the button.   So if the text changes it needs to be modelled somewhere and the command seems a pretty good place for it.  But if that's not your thing you could replace `DeleteCommand.text()` with `DeleteCommand.multipleSelected()` and use a format (or function) in the view.
 {{{
    // define a multipleSelected model instead of text...
    ValueModel<Boolean> multipleSelected = sizeOf(selectedItems).isGreaterThan(1);
