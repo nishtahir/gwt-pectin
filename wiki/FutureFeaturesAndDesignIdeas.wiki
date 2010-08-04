@@ -54,8 +54,8 @@ Some example controllers would be:
 =Native !UiBinder support=
 Still not sure if this is possible, but here's what we'd like to be able to do: https://wave.google.com/wave/waveref/googlewave.com/w+CE2z1X_0A
 
-=Pectin Event Binding=
-Would like to see command binding for common view events.
+=Common Event Bindings=
+Would like to see binding for common component events.
 {{{
 Binder binder = ...;
 
@@ -67,14 +67,12 @@ binder.onKeyPress(HasKeyPressHandlers)
       .invoke(Command) // or .focus(FocusWidget) or .focusDeferred(FocusWidget)
 
 // examples
-binder.onKeyPress(firstName)
-      .matching(Keys.ENTER)
-      .focus(surname);
-binder.onKeyPress(surname)
-      .matching(Keys.ENTER)
-      .invoke(submitFormCommand);
+binder.onKeyPress(firstName).matching(KeyPredicates.ENTER).focus(surname);
 
-// could really simplify this to if the predicate is reliable on all platforms....
+binder.onKeyPress(surname).matching(KeyPredicates.ENTER).invoke(submitFormCommand);
+
+// could really simplify this to if the enter predicate could be made
+// reliable on all platforms....
 binder.onEnter(firstName).focus(surname);
 }}}
 
