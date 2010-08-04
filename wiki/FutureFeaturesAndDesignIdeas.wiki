@@ -64,9 +64,7 @@ binder.onBlurOf(HasBlurHandlers).invoke(Command);
 
 binder.onKeyPress(HasKeyPressHandlers)
       .matching(Predicate<KeyPressEvent>)
-      .invoke(Command)
-// or .focus(FocusWidget)
-// or .focusDeferred(FocusWidget)
+      .invoke(Command) // or .focus(FocusWidget) or .focusDeferred(FocusWidget)
 
 // examples
 binder.onKeyPress(firstName)
@@ -76,7 +74,7 @@ binder.onKeyPress(surname)
       .matching(Keys.ENTER)
       .invoke(submitFormCommand);
 
-// could really simplify this to if the predicate is reliable....
+// could really simplify this to if the predicate is reliable on all platforms....
 binder.onEnter(firstName).focus(surname);
 }}}
 
