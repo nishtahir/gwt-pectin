@@ -73,7 +73,7 @@ binder.onKeyPress(surname).matching(KeyPredicates.ENTER).invoke(submitFormComman
 
 // could really simplify this to if the enter predicate could be made
 // reliable on all platforms....
-binder.onEnter(firstName).focus(surname);
+binder.onTypingEnter(firstName).focus(surname);
 }}}
 
 = Forms =
