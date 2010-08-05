@@ -5,6 +5,9 @@
 
 Things that would be nice:
 
+=Native !UiBinder support=
+Still not sure if this is possible, but here's what we'd like to be able to do: https://wave.google.com/wave/waveref/googlewave.com/w+CE2z1X_0A
+
 =Controllers=
 I'd like to incorporate standard controllers into Pectin (in the style of Cocoa/!SproutCore etc).  Using Controllers in conjunction with Value/!ListModel bindings allows some pretty complex behaviour to be built pretty quickly. 
 
@@ -51,8 +54,7 @@ Some example controllers would be:
   * !EditorListController - a much needed controller that handles binding of a `ListModel<T>` using a `Provider<EditorController<T>>` as an editor factory.  Could/would use an incremental command to build the UI and expose a `ValueModel<Boolean> busy()` that can be used to 'do stuff' (tm).
   * !TaskController - Handles temporal activities, has an `ValueModel<Boolean> active()` model and methods like `activate()` etc.
 
-=Native !UiBinder support=
-Still not sure if this is possible, but here's what we'd like to be able to do: https://wave.google.com/wave/waveref/googlewave.com/w+CE2z1X_0A
+Most likely the first one to tackle will be EditorController & EditorListController as "how do I bind a ListModel<T> to a validated editor" is one of the more commonly asked questions and currently you have to roll your own.
 
 =Common Event Bindings=
 Would like to see binding for common component events.
