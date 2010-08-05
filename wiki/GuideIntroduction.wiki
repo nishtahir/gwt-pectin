@@ -4,6 +4,7 @@
 = Introduction =
 Think of something to put here...
 
+Kaspar Fischer has writen a good introduction to the basics of models and binders at http://code.google.com/p/gwt-pectin-docs/wiki/PectinAPIOverview
 
 =The nice thing about !ValueModels, !ListModels and Commands and things=
 One of the really nice things about using !ValueModels and !ListModels is that you can define all kinds of observable state using these simple interfaces without having to create getters/setters and different event/handler types all over the place. 
