@@ -1,7 +1,6 @@
 #summary One-sentence summary of this page.
 #sidebar TableOfContents
 
-Kaspar Fischer has begun working on a good introduction to the basics at http://code.google.com/p/gwt-pectin-docs/wiki/PectinAPIOverview
 
 = Basic Concepts & Types =
   * ValueModel/ListModel
