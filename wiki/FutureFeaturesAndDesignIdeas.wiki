@@ -80,21 +80,19 @@ binder.onTypingEnter(firstName).focus(surname);
 
 *Note:* This will be included in 0.9.
 
-= Forms =
-==Field bindings==
-It would be nice to support !ValueModelProviders that have type aware keys.  That way I can use something like `FieldModel<String> name = fieldBoundTo(provider, key)`.  The `fieldOfType(String.class).boundTo/create` syntax would still remain for existing use cases. 
 
+= Forms =
 ==Form Bindings==
 Would be nice to add interceptors to the widget bindings.  This would be a more formalised way for watermarks to change the displayed value under certain conditions.  
 
-==!BeanModelProvider Wish List== 
-===Validation Support===
+=!BeanModelProvider Wish List=
+==Validation Support==
 It would be nice if !BeanModelProvider supported JSR 303 style validation.  This would allow a reflection variant of the provider to be used on the server to perform validation.  This is a fair bit of work but would support unified server side and client side validation.  I'm holding off on this to see how Google's !ValueStore proceeds.  I'm also not sure how to handle conditional validation.
 
-===Diffs===
-It might be possible for the provider to support 'diffing' between two beans.  This would allow you to present what has changed to the user when handling stale entity exceptions.
+==Diffs==
+It might be possible for the provider to support 'diffing' between two beans.  This would allow you to display what has changed to the user when handling stale entity exceptions.
 
-===Compile Time Safety===
+==Compile Time Safety==
 It might also also be possible to support compile time type safety using annotations.  E.g.
 {{{
 public class PersonProvider extends BeanModelProvider<Person> {
