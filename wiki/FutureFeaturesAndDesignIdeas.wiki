@@ -78,6 +78,8 @@ binder.onKeyPress(surname).matching(KeyPredicates.ENTER).invoke(submitFormComman
 binder.onTypingEnter(firstName).focus(surname);
 }}}
 
+*Note:* This will be included in 0.9.
+
 = Forms =
 ==Field bindings==
 It would be nice to support !ValueModelProviders that have type aware keys.  That way I can use something like `FieldModel<String> name = fieldBoundTo(provider, key)`.  The `fieldOfType(String.class).boundTo/create` syntax would still remain for existing use cases. 
