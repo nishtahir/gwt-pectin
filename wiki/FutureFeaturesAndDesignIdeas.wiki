@@ -6,7 +6,7 @@
 Things that would be nice:
 
 =Native !UiBinder support=
-Still not sure if this is possible, but here's what we'd like to be able to do: https://wave.google.com/wave/waveref/googlewave.com/w+CE2z1X_0A
+Still not sure if this is possible, but here's some thoughts on what we'd like to be able to do: https://wave.google.com/wave/waveref/googlewave.com/w+CE2z1X_0A
 
 =Controllers=
 I'd like to incorporate standard controllers into Pectin (in the style of Cocoa/!SproutCore etc).  Using Controllers in conjunction with Value/!ListModel bindings allows some pretty complex behaviour to be built pretty quickly. 
