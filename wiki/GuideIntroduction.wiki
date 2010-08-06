@@ -13,7 +13,7 @@ For example, if we had an object that had a `text` property of type `String`, in
 
 With this approach our bindings only need to work with few simple types, but those types can be use wired together in anyway you need.  It also lends itself to easy reuse of basic building blocks like functions, formats, converters and the like.
 
-==The example that uses a !ValueModel, !ListModel and Command all in one==
+==The example that tries to use a !ValueModel, !ListModel and Command all in one==
 In this exmample we'll create a button that deletes a list of selected items (held in a `ListModel`) and that has some wiz-bang dynamic state.  Lets pretend our UX overlords have stated that the button shall dynamically update as follows:
   # It must be disabled when the selection is empty
   # It must display "Delete" for single selections and "Delete All" for multiple.
