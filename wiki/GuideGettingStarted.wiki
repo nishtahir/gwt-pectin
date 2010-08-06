@@ -10,4 +10,4 @@ Inherit Pectin in your module:
 }}}
 
 
-Todo:  What should I put I cover here...?
+Todo:  What content should I put I cover here...?
