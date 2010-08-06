@@ -95,6 +95,13 @@ At some point I'll need to review all the bind methods to see if they should be 
 Would be nice to add interceptors to the widget bindings.  This would be a more formalised way for watermarks to change the displayed value under certain conditions.  
 
 =!BeanModelProvider Wish List=
+
+*Note:* In seeing [http://bindgen.org/ Bindgen] it would be really nice to do something similar and have compile time type safety.  Bingen uses annotation processors to generate custom classes.
+{{{
+ValueModel<String> name = bingenStyleProvider.employee().name();
+}}}
+
+
 ==Validation Support==
 It would be nice if !BeanModelProvider supported JSR 303 style validation.  This would allow a reflection variant of the provider to be used on the server to perform validation.  This is a fair bit of work but would support unified server side and client side validation.  I'm holding off on this to see how Google's !ValueStore proceeds.  I'm also not sure how to handle conditional validation.
 
