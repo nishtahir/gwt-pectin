@@ -88,7 +88,7 @@ binder.onErrorOf(AsyncUiCommand).invoke(Command) // or ParameterisedCommand<T>
 
 These are similar to the `binder.displayErrorsOf(..).using(..)` so I'd need to think about consistency.
 
-At some point I'll need to review all the bind methods to see if they should be split into different binders or even if the FormBinder functionality should be merged back into Binder.  e.g. the `binder.onABC(...).invoke(...)` might belong in an `EventBinder` or similar.
+At some point I'll need to review all the bind methods to see if they should be split into different binders or even if the `FormBinder` functionality should be merged back into Binder.  e.g. the `binder.onABC(...).invoke(...)` might belong in an `EventBinder` or similar.
 
 = Forms =
 ==Form Bindings==
