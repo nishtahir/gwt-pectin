@@ -104,6 +104,7 @@ public void performAsyncOperation(AsyncCommandCallback<R,String> callback) {
   * The `ExceptionManager.containsHandlerFor(..)` method can be used to see if a handler has been registred for a particular exception.  This is useful for unit tests to pick up when a new exception has been added to an RPC service without adding an appropriate handler to your commands.
 
 ====Other changes:====
+  * New `Watermarkable` interface so watermarks can be applied to widgets other than !TextFields.
   * New `ReducingValueModel` that operates on !ListModels and corresponding builder methods.  E.g. `fieldOfType(T).computedFrom(ListModel<S>).using(Reduce<T,S>)` and `Functions.computedFrom(ListModel<S>).using(Reduce<T,S>)`.
   * New `FormModel.allFieldsExcept(..)` method for cases where you want to apply a plugin to all but a few fields.
   * Large refactoring and clean up of the bindings and binding builders.
