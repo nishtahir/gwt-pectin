@@ -80,6 +80,13 @@ binder.onTypingEnter(firstName).focus(surname);
 
 *Note:* This will be included in 0.9.
 
+There's also scope for bindings like:
+{{{
+binder.onSuccessOf(AsyncUiCommand).invoke(Command) // or ParameterisedCommand<T>
+binder.onErrorOf(AsyncUiCommand).invoke(Command) // or ParameterisedCommand<T>
+}}}
+
+These are similar to the `binder.displayErrorsOf(..).using(..)` so I'd need to think about consistency.
 
 = Forms =
 ==Form Bindings==
