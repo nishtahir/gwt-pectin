@@ -128,7 +128,9 @@ disableWhen(is(active()).or(listOf(selectedItems).isEmpty()));
 It also wouldn't be too hard to update the above example to have the button change it's text to to "Deleting..." while the delete was proceeding.
 
 =The nice thing about !FormModels=
-TODO
+
+TODO: Move the front page examples to here.
 
 =Garbage collection and you=
+
 TODO: Talk about `Binder.dispose()`, `Disposable` and `GarbageCollector`.
