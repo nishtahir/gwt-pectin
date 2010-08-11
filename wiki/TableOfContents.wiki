@@ -8,6 +8,7 @@
      * [GuideFormBasics Form Basics]
      * [GuideMetadataPlugin Metadata Plugin]
      * [GuideValidationPlugin Validation Plugin]
+  * [GuideEditingLists Editors for ListsModels]
   * [GuideUiCommands UiCommands]
   * [GuideTesting Testing]
   * [GuideGotchas Gotcha's]
