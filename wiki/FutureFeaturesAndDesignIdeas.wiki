@@ -52,7 +52,7 @@ Some example controllers would be:
   * !SingleSelectionController & !MultiSelectionController
   * !EditorController - edits stuff.  Exposes models like `ValueModel<Boolean> dirty()` and `ValueModel<Boolean> editing()` along with `validate()`, `commit()` methods etc.
   * !EditorListController - a much needed controller that handles binding of a `ListModel<T>` using a `Provider<EditorController<T>>` as an editor factory.  Could/would use an incremental command to build the UI and expose a "`ValueModel<Boolean> busy()`" that can be used to by the parent controller to show/hide/enable/disable things as required.
-  * !TaskController - Handles temporal activities, has an `ValueModel<Boolean> active()` model and methods like `activate()` etc.  *Note:*  This one has progressed a bit, I now have `TaskController` and a `TaskContainer`.  `TaskContainers` have various implementations `PopupTaskContainer`, `AnimatedTaskContainer` etc so you can run tasks in various contexts.  `taskContainer.activate(taskController)`.
+  * !TaskController - Handles temporal activities, has an `ValueModel<Boolean> active()` model etc.  *Note:*  This one has progressed a bit, I now have `TaskController` and a `TaskContainer`.  `TaskContainers` have various implementations `PopupTaskContainer`, `AnimatedTaskContainer` etc so you can run tasks in various contexts.  Tasks are activated using `taskContainer.activate(taskController)`.
 
 Most likely the first one to tackle will be `EditorController` & `EditorListController` as "how do I bind a `ListModel<T>` to a validated heirarchy of editors" is one of the more commonly asked questions (and currently you have to roll your own).
 
