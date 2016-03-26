@@ -1,0 +1,1 @@
+# How to Implement Master Detail Interfaces #
